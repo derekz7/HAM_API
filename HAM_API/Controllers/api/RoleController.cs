@@ -17,39 +17,43 @@ namespace HAM_API.Controllers
         private hapdbEntities db = new hapdbEntities();
 
         // GET: api/Role
-        public IQueryable<tbl_role> Gettbl_role()
+        [HttpGet]
+        public IQueryable<tbl_role> GetAllRoles()
         {
             return db.tbl_role;
         }
 
+        [HttpGet]
         // GET: api/Role/5
         [ResponseType(typeof(tbl_role))]
-        public IHttpActionResult Gettbl_role(int id)
+        public IHttpActionResult GetRoleById(int id)
         {
-            tbl_role tbl_role = db.tbl_role.Find(id);
-            if (tbl_role == null)
+            tbl_role role = db.tbl_role.Where(x => x.id == id).FirstOrDefault();    
+            if (role == null)
             {
                 return NotFound();
             }
 
-            return Ok(tbl_role);
+            return Ok(role);
         }
 
+
         // PUT: api/Role/5
+        [HttpPut]
         [ResponseType(typeof(void))]
-        public IHttpActionResult Puttbl_role(int id, tbl_role tbl_role)
+        public IHttpActionResult UpdateRole(int id, tbl_role role)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != tbl_role.id)
+            if (id != role.id)
             {
                 return BadRequest();
             }
 
-            db.Entry(tbl_role).State = EntityState.Modified;
+            db.Entry(role).State = EntityState.Modified;
 
             try
             {
@@ -72,17 +76,31 @@ namespace HAM_API.Controllers
 
         // POST: api/Role
         [ResponseType(typeof(tbl_role))]
-        public IHttpActionResult Posttbl_role(tbl_role tbl_role)
+        public IHttpActionResult Posttbl_role(tbl_role role)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.tbl_role.Add(tbl_role);
-            db.SaveChanges();
+            db.tbl_role.Add(role);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                if (tbl_roleExists(role.id))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-            return CreatedAtRoute("DefaultApi", new { id = tbl_role.id }, tbl_role);
+            return CreatedAtRoute("DefaultApi", new { id = role.id }, role);
         }
 
         // DELETE: api/Role/5
