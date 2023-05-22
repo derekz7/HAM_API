@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HAM_API.Models;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using HAM_API.Models;
 
 namespace HAM_API.Controllers
 {
@@ -16,28 +13,30 @@ namespace HAM_API.Controllers
     {
         private hapdbEntities db = new hapdbEntities();
 
-        // GET: api/Department
-        public IQueryable<tbl_department> Gettbl_department()
+
+        [HttpGet]
+        [Route("api/Department/GetAllDepartments")]
+        public IQueryable<tbl_department> GetAllDepartments()
         {
             return db.tbl_department;
         }
 
-        // GET: api/Department/5
+        [HttpGet]
         [ResponseType(typeof(tbl_department))]
-        public IHttpActionResult Gettbl_department(int id)
+        public IHttpActionResult GetDepartmentById(int id)
         {
-            tbl_department tbl_department = db.tbl_department.Find(id);
-            if (tbl_department == null)
+           tbl_department dep = db.tbl_department.Where(x => x.id == id).FirstOrDefault();
+            if (dep == null)
             {
                 return NotFound();
             }
 
-            return Ok(tbl_department);
+            return Ok(dep);
         }
 
-        // PUT: api/Department/5
+        [HttpPut]
         [ResponseType(typeof(void))]
-        public IHttpActionResult Puttbl_department(int id, tbl_department tbl_department)
+        public IHttpActionResult UpdateDepartment(int id, tbl_department tbl_department)
         {
             if (!ModelState.IsValid)
             {
@@ -70,35 +69,49 @@ namespace HAM_API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Department
+        [HttpPost]
         [ResponseType(typeof(tbl_department))]
-        public IHttpActionResult Posttbl_department(tbl_department tbl_department)
+        public IHttpActionResult CreateDepartment(tbl_department dep)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.tbl_department.Add(tbl_department);
-            db.SaveChanges();
+            db.tbl_department.Add(dep);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch(DbUpdateException)
+            {
+                if (tbl_departmentExists(dep.id))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-            return CreatedAtRoute("DefaultApi", new { id = tbl_department.id }, tbl_department);
+            return CreatedAtRoute("DefaultApi", new { id = dep.id }, dep);
         }
 
-        // DELETE: api/Department/5
+        [HttpDelete]
         [ResponseType(typeof(tbl_department))]
-        public IHttpActionResult Deletetbl_department(int id)
+        public IHttpActionResult DeleteDepartment(int id)
         {
-            tbl_department tbl_department = db.tbl_department.Find(id);
-            if (tbl_department == null)
+            tbl_department dep = db.tbl_department.Find(id);
+            if (dep == null)
             {
                 return NotFound();
             }
 
-            db.tbl_department.Remove(tbl_department);
+            db.tbl_department.Remove(dep);
             db.SaveChanges();
 
-            return Ok(tbl_department);
+            return Ok(dep);
         }
 
         protected override void Dispose(bool disposing)
