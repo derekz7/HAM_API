@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e6b88cb647b64eb5845965a03289af67" Name="Diagram1">
+        <EntityTypeShape EntityType="hapdbModel.tbl_booking" Width="1.5" PointX="7.5" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hapdbModel.tbl_department" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hapdbModel.tbl_doctor" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hapdbModel.tbl_patient" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hapdbModel.tbl_prescription" Width="1.5" PointX="7.5" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hapdbModel.tbl_role" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hapdbModel.tbl_service" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="hapdbModel.tbl_user" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="hapdbModel.fk_dc_id" ManuallyRouted="false" />
+        <AssociationConnector Association="hapdbModel.fk_pt_id" ManuallyRouted="false" />
+        <AssociationConnector Association="hapdbModel.fk_sv_id" ManuallyRouted="false" />
+        <AssociationConnector Association="hapdbModel.fk_uid" ManuallyRouted="false" />
+        <AssociationConnector Association="hapdbModel.fk_dep_id" ManuallyRouted="false" />
+        <AssociationConnector Association="hapdbModel.fk_dcid" ManuallyRouted="false" />
+        <AssociationConnector Association="hapdbModel.fk_user_id" ManuallyRouted="false" />
+        <AssociationConnector Association="hapdbModel.fk_userid" ManuallyRouted="false" />
+        <AssociationConnector Association="hapdbModel.fk_userid1" ManuallyRouted="false" />
+        <AssociationConnector Association="hapdbModel.fk_role_id" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
