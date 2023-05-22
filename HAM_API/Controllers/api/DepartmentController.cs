@@ -11,7 +11,7 @@ namespace HAM_API.Controllers
 {
     public class DepartmentController : ApiController
     {
-        private hapdbEntities db = new hapdbEntities();
+        private DBContext db = new DBContext();
 
 
         [HttpGet]

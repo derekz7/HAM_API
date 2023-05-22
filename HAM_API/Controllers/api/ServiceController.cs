@@ -14,7 +14,7 @@ namespace HAM_API.Controllers.api
 {
     public class ServiceController : ApiController
     {
-        private hapdbEntities db = new hapdbEntities();
+        private DBContext db = new DBContext();
 
 
         [HttpGet]

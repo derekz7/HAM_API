@@ -14,7 +14,7 @@ namespace HAM_API.Controllers
 {
     public class RoleController : ApiController
     {
-        private hapdbEntities db = new hapdbEntities();
+        private DBContext db = new DBContext();
 
         // GET: api/Role
         [HttpGet]
