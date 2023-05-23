@@ -1,14 +1,12 @@
-﻿using System;
+﻿using HAM_API.Models;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using HAM_API.Models;
 
 namespace HAM_API.Controllers.api
 {
@@ -17,12 +15,14 @@ namespace HAM_API.Controllers.api
         private DBContext db = new DBContext();
 
         // GET: api/Doctor
+        [HttpGet]
         public IQueryable<tbl_doctor> GetAllDoctors()
         {
             return db.tbl_doctor;
         }
 
         // GET: api/Doctor/5
+        [HttpGet]
         [ResponseType(typeof(tbl_doctor))]
         public IHttpActionResult GetDoctorById(string id)
         {
@@ -43,6 +43,7 @@ namespace HAM_API.Controllers.api
         }
 
         // PUT: api/Doctor/5
+        [HttpPut]
         [ResponseType(typeof(void))]
         public IHttpActionResult UpdateDoctor(string id, tbl_doctor tbl_doctor)
         {
@@ -78,6 +79,7 @@ namespace HAM_API.Controllers.api
         }
 
         // POST: api/Doctor
+        [HttpPost]
         [ResponseType(typeof(tbl_doctor))]
         public IHttpActionResult CreateDoctor(tbl_doctor tbl_doctor)
         {
@@ -108,6 +110,7 @@ namespace HAM_API.Controllers.api
         }
 
         // DELETE: api/Doctor/5
+        [HttpDelete]
         [ResponseType(typeof(tbl_doctor))]
         public IHttpActionResult DeleteDoctor(string id)
         {

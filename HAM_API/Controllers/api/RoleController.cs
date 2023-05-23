@@ -28,7 +28,7 @@ namespace HAM_API.Controllers
         [ResponseType(typeof(tbl_role))]
         public IHttpActionResult GetRoleById(int id)
         {
-            tbl_role role = db.tbl_role.Where(x => x.id == id).FirstOrDefault();    
+            tbl_role role = db.tbl_role.Where(x => x.id == id).FirstOrDefault();
             if (role == null)
             {
                 return NotFound();
@@ -76,7 +76,7 @@ namespace HAM_API.Controllers
 
         // POST: api/Role
         [ResponseType(typeof(tbl_role))]
-        public IHttpActionResult Posttbl_role(tbl_role role)
+        public IHttpActionResult CreateRole(tbl_role role)
         {
             if (!ModelState.IsValid)
             {
@@ -105,18 +105,27 @@ namespace HAM_API.Controllers
 
         // DELETE: api/Role/5
         [ResponseType(typeof(tbl_role))]
-        public IHttpActionResult Deletetbl_role(int id)
+        public IHttpActionResult DeleteRole(int id)
         {
             tbl_role tbl_role = db.tbl_role.Find(id);
             if (tbl_role == null)
             {
                 return NotFound();
             }
-
-            db.tbl_role.Remove(tbl_role);
-            db.SaveChanges();
-
-            return Ok(tbl_role);
+            else
+            {
+                List<tbl_user> users = db.tbl_user.Where(e => e.role_id == tbl_role.id).ToList();
+                if (users != null && users.Count > 0)
+                {
+                    return BadRequest("This role is associated with a number of users. Can not delete!");
+                }
+                else
+                {
+                    db.tbl_role.Remove(tbl_role);
+                    db.SaveChanges();
+                    return Ok(tbl_role);
+                }
+            }
         }
 
         protected override void Dispose(bool disposing)

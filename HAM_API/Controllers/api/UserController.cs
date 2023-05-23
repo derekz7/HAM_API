@@ -15,13 +15,27 @@ namespace HAM_API.Controllers.api
     {
         private DBContext db = new DBContext();
 
+
+        [HttpGet]
         public IQueryable<tbl_user> GetAllUsers()
         {
             return db.tbl_user;
         }
 
         [HttpGet]
-        public List<tbl_patient> GetPatients(string userId)
+        public bool Login(string email, string password)
+        {
+            tbl_user user = db.tbl_user.Where(e => e.email == email || e.pw == password).FirstOrDefault();
+            if (user == null)
+            {
+                return false;
+            }
+            else return true;
+        }
+
+
+        [HttpGet]
+        public List<tbl_patient> GetAllPatients(string userId)
         {
             List<tbl_patient> patients = new List<tbl_patient>();
             patients = db.tbl_patient.Where(x => x.user_id == userId).ToList();
@@ -29,6 +43,7 @@ namespace HAM_API.Controllers.api
         }
 
         // GET: api/User/5
+        [HttpGet]
         [ResponseType(typeof(tbl_user))]
         public IHttpActionResult GetUserById(string id)
         {
@@ -42,6 +57,7 @@ namespace HAM_API.Controllers.api
         }
 
         // PUT: api/User/5
+        [HttpPut]
         [ResponseType(typeof(void))]
         public IHttpActionResult UpdateUser(string id, tbl_user tbl_user)
         {
@@ -77,6 +93,7 @@ namespace HAM_API.Controllers.api
         }
 
         // POST: api/User
+        [HttpPost]
         [ResponseType(typeof(tbl_user))]
         public IHttpActionResult CreateUser(tbl_user tbl_user)
         {
@@ -93,7 +110,7 @@ namespace HAM_API.Controllers.api
             }
             catch (DbUpdateException)
             {
-                if (tbl_userExists(tbl_user.id))
+                if (tbl_userExists(tbl_user.id) || tbl_userEmailExists(tbl_user.email))
                 {
                     return Conflict();
                 }
@@ -106,8 +123,39 @@ namespace HAM_API.Controllers.api
             return CreatedAtRoute("DefaultApi", new { id = tbl_user.id }, tbl_user);
         }
 
-        // DELETE: api/User/5
+        //Create new patient
+        [HttpPost]
+        [ResponseType(typeof(tbl_patient))]
+        public IHttpActionResult CreatePatient(tbl_patient patient)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
+            db.tbl_patient.Add(patient);
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                if (tbl_patientExists(patient.id))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return CreatedAtRoute("DefaultApi", new { id = patient.id }, patient);
+        }
+
+        // DELETE: api/User/5
+        [HttpDelete]
         [ResponseType(typeof(tbl_user))]
         public IHttpActionResult DeleteUser(string id)
         {
@@ -123,6 +171,36 @@ namespace HAM_API.Controllers.api
             return Ok(tbl_user);
         }
 
+        [HttpDelete]
+        [ResponseType(typeof(tbl_patient))]
+        public IHttpActionResult DeletePatient(string id)
+        {
+            tbl_patient patient = db.tbl_patient.Where(x => x.id == id).FirstOrDefault();
+            if (patient == null)
+            {
+                return NotFound();
+            }
+
+            db.tbl_patient.Remove(patient);
+            db.SaveChanges();
+
+            return Ok(patient);
+        }
+
+        [HttpDelete]
+        public IHttpActionResult DeleteAllPatients(string userid)
+        {
+            List<tbl_patient> patients = db.tbl_patient.Where(x => x.user_id == userid).ToList();
+            if (patients == null)
+            {
+                return NotFound();
+            }
+            db.tbl_patient.RemoveRange(patients);
+            db.SaveChanges();
+
+            return Ok(patients);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -135,6 +213,16 @@ namespace HAM_API.Controllers.api
         private bool tbl_userExists(string id)
         {
             return db.tbl_user.Count(e => e.id == id) > 0;
+        }
+
+        private bool tbl_userEmailExists(string email)
+        {
+            return db.tbl_user.Count(e => e.email == email) > 0;
+        }
+
+        private bool tbl_patientExists(string id)
+        {
+            return db.tbl_patient.Count(e => e.id == id) > 0;
         }
     }
 }
