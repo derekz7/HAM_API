@@ -14,10 +14,10 @@ namespace HAM_API.Models
             tbl_booking = new HashSet<tbl_booking>();
         }
 
-        [StringLength(1)]
+        [StringLength(20)]
         public string id { get; set; }
 
-        [StringLength(1)]
+        [StringLength(100)]
         public string pt_name { get; set; }
 
         [Column(TypeName = "date")]
@@ -26,13 +26,13 @@ namespace HAM_API.Models
         [StringLength(1)]
         public string gender { get; set; }
 
-        [StringLength(1)]
+        [StringLength(100)]
         public string job { get; set; }
 
-        [StringLength(1)]
+        [StringLength(300)]
         public string address { get; set; }
 
-        [StringLength(1)]
+        [StringLength(20)]
         public string user_id { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -17,24 +17,24 @@ namespace HAM_API.Models
             tbl_prescription = new HashSet<tbl_prescription>();
         }
 
-        [StringLength(1)]
+        [StringLength(20)]
         public string id { get; set; }
 
-        [StringLength(1)]
+        [StringLength(20)]
         public string email { get; set; }
 
-        [StringLength(1)]
+        [StringLength(20)]
         public string pw { get; set; }
 
         public int? role_id { get; set; }
 
-        [StringLength(1)]
+        [StringLength(100)]
         public string name { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? dob { get; set; }
 
-        [StringLength(1)]
+        [StringLength(10)]
         public string p_number { get; set; }
 
         [Column(TypeName = "text")]

@@ -14,16 +14,16 @@ namespace HAM_API.Models
             tbl_booking = new HashSet<tbl_booking>();
         }
 
-        [StringLength(1)]
+        [StringLength(20)]
         public string id { get; set; }
 
-        [StringLength(1)]
+        [StringLength(200)]
         public string name { get; set; }
 
-        [StringLength(1)]
+        [StringLength(300)]
         public string description { get; set; }
 
-        [StringLength(1)]
+        [StringLength(20)]
         public string price { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -15,18 +15,18 @@ namespace HAM_API.Models
             tbl_prescription = new HashSet<tbl_prescription>();
         }
 
-        [StringLength(1)]
+        [StringLength(20)]
         public string id { get; set; }
 
-        [StringLength(1)]
+        [StringLength(100)]
         public string name { get; set; }
 
-        [StringLength(1)]
+        [StringLength(100)]
         public string room { get; set; }
 
         public int? dep_id { get; set; }
 
-        [StringLength(1)]
+        [StringLength(20)]
         public string user_id { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
