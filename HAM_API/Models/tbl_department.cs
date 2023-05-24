@@ -16,10 +16,10 @@ namespace HAM_API.Models
 
         public int id { get; set; }
 
-        [StringLength(1)]
+        [StringLength(200)]
         public string name { get; set; }
 
-        [StringLength(1)]
+        [StringLength(500)]
         public string description { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

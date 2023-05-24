@@ -8,25 +8,25 @@ namespace HAM_API.Models
 
     public partial class tbl_prescription
     {
-        [StringLength(1)]
+        [StringLength(20)]
         public string id { get; set; }
 
-        [StringLength(1)]
+        [StringLength(100)]
         public string disease { get; set; }
 
-        [StringLength(1)]
+        [StringLength(300)]
         public string symptoms { get; set; }
 
-        [StringLength(1)]
+        [StringLength(500)]
         public string medicines { get; set; }
 
-        [StringLength(1)]
+        [StringLength(1000)]
         public string ptu_medicines { get; set; }
 
-        [StringLength(1)]
+        [StringLength(20)]
         public string user_id { get; set; }
 
-        [StringLength(1)]
+        [StringLength(20)]
         public string dc_id { get; set; }
 
         public virtual tbl_doctor tbl_doctor { get; set; }

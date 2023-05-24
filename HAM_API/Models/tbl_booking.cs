@@ -8,7 +8,7 @@ namespace HAM_API.Models
 
     public partial class tbl_booking
     {
-        [StringLength(1)]
+        [StringLength(20)]
         public string id { get; set; }
 
         public int? order_num { get; set; }
@@ -16,25 +16,25 @@ namespace HAM_API.Models
         [Column(TypeName = "date")]
         public DateTime? date { get; set; }
 
-        [StringLength(1)]
+        [StringLength(20)]
         public string time { get; set; }
 
-        [StringLength(1)]
+        [StringLength(20)]
         public string price { get; set; }
 
-        [StringLength(1)]
+        [StringLength(100)]
         public string status { get; set; }
 
-        [StringLength(1)]
+        [StringLength(20)]
         public string pt_id { get; set; }
 
-        [StringLength(1)]
+        [StringLength(20)]
         public string user_id { get; set; }
 
-        [StringLength(1)]
+        [StringLength(20)]
         public string dc_id { get; set; }
 
-        [StringLength(1)]
+        [StringLength(20)]
         public string sv_id { get; set; }
 
         public virtual tbl_doctor tbl_doctor { get; set; }
