@@ -1,23 +1,22 @@
-﻿@model IEnumerable<HAM_API.Models.tbl_user>
+﻿@model IEnumerable<HAM_API.Models.tbl_department>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <link href="~/Data/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 <!-- Main Content -->
-<div id="content">
 
-
+@if (Model.Count() > 0)
+{
     <div class="container-fluid">
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h4 class="m-0 font-weight-bold text-primary">Danh sách user</h4>
-                <a class="float-lg-right btn btn-primary" href="/User/Create">Create a user</a>
+                <h4 class="m-0 font-weight-bold text-primary">Department</h4>
+                <a class="float-lg-right btn btn-primary" href="/User/Create">Create a department</a>
 
             </div>
             <div class="card-body">
@@ -25,47 +24,32 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr style="Background: #456bd9">
-                                <th style="color:white"> Full name</th>
-                                <th style="color:white"> Email</th>
-                                <th style="color:white"> Password</th>
-                                <th style="color:white"> DOB</th>
-                                <th style="color:white"> SDT</th>
+                                <th style="color:white"> Department name</th>
+                                <th style="color:white"> Description</th>
                                 <th style="color:white"> Tuỳ chọn</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th style="color:white"> Full name</th>
-                                <th style="color:white"> Email</th>
-                                <th style="color:white"> Password</th>
-                                <th style="color:white"> DOB</th>
-                                <th style="color:white"> SDT</th>
+                                <th style="color:white"> Department name</th>
+                                <th style="color:white"> Description</th>
                                 <th style="color:white"> Tuỳ chọn</th>
                             </tr>
                         </tfoot>
                         <tbody>
-                            @foreach (var item in Model) {
-                                DateTime dob = Convert.ToDateTime(item.dob);
-
+                            @foreach (var item in Model)
+                            {
                                 <tr>
                                     <td class="col-2">
-                                        <a href="/User/Details/@item.id">
+                                        <a href="/Department/Details/@item.id">
                                             <b>@Html.DisplayFor(modelItem => item.name)</b>
                                         </a>
 
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.email)
+                                        @Html.DisplayFor(modelItem => item.description)
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.pw)
-                                    </td>
-                                    <td>
-                                        @dob.ToString("dd/MM/yyyy")
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.p_number)
-                                    </td>
+
                                     <td style="text-align : center">
                                         <p>
                                             @Html.ActionLink("Sửa", "Edit", new { id = item.id }, new { @class = "btn btn-primary" })
@@ -78,6 +62,9 @@
                                 </tr>
                             }
 
+
+
+
                         </tbody>
                     </table>
                 </div>
@@ -85,6 +72,8 @@
         </div>
 
     </div>
-    <!-- /.container-fluid -->
-</div>
-
+}
+else
+{
+    <h4 class="m-lg-5 font-weight-light text-primary">No department exists</h4>
+}
