@@ -1,6 +1,6 @@
-﻿create database hapdb
+﻿create database hamdb
 go
-use hapdb
+use hamdb
 go
 
 
@@ -24,7 +24,7 @@ create table tbl_service(
 	price varchar(20)
 )
 go
-insert into tbl_service values (N'sv_001',N'Bảo hiểm Y tế',N'Khám bệnh có tham gia bảo hiểm y tế','100000')
+
 
 create table tbl_user(
 	id nvarchar(20) primary key,
@@ -96,6 +96,7 @@ drop database hapdb
 delete tbl_role
 ALTER TABLE tbl_role ALTER COLUMN role_name nvarchar(100);
 
+select * from tbl_user
 insert into tbl_role (role_name) values ('Administrator')
 insert into tbl_role (role_name) values ('Doctor')
 insert into tbl_role (role_name) values ('User')

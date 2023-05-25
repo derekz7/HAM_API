@@ -10,35 +10,20 @@ namespace HAM_API.Controllers
 {
     public class HomeController : Controller
     {
+        DBContext db = new DBContext();
         public ActionResult Index()
         {
-            return View();
-        }
-        
-        public ActionResult Login()
-        {
+            int userCount = db.tbl_user.Count();
+            int doctorCount = db.tbl_doctor.Count();
+            int DepCount = db.tbl_department.Count();
+            int pending = db.tbl_booking.Where(x => x.status.Equals("Pending")).ToList().Count;
+            ViewBag.doctorCount = doctorCount;
+            ViewBag.userCount = userCount;
+            ViewBag.DepCount = DepCount;
+            ViewBag.pending = pending;
+            
             return View();
         }
 
-        HttpClient client = new HttpClient();
-        public ActionResult Autherize(UserLoginModel user)
-        {
-            client.BaseAddress = new Uri("https://localhost:44351/api/User/");
-            var response = client.GetAsync(string.Format("Login?email={0}&password={1}", user.email, user.password));
-            response.Wait();
-
-            var test = response.Result;
-            if (test.IsSuccessStatusCode)
-            {
-                var check = test.Content.ReadAsAsync<bool>();
-                check.Wait();
-                bool log = check.Result;
-                if (log)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-            }
-            return RedirectToAction("Login", "Home");
-        }
     }
 }

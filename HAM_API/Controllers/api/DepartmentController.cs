@@ -7,7 +7,7 @@ using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
 
-namespace HAM_API.Controllers
+namespace HAM_API.Controllers.api
 {
     public class DepartmentController : ApiController
     {
