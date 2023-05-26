@@ -20,7 +20,7 @@ namespace HAM_API.Models
         [StringLength(20)]
         public string id { get; set; }
 
-        [StringLength(20)]
+        [StringLength(100)]
         public string email { get; set; }
 
         [StringLength(20)]

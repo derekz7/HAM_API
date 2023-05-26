@@ -38,6 +38,8 @@ create table tbl_user(
 	constraint fk_role_id foreign key (role_id) references tbl_role(id)
 )
 go
+alter table tbl_user alter column email varchar(100)
+go
 create table tbl_patient(
 	id nvarchar(20) primary key,
 	pt_name nvarchar(100),

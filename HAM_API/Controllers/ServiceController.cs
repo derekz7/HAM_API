@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -11,114 +10,108 @@ using HAM_API.Models;
 
 namespace HAM_API.Controllers
 {
-    public class UserController : Controller
+    public class ServiceController : Controller
     {
         private DBContext db = new DBContext();
 
-        // GET: User
+        // GET: Service
         public ActionResult Index()
         {
-            var tbl_user = db.tbl_user.Include(t => t.tbl_role);
-            return View(tbl_user.ToList());
+            return View(db.tbl_service.ToList());
         }
 
-        // GET: User/Details/5
+        // GET: Service/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tbl_user tbl_user = db.tbl_user.Find(id);
-            if (tbl_user == null)
+            tbl_service tbl_service = db.tbl_service.Find(id);
+            if (tbl_service == null)
             {
                 return HttpNotFound();
             }
-            return View(tbl_user);
+            return View(tbl_service);
         }
 
-        // GET: User/Create
+        // GET: Service/Create
         public ActionResult Create()
         {
-            ViewBag.role_id = new SelectList(db.tbl_role, "id", "role_name");
             return View();
         }
 
-        // POST: User/Create
+        // POST: Service/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "email,pw,role_id,name,dob,p_number,img")] tbl_user tbl_user)
-        {
-            string id = "u-" + Guid.NewGuid().ToString().Substring(0,15);
-            tbl_user.id = id;
+        public ActionResult Create([Bind(Include = "name,description,price")] tbl_service tbl_service)
+        {   string id = "sv-" + Guid.NewGuid().ToString("N").Substring(0, 10);
+            tbl_service.id = id;
             if (ModelState.IsValid)
             {
-                db.tbl_user.Add(tbl_user);
+                db.tbl_service.Add(tbl_service);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.role_id = new SelectList(db.tbl_role, "id", "role_name", tbl_user.role_id);
-            return View(tbl_user);
+            return View(tbl_service);
         }
 
-        // GET: User/Edit/5
+        // GET: Service/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tbl_user tbl_user = db.tbl_user.Find(id);
-            if (tbl_user == null)
+            tbl_service tbl_service = db.tbl_service.Find(id);
+            if (tbl_service == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.role_id = new SelectList(db.tbl_role, "id", "role_name", tbl_user.role_id);
-            return View(tbl_user);
+            return View(tbl_service);
         }
 
-        // POST: User/Edit/5
+        // POST: Service/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,email,pw,role_id,name,dob,p_number,img")] tbl_user tbl_user)
+        public ActionResult Edit([Bind(Include = "id,name,description,price")] tbl_service tbl_service)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tbl_user).State = EntityState.Modified;
+                db.Entry(tbl_service).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.role_id = new SelectList(db.tbl_role, "id", "role_name", tbl_user.role_id);
-            return View(tbl_user);
+            return View(tbl_service);
         }
 
-        // GET: User/Delete/5
+        // GET: Service/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tbl_user tbl_user = db.tbl_user.Find(id);
-            if (tbl_user == null)
+            tbl_service tbl_service = db.tbl_service.Find(id);
+            if (tbl_service == null)
             {
                 return HttpNotFound();
             }
-            return View(tbl_user);
+            return View(tbl_service);
         }
 
-        // POST: User/Delete/5
+        // POST: Service/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            tbl_user tbl_user = db.tbl_user.Find(id);
-            db.tbl_user.Remove(tbl_user);
+            tbl_service tbl_service = db.tbl_service.Find(id);
+            db.tbl_service.Remove(tbl_service);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -131,7 +124,5 @@ namespace HAM_API.Controllers
             }
             base.Dispose(disposing);
         }
-
     }
-
 }

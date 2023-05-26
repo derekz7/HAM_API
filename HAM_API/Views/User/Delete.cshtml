@@ -3,79 +3,55 @@
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    DateTime dob = Convert.ToDateTime(Model.dob);
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>tbl_user</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.tbl_role.role_name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.tbl_role.role_name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.pw)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.pw)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dob)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dob)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.p_number)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.p_number)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.img)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.img)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-danger">Xoá người dùng: @Html.DisplayFor(model => model.name)</h4>
+            <h6 class="m-0 font-weight-bold"> ID: @Html.DisplayFor(model => model.id)</h6>
+            <h5>Bạn có chắc muốn xoá không ?</h5>
         </div>
-    }
+        <div class="card-body">
+
+            <dl class="dl-horizontal " width="100%" cellspacing="0">
+                <dt style="padding-bottom : 10px">
+                    Vai trò: <b style="color:limegreen">@Html.DisplayFor(model => model.tbl_role.role_name)</b>
+                </dt>
+
+                <dt style="padding-bottom : 10px">
+                    Email:
+                    <b>
+                        @Html.DisplayFor(model => model.email)
+                    </b>
+                </dt>
+
+                <dt style="padding-bottom : 10px">
+                    Ngày sinh:
+                    <b>
+                        @dob.ToString("dd/MM/yyyy")
+                    </b>
+                </dt>
+
+                <dt style="padding-bottom : 10px">
+                    Số điện thoại: <b>@Html.DisplayFor(model => model.p_number)</b>
+                </dt>
+
+            </dl>
+
+        </div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="card-footer py-3">
+                <p>
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                    <a class="btn btn-secondary" href="/User/Index">Back to list</a>
+                </p>
+            </div>
+        }
+
+    </div>
 </div>
