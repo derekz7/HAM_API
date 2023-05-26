@@ -51,10 +51,33 @@ namespace HAM_API.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "email,pw,role_id,name,dob,p_number,img")] tbl_user tbl_user)
         {
-            string id = "u-" + Guid.NewGuid().ToString().Substring(0,15);
+            string id = "u-" + Guid.NewGuid().ToString().Substring(0, 15);
             tbl_user.id = id;
+
             if (ModelState.IsValid)
             {
+                bool emailExists = db.tbl_user.Any(x => x.email == tbl_user.email);
+                if (emailExists)
+                {
+                    ModelState.AddModelError("email", "The email already exists.");
+                    ViewBag.role_id = new SelectList(db.tbl_role, "id", "role_name", tbl_user.role_id);
+                    return View(tbl_user);
+                }
+                if (tbl_user.name == null)
+                {
+                    ModelState.AddModelError("name", "Please enter your full name.");
+                    ViewBag.role_id = new SelectList(db.tbl_role, "id", "role_name", tbl_user.role_id);
+                    return View(tbl_user);
+                }
+
+                if (tbl_user.pw == null)
+                {
+                    ModelState.AddModelError("pw", "Please enter your password.");
+                    ViewBag.role_id = new SelectList(db.tbl_role, "id", "role_name", tbl_user.role_id);
+                    return View(tbl_user);
+                }
+
+
                 db.tbl_user.Add(tbl_user);
                 db.SaveChanges();
                 return RedirectToAction("Index");

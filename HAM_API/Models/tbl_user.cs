@@ -31,7 +31,7 @@ namespace HAM_API.Models
         [StringLength(100)]
         public string name { get; set; }
 
-        [Column(TypeName = "date")]
+        [Column(TypeName = "DATE")]
         public DateTime? dob { get; set; }
 
         [StringLength(10)]

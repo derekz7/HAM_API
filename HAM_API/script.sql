@@ -32,13 +32,14 @@ create table tbl_user(
 	pw nvarchar(20),
 	role_id int,
 	name nvarchar(100),
-	dob date,
+	dob DATE,
 	p_number nvarchar(10),
 	img text,
 	constraint fk_role_id foreign key (role_id) references tbl_role(id)
 )
 go
-alter table tbl_user alter column email varchar(100)
+
+alter table tbl_user alter column dob DATE
 go
 create table tbl_patient(
 	id nvarchar(20) primary key,
@@ -94,11 +95,20 @@ create table tbl_prescription(
 )
 go
 
-drop database hapdb
+create table tbl_news(
+	id varchar(20) primary key,
+	title nvarchar(200),
+	body ntext,
+	imgUrl ntext
+)
+
+go
+drop table tbl_news
 delete tbl_role
 ALTER TABLE tbl_role ALTER COLUMN role_name nvarchar(100);
 
-select * from tbl_user
+select * from tbl_service
 insert into tbl_role (role_name) values ('Administrator')
 insert into tbl_role (role_name) values ('Doctor')
-insert into tbl_role (role_name) values ('User')
+
+delete tbl_user where id = 'u-ecce136e-d2dd-4'
