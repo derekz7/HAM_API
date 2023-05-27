@@ -1,15 +1,14 @@
-﻿@model HAM_API.Models.tbl_user
+﻿@model HAM_API.Models.tbl_service
 
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    // DateTime dob = Convert.ToDateTime(Model.dob);
 }
 
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h4 class="m-0 font-weight-bold text-danger">Xoá người dùng: @Html.DisplayFor(model => model.name)</h4>
+            <h4 class="m-0 font-weight-bold text-danger">Xoá dịch vụ: @Html.DisplayFor(model => model.name)</h4>
             <h6 class="m-0 font-weight-bold"> ID: @Html.DisplayFor(model => model.id)</h6>
             <h5>Bạn có chắc muốn xoá không ?</h5>
         </div>
@@ -17,27 +16,18 @@
 
             <dl class="dl-horizontal " width="100%" cellspacing="0">
                 <dt style="padding-bottom : 10px">
-                    Vai trò: <b style="color:limegreen">@Html.DisplayFor(model => model.tbl_role.role_name)</b>
-                </dt>
-
-                <dt style="padding-bottom : 10px">
-                    Email:
+                    Description:
                     <b>
-                        @Html.DisplayFor(model => model.email)
+                        @Html.DisplayFor(model => model.description)
                     </b>
                 </dt>
 
-                @*<dt style="padding-bottom : 10px">
-                    Ngày sinh:
-                    <b>
-                        @dob.ToString("dd/MM/yyyy")
-                    </b>
-                </dt>*@
-
                 <dt style="padding-bottom : 10px">
-                    Số điện thoại: <b>@Html.DisplayFor(model => model.p_number)</b>
+                    Price:
+                    <b>
+                        @Html.DisplayFor(model => model.price)
+                    </b>
                 </dt>
-
             </dl>
 
         </div>
@@ -48,7 +38,7 @@
             <div class="card-footer py-3">
                 <p>
                     <input type="submit" value="Delete" class="btn btn-danger" />
-                    <a class="btn btn-secondary" href="/User/Index">Back to list</a>
+                    <a class="btn btn-secondary" href="/Service/Index">Back to list</a>
                 </p>
             </div>
         }

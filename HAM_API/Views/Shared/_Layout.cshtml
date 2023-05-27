@@ -67,91 +67,62 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Quản lý lịch khám</h6>
-                        <a class="collapse-item" href="buttons.html">Lịch khám đang chờ</a>
-                        <a class="collapse-item" href="cards.html">Lịch sử lịch đã khám</a>
+                        <a class="collapse-item" href="buttons.html">
+                            <i class="fas fa-fw fa-spinner"></i>
+                            <span>Lịch khám đang chờ</span>
+                        </a>
+                        <a class="collapse-item" href="buttons.html">
+                            <i class="fas fa-fw fa-check"></i>
+                            <span>Lịch khám đã khám</span>
+                        </a>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <!--<li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/User/Index" data-toggle="collapse" data-target="#collapseUtilities"
                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Quản lý người dùng</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                     data-parent="#accordionSidebar">
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
+                        <a class="collapse-item" href="/User/Index">
+                            <i class="fas fa-fw fa-user"></i>
+                            <span>Danh sách người dùng</span>
+                        </a>
+                        <a class="collapse-item" href="#">
+                            <i class="fas fa-fw fa-folder"></i>
+                            <span>Danh sách hồ sơ</span>
+                        </a>
                     </div>
                 </div>
-            </li>-->
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            @*<div class="sidebar-heading">
-                    Addons
-                </div>*@
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            @*<li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                       aria-expanded="true" aria-controls="collapsePages">
-                        <i class="fas fa-fw fa-folder"></i>
-                        <span>Pages</span>
-                    </a>
-                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Login Screens:</h6>
-                            <a class="collapse-item" href="login.html">Login</a>
-                            <a class="collapse-item" href="register.html">Register</a>
-                            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                            <div class="collapse-divider"></div>
-                            <h6 class="collapse-header">Other Pages:</h6>
-                            <a class="collapse-item" href="404.html">404 Page</a>
-                            <a class="collapse-item" href="blank.html">Blank Page</a>
-                        </div>
-                    </div>
-                </li>*@
+            </li>
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="~/Doctor/Index">
-                    <i class="fas fa-fw fa-user"></i>
+                <a class="nav-link" href="/Doctor/Index">
+                    <i class="fas fa-fw fa-briefcase-medical"></i>
                     <span>Quản lý bác sĩ</span>
                 </a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="~/Department/Index">
+                <a class="nav-link" href="/Department/Index">
                     <i class="fas fa-fw fa-hospital"></i>
                     <span>Quản lý khoa</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="~/User/Index">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Quản lý người dùng</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="/Service/Index">
                     <i class="fas fa-fw fa-tag"></i>
                     <span>Quản lý dịch vụ</span>
                 </a>
             </li>
-
             <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+            <hr class="sidebar-divider d-none d-md-block" />
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -249,36 +220,9 @@
                             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                @*<span class="badge badge-danger badge-counter">7</span>*@
                             </a>
-                            <!-- Dropdown - Messages -->
-                            @*<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                     aria-labelledby="messagesDropdown">
-                                    <h6 class="dropdown-header">
-                                        Message Center
-                                    </h6>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="dropdown-list-image mr-3">
-                                            <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                                 alt="...">
-                                            <div class="status-indicator bg-success"></div>
-                                        </div>
-                                        <div class="font-weight-bold">
-                                            <div class="text-truncate">
-                                                Hi there! I am wondering if you can help me with a
-                                                problem I've been having.
-                                            </div>
-                                            <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                        </div>
-                                    </a>
 
-
-                                    <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                                </div>*@
                         </li>
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
@@ -386,6 +330,8 @@
     <!-- Page level custom scripts -->
     <script src="~/Data/js/demo/chart-area-demo.js"></script>
     <script src="~/Data/js/demo/chart-pie-demo.js"></script>
+    
+    @RenderSection("scripts", required: false)
 
 </body>
 

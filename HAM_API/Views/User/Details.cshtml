@@ -3,73 +3,67 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+   // DateTime dob = Convert.ToDateTime(Model.dob);
+    string imgUrl = Model.img;
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>tbl_user</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.tbl_role.role_name)
-        </dt>
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-primary">@Html.DisplayFor(model => model.name)</h4>
+            <p class="m-0 font-weight-light"> ID: @Html.DisplayFor(model => model.id)</p>
+        </div>
+        <div class="card-body">
 
-        <dd>
-            @Html.DisplayFor(model => model.tbl_role.role_name)
-        </dd>
+            <dl class="dl-horizontal " width="100%" cellspacing="0">
+                <dt style="padding-bottom : 10px">
+                    Vai trò: <b style="color:limegreen">@Html.DisplayFor(model => model.tbl_role.role_name)</b>
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.email)
-        </dt>
+                <dt style="padding-bottom : 10px">
+                    Email:
+                    <b>
+                        @Html.DisplayFor(model => model.email)
+                    </b>
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.email)
-        </dd>
+                <dt style="padding-bottom : 10px">
+                    Mật khẩu: <b>@Html.DisplayFor(model => model.pw)</b>
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.pw)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.pw)
-        </dd>
+                @*<dt style="padding-bottom : 10px">
+                    Ngày sinh: <b>@dob.ToString("dd/MM/yyyy")</b>
+                </dt>*@
 
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
+                <dt style="padding-bottom : 10px">
+                    Số điện thoại: <b>
+                        @Html.DisplayFor(model => model.p_number)
+                    </b>
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
+                @if (imgUrl != null)
+                {
+                    <dt style="padding-bottom : 10px">
+                        <img src="@imgUrl" width="100" height="100" />
+                    </dt>
+                }
+                else
+                {
+                    <dt style="padding-bottom : 10px">
+                        <img src="~/Content/img/default_user_imag.jpg" width="100" height="100" />
+                    </dt>
+                }
+            </dl>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.dob)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dob)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.p_number)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.p_number)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.img)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.img)
-        </dd>
-
-    </dl>
+        </div>
+        <div class="card-footer py-3">
+            <p>
+                <a style="margin-right: 20px" class="btn btn-secondary" href="/User/Index">Quay lại</a>
+                @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.id }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Xóa", "Delete", new { id = Model.id }, new { @class = "btn btn-danger" })
+            </p>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

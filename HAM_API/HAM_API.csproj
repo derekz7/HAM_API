@@ -452,6 +452,7 @@
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -470,6 +471,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\img\default_user_imag.jpg" />
     <Content Include="Content\img\imageBV.jpg" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\img\undraw_posting_photo.svg" />
@@ -2391,6 +2393,11 @@
     <Content Include="Views\Doctor\Details.cshtml" />
     <Content Include="Views\Doctor\Edit.cshtml" />
     <Content Include="Views\Doctor\Index.cshtml" />
+    <Content Include="Views\Service\Create.cshtml" />
+    <Content Include="Views\Service\Delete.cshtml" />
+    <Content Include="Views\Service\Details.cshtml" />
+    <Content Include="Views\Service\Edit.cshtml" />
+    <Content Include="Views\Service\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
