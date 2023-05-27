@@ -39,7 +39,7 @@ create table tbl_user(
 )
 go
 
-alter table tbl_user alter column dob DATE
+alter table tbl_user drop column dob
 go
 create table tbl_patient(
 	id nvarchar(20) primary key,
@@ -107,7 +107,7 @@ drop table tbl_news
 delete tbl_role
 ALTER TABLE tbl_role ALTER COLUMN role_name nvarchar(100);
 
-select * from tbl_service
+select * from tbl_user
 insert into tbl_role (role_name) values ('Administrator')
 insert into tbl_role (role_name) values ('Doctor')
 

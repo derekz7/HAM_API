@@ -2358,6 +2358,7 @@
     <Content Include="Data\vendor\jquery\jquery.min.map" />
     <Content Include="Data\vendor\jquery\jquery.slim.min.map" />
     <Content Include="app.config" />
+    <Content Include="hamdb.bak" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />

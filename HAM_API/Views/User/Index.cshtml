@@ -30,7 +30,6 @@
                                     <th style="color:white"> Full name</th>
                                     <th style="color:white"> Email</th>
                                     <th style="color:white"> Password</th>
-                                    <th style="color:white"> DOB</th>
                                     <th style="color:white"> SDT</th>
                                 </tr>
                             </thead>
@@ -38,7 +37,7 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    DateTime dob = Convert.ToDateTime(item.dob);
+                                    // DateTime dob = Convert.ToDateTime(item.dob);
 
                                     <tr>
                                         <td class="col-3">
@@ -55,9 +54,9 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.pw)
                                         </td>
-                                        <td>
+                                        @*<td>
                                             @dob.ToString("dd/MM/yyyy")
-                                        </td>
+                                        </td>*@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.p_number)
                                         </td>

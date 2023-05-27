@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@section scripts {
+@*@section scripts {
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
     <script>
@@ -17,7 +17,7 @@
             });
         });
     </script>
-}
+}*@
 
 <div class="container-fluid">
     <div class="card shadow mb-4">
@@ -62,13 +62,13 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                @*<div class="form-group">
                     @Html.LabelFor(model => model.dob, "Ngày sinh (MM/dd/yyyy)", htmlAttributes: new { @class = "control-label col-md-5" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.dob, new { htmlAttributes = new { @class = "form-control dob-datepicker" } })
                         @Html.ValidationMessageFor(model => model.dob, "", new { @class = "text-danger" })
                     </div>
-                </div>
+                </div>*@
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.p_number, "Số điện thoại", htmlAttributes: new { @class = "control-label col-md-2" })

@@ -31,9 +31,6 @@ namespace HAM_API.Models
         [StringLength(100)]
         public string name { get; set; }
 
-        [Column(TypeName = "DATE")]
-        public DateTime? dob { get; set; }
-
         [StringLength(10)]
         public string p_number { get; set; }
 

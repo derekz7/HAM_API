@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    DateTime dob = Convert.ToDateTime(Model.dob);
+   // DateTime dob = Convert.ToDateTime(Model.dob);
     string imgUrl = Model.img;
 }
 
@@ -33,9 +33,9 @@
                 </dt>
 
 
-                <dt style="padding-bottom : 10px">
+                @*<dt style="padding-bottom : 10px">
                     Ngày sinh: <b>@dob.ToString("dd/MM/yyyy")</b>
-                </dt>
+                </dt>*@
 
                 <dt style="padding-bottom : 10px">
                     Số điện thoại: <b>
