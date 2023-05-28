@@ -23,7 +23,7 @@ namespace HAM_API.Controllers.api
 
         [HttpGet]
         [ResponseType(typeof(tbl_department))]
-        public IHttpActionResult GetDepartmentById(int id)
+        public IHttpActionResult GetDepartmentById(string id)
         {
            tbl_department dep = db.tbl_department.Where(x => x.id == id).FirstOrDefault();
             if (dep == null)
@@ -36,7 +36,7 @@ namespace HAM_API.Controllers.api
 
         [HttpPut]
         [ResponseType(typeof(void))]
-        public IHttpActionResult UpdateDepartment(int id, tbl_department tbl_department)
+        public IHttpActionResult UpdateDepartment(string id, tbl_department tbl_department)
         {
             if (!ModelState.IsValid)
             {
@@ -100,7 +100,7 @@ namespace HAM_API.Controllers.api
 
         [HttpDelete]
         [ResponseType(typeof(tbl_department))]
-        public IHttpActionResult DeleteDepartment(int id)
+        public IHttpActionResult DeleteDepartment(string id)
         {
             tbl_department dep = db.tbl_department.Find(id);
             if (dep == null)
@@ -123,7 +123,7 @@ namespace HAM_API.Controllers.api
             base.Dispose(disposing);
         }
 
-        private bool tbl_departmentExists(int id)
+        private bool tbl_departmentExists(string id)
         {
             return db.tbl_department.Count(e => e.id == id) > 0;
         }

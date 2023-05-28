@@ -23,8 +23,7 @@ namespace HAM_API.Models
         [StringLength(300)]
         public string description { get; set; }
 
-        [StringLength(20)]
-        public string price { get; set; }
+        public int? price { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_booking> tbl_booking { get; set; }

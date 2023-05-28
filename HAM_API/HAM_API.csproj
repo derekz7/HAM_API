@@ -445,6 +445,8 @@
     <Compile Include="Controllers\api\BookingController.cs" />
     <Compile Include="Controllers\api\DepartmentController.cs" />
     <Compile Include="Controllers\api\DoctorController.cs" />
+    <Compile Include="Controllers\api\PatientController.cs" />
+    <Compile Include="Controllers\api\PatientRelativeController.cs" />
     <Compile Include="Controllers\api\PrescriptionController.cs" />
     <Compile Include="Controllers\api\ServiceController.cs" />
     <Compile Include="Controllers\api\UserController.cs" />
@@ -452,6 +454,7 @@
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -461,17 +464,31 @@
     <Compile Include="Models\tbl_booking.cs" />
     <Compile Include="Models\tbl_department.cs" />
     <Compile Include="Models\tbl_doctor.cs" />
+    <Compile Include="Models\tbl_news.cs" />
     <Compile Include="Models\tbl_patient.cs" />
+    <Compile Include="Models\tbl_patientRelative.cs" />
     <Compile Include="Models\tbl_prescription.cs" />
     <Compile Include="Models\tbl_role.cs" />
     <Compile Include="Models\tbl_service.cs" />
     <Compile Include="Models\tbl_user.cs" />
-    <Compile Include="Models\UserLoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\img\default.png" />
     <Content Include="Content\img\default_user_imag.jpg" />
+    <Content Include="Content\img\dep\chanthuong.png" />
+    <Content Include="Content\img\dep\dalieu.png" />
+    <Content Include="Content\img\dep\hohap.png" />
+    <Content Include="Content\img\dep\nhi.png" />
+    <Content Include="Content\img\dep\noitonghop.png" />
+    <Content Include="Content\img\dep\phusan.png" />
+    <Content Include="Content\img\dep\taimuihong.png" />
+    <Content Include="Content\img\dep\thankinh.png" />
+    <Content Include="Content\img\dep\tieuhoa.png" />
+    <Content Include="Content\img\dep\timmach.png" />
+    <Content Include="Content\img\dep\ungbuou.png" />
+    <Content Include="Content\img\dep\yhoccotruyen.png" />
     <Content Include="Content\img\imageBV.jpg" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\img\undraw_posting_photo.svg" />
@@ -2398,9 +2415,11 @@
     <Content Include="Views\Service\Details.cshtml" />
     <Content Include="Views\Service\Edit.cshtml" />
     <Content Include="Views\Service\Index.cshtml" />
+    <Content Include="Views\Shared\_DepartmentTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\bootstrap.min.js.map" />

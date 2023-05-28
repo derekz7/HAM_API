@@ -5,73 +5,76 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <link href="~/Data/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 <!-- Main Content -->
 
 @if (Model.Count() > 0)
 {
-    <div id="content">
-
-        <div class="container-fluid">
-
-            <!-- DataTales Example -->
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h4 class="m-0 font-weight-bold text-primary">Danh sách user</h4>
-                    <a class="float-lg-right btn btn-primary" href="/User/Create">Create a user</a>
-
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive"> 
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr style="Background: #456bd9">
-                                    <th style="color:white"> Full name</th>
-                                    <th style="color:white"> Email</th>
-                                    <th style="color:white"> Password</th>
-                                    <th style="color:white"> SDT</th>
-                                </tr>
-                            </thead>
-                            
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    // DateTime dob = Convert.ToDateTime(item.dob);
-
-                                    <tr>
-                                        <td class="col-3">
-                                            <form action="/User/Details" method="post">
-                                                @Html.Hidden("id", item.id)
-                                                <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;">
-                                                    <b><span style="color: blue;">@Html.DisplayFor(modelItem => item.name)</span></b>
-                                                </button>
-                                            </form>
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.email)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.pw)
-                                        </td>
-                                        @*<td>
-                                            @dob.ToString("dd/MM/yyyy")
-                                        </td>*@
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.p_number)
-                                        </td>
-
-                                    </tr>
-                                }
-
-                            </tbody>
-                        </table>
+    <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex align-items-center">
+                <h4 class="m-0 font-weight-bold text-primary flex-grow-1">Danh sách người dùng</h4>
+                @*<form class="form-inline" id="searchUserForm">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="searchUserInput" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </form>*@
+                <a class="btn btn-success ml-3" href="/User/Create">Tạo mới</a>
             </div>
+            <div class="card-body table-wrapper-scroll-y">
+                <table class="table table-bordered" id="dataTableUser" width="100%" cellspacing="0">
+                    <thead>
+                        <tr style="Background: #456bd9">
+                            <th style="color:white"> Full name</th>
+                            <th style="color:white"> Username</th>
+                            <th style="color:white"> Email</th>
+                            <th style="color:white"> Password</th>
+                            <th style="color:white"> SDT</th>
+                        </tr>
+                    </thead>
 
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            // DateTime dob = Convert.ToDateTime(item.dob);
+
+                            <tr>
+                                <td class="col-3">
+                                    <form action="/User/Details" method="post">
+                                        @Html.Hidden("id", item.id)
+                                        <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;">
+                                            <b><span style="color: blue;">@Html.DisplayFor(modelItem => item.name)</span></b>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.username)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.pw)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.p_number)
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <!-- /.container-fluid -->
     </div>
 }
 else
@@ -79,4 +82,11 @@ else
     <h4 class="m-lg-5 font-weight-light text-primary">No user exists</h4>
 }
 
-
+@section scripts {
+    <style>
+        .table-wrapper-scroll-y {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+}

@@ -1,4 +1,4 @@
-﻿@model HAM_API.Models.UserLoginModel
+﻿@model HAM_API.Models.LoginModel
 @{
     Layout = null;
 }
@@ -45,7 +45,7 @@
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
                                     <form class="user">
-                                        @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+                                        @using (Html.BeginForm("Login","Home",FormMethod.Post))
                                         {
                                             @Html.AntiForgeryToken()
                                             <div class="form-group">

@@ -57,7 +57,6 @@
                                             @Html.DisplayFor(modelItem => item.room)
                                         </td>
                                         <td>
-
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.tbl_department.name)
@@ -86,5 +85,15 @@
 }
 else
 {
-    <h4 class="m-lg-5 font-weight-light text-primary">No doctor exists</h4>
+    <div class="container-fluid">
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h4 class="m-0 font-weight-bold text-primary">No doctor exists</h4>
+                <a class="float-lg-right btn btn-primary" href="/Doctor/Create">Tạo mới</a>
+            </div>
+        </div>
+
+    </div>
 }
