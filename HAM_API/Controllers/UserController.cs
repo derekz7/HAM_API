@@ -22,6 +22,7 @@ namespace HAM_API.Controllers
             return View(tbl_user.ToList());
         }
 
+
         // GET: User/Details/5
         public ActionResult Details(string id)
         {
@@ -49,34 +50,27 @@ namespace HAM_API.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "email,pw,role_id,name,dob,p_number,img")] tbl_user tbl_user)
+        public ActionResult Create([Bind(Include = "username, name ,email, pw, role_id, p_number, img")] tbl_user tbl_user)
         {
             string id = "u-" + Guid.NewGuid().ToString().Substring(0, 15);
             tbl_user.id = id;
 
             if (ModelState.IsValid)
             {
-                bool emailExists = db.tbl_user.Any(x => x.email == tbl_user.email);
-                if (emailExists)
+                bool usernameExits = db.tbl_user.Any(x => x.username == tbl_user.username);
+                var emailExists = db.tbl_user.Count(x => x.email == tbl_user.email);
+                if (usernameExits)
+                {
+                    ModelState.AddModelError("username", "This username already exists.");
+                    ViewBag.role_id = new SelectList(db.tbl_role, "id", "role_name", tbl_user.role_id);
+                    return View(tbl_user);
+                }
+                if (emailExists > 0 && tbl_user.email != null)
                 {
                     ModelState.AddModelError("email", "The email already exists.");
                     ViewBag.role_id = new SelectList(db.tbl_role, "id", "role_name", tbl_user.role_id);
                     return View(tbl_user);
                 }
-                if (tbl_user.name == null)
-                {
-                    ModelState.AddModelError("name", "Please enter your full name.");
-                    ViewBag.role_id = new SelectList(db.tbl_role, "id", "role_name", tbl_user.role_id);
-                    return View(tbl_user);
-                }
-
-                if (tbl_user.pw == null)
-                {
-                    ModelState.AddModelError("pw", "Please enter your password.");
-                    ViewBag.role_id = new SelectList(db.tbl_role, "id", "role_name", tbl_user.role_id);
-                    return View(tbl_user);
-                }
-
 
                 db.tbl_user.Add(tbl_user);
                 db.SaveChanges();
@@ -108,10 +102,17 @@ namespace HAM_API.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,email,pw,role_id,name,dob,p_number,img")] tbl_user tbl_user)
+        public ActionResult Edit([Bind(Include = "id,username, name ,email, pw, role_id, p_number, img")] tbl_user tbl_user)
         {
             if (ModelState.IsValid)
             {
+                var emailExists = db.tbl_user.Count(x => x.email == tbl_user.email);
+                if (emailExists > 0 && tbl_user.email != null)
+                {
+                    ModelState.AddModelError("email", "The email already exists.");
+                    ViewBag.role_id = new SelectList(db.tbl_role, "id", "role_name", tbl_user.role_id);
+                    return View(tbl_user);
+                }
                 db.Entry(tbl_user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

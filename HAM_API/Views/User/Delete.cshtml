@@ -21,18 +21,19 @@
                 </dt>
 
                 <dt style="padding-bottom : 10px">
+                    Username:
+                    <b>
+                        @Html.DisplayFor(model => model.username)
+                    </b>
+                </dt>
+
+                <dt style="padding-bottom : 10px">
                     Email:
                     <b>
                         @Html.DisplayFor(model => model.email)
                     </b>
                 </dt>
 
-                @*<dt style="padding-bottom : 10px">
-                    Ngày sinh:
-                    <b>
-                        @dob.ToString("dd/MM/yyyy")
-                    </b>
-                </dt>*@
 
                 <dt style="padding-bottom : 10px">
                     Số điện thoại: <b>@Html.DisplayFor(model => model.p_number)</b>

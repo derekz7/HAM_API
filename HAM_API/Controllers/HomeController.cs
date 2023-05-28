@@ -25,5 +25,14 @@ namespace HAM_API.Controllers
             return View();
         }
 
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+     
+
     }
+
+    
 }

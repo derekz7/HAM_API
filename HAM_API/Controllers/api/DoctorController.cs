@@ -36,7 +36,7 @@ namespace HAM_API.Controllers.api
         }
 
         [HttpGet]
-        public List<tbl_doctor> GetDoctorByDepartment(int depid)
+        public List<tbl_doctor> GetDoctorByDepartment(string depid)
         {
             return db.tbl_doctor.Where(x => x.dep_id == depid).ToList();
 

@@ -20,14 +20,21 @@ namespace HAM_API.Controllers
             return View(db.tbl_department.ToList());
         }
 
+        [HttpPost]
+        public ActionResult Search(string keyword)
+        {
+            var departments = db.tbl_department.Where(d => d.name.Contains(keyword)).ToList();
+            return PartialView("_DepartmentTable", departments);
+        }
+
         // GET: Department/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tbl_department tbl_department = db.tbl_department.Find(id);
+            tbl_department tbl_department = db.tbl_department.Where(x => x.id == id).First();
             if (tbl_department == null)
             {
                 return HttpNotFound();
@@ -46,8 +53,10 @@ namespace HAM_API.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,name,description")] tbl_department tbl_department)
+        public ActionResult Create([Bind(Include = "name,description, img")] tbl_department tbl_department)
         {
+            string id = "dep-" + Guid.NewGuid().ToString().Substring(0, 15);
+            tbl_department.id = id;
             if (ModelState.IsValid)
             {
                 db.tbl_department.Add(tbl_department);
@@ -59,13 +68,13 @@ namespace HAM_API.Controllers
         }
 
         // GET: Department/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tbl_department tbl_department = db.tbl_department.Find(id);
+            tbl_department tbl_department = db.tbl_department.Where(x => x.id == id).First();
             if (tbl_department == null)
             {
                 return HttpNotFound();
@@ -78,7 +87,7 @@ namespace HAM_API.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,description")] tbl_department tbl_department)
+        public ActionResult Edit([Bind(Include = "id,name,description,img")] tbl_department tbl_department)
         {
             if (ModelState.IsValid)
             {
@@ -90,13 +99,13 @@ namespace HAM_API.Controllers
         }
 
         // GET: Department/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tbl_department tbl_department = db.tbl_department.Find(id);
+            tbl_department tbl_department = db.tbl_department.Where(x => x.id == id).FirstOrDefault();
             if (tbl_department == null)
             {
                 return HttpNotFound();
@@ -107,9 +116,9 @@ namespace HAM_API.Controllers
         // POST: Department/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            tbl_department tbl_department = db.tbl_department.Find(id);
+            tbl_department tbl_department = db.tbl_department.Where(x => x.id == id).FirstOrDefault();
             db.tbl_department.Remove(tbl_department);
             db.SaveChanges();
             return RedirectToAction("Index");

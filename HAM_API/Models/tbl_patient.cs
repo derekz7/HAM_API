@@ -12,6 +12,7 @@ namespace HAM_API.Models
         public tbl_patient()
         {
             tbl_booking = new HashSet<tbl_booking>();
+            tbl_patientRelative = new HashSet<tbl_patientRelative>();
         }
 
         [StringLength(20)]
@@ -37,6 +38,9 @@ namespace HAM_API.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_booking> tbl_booking { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_patientRelative> tbl_patientRelative { get; set; }
 
         public virtual tbl_user tbl_user { get; set; }
     }

@@ -23,14 +23,27 @@ namespace HAM_API.Controllers.api
         }
 
         [HttpGet]
-        public bool Login(string email, string password)
+        public bool Login(string username, string password)
         {
-            tbl_user user = db.tbl_user.Where(e => e.email == email || e.pw == password).FirstOrDefault();
+            tbl_user user = db.tbl_user.Where(e => e.username == username && e.pw == password).FirstOrDefault();
             if (user == null)
             {
                 return false;
             }
             else return true;
+        }
+
+        [HttpGet]
+        [ResponseType(typeof(tbl_user))]
+        public IHttpActionResult GetUserByUsername(string username)
+        {
+            tbl_user tbl_user = db.tbl_user.Where(x => x.username == username).FirstOrDefault();
+            if (tbl_user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(tbl_user);
         }
 
 
@@ -123,36 +136,6 @@ namespace HAM_API.Controllers.api
             return CreatedAtRoute("DefaultApi", new { id = tbl_user.id }, tbl_user);
         }
 
-        //Create new patient
-        [HttpPost]
-        [ResponseType(typeof(tbl_patient))]
-        public IHttpActionResult CreatePatient(tbl_patient patient)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.tbl_patient.Add(patient);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (tbl_patientExists(patient.id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = patient.id }, patient);
-        }
 
         // DELETE: api/User/5
         [HttpDelete]
@@ -171,34 +154,35 @@ namespace HAM_API.Controllers.api
             return Ok(tbl_user);
         }
 
-        [HttpDelete]
-        [ResponseType(typeof(tbl_patient))]
-        public IHttpActionResult DeletePatient(string id)
-        {
-            tbl_patient patient = db.tbl_patient.Where(x => x.id == id).FirstOrDefault();
-            if (patient == null)
-            {
-                return NotFound();
-            }
-
-            db.tbl_patient.Remove(patient);
-            db.SaveChanges();
-
-            return Ok(patient);
-        }
 
         [HttpDelete]
         public IHttpActionResult DeleteAllPatients(string userid)
         {
             List<tbl_patient> patients = db.tbl_patient.Where(x => x.user_id == userid).ToList();
+
+            foreach (tbl_patient p in patients)
+            {
+                List<tbl_patientRelative> relations = db.tbl_patientRelative.Where(x => x.pt_id == p.id).ToList();
+                db.tbl_patientRelative.RemoveRange(relations);
+            }
             if (patients == null)
             {
                 return NotFound();
             }
-            db.tbl_patient.RemoveRange(patients);
-            db.SaveChanges();
+            else
+            {
+                //Delete all patient relative of each patient
+                foreach (tbl_patient p in patients)
+                {
+                    List<tbl_patientRelative> relations = db.tbl_patientRelative.Where(x => x.pt_id == p.id).ToList();
+                    db.tbl_patientRelative.RemoveRange(relations);
+                }
 
-            return Ok(patients);
+                db.tbl_patient.RemoveRange(patients);
+                db.SaveChanges();
+                return Ok(patients);
+            }
+
         }
 
         protected override void Dispose(bool disposing)
@@ -213,6 +197,11 @@ namespace HAM_API.Controllers.api
         private bool tbl_userExists(string id)
         {
             return db.tbl_user.Count(e => e.id == id) > 0;
+        }
+
+        private bool tbl_usernameExists(string username)
+        {
+            return db.tbl_user.Count(e => e.username == username) > 0;
         }
 
         private bool tbl_userEmailExists(string email)

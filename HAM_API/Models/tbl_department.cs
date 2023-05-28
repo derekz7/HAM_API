@@ -14,13 +14,17 @@ namespace HAM_API.Models
             tbl_doctor = new HashSet<tbl_doctor>();
         }
 
-        public int id { get; set; }
+        [StringLength(20)]
+        public string id { get; set; }
 
         [StringLength(200)]
         public string name { get; set; }
 
         [StringLength(500)]
         public string description { get; set; }
+
+        [Column(TypeName = "text")]
+        public string img { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_doctor> tbl_doctor { get; set; }

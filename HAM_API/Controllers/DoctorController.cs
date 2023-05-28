@@ -17,7 +17,7 @@ namespace HAM_API.Controllers
         // GET: Doctor
         public ActionResult Index()
         {
-            var tbl_doctor = db.tbl_doctor.Include(t => t.tbl_department).Include(t => t.tbl_user);
+            var tbl_doctor = db.tbl_doctor.Include(t => t.tbl_department);
             return View(tbl_doctor.ToList());
         }
 
@@ -49,8 +49,10 @@ namespace HAM_API.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,name,room,dep_id,user_id")] tbl_doctor tbl_doctor)
+        public ActionResult Create([Bind(Include = "name,room,dep_id, imgUrl")] tbl_doctor tbl_doctor)
         {
+            string id = "dc-" + Guid.NewGuid().ToString().Substring(0, 15);
+            tbl_doctor.id = id;
             if (ModelState.IsValid)
             {
                 db.tbl_doctor.Add(tbl_doctor);
@@ -59,7 +61,6 @@ namespace HAM_API.Controllers
             }
 
             ViewBag.dep_id = new SelectList(db.tbl_department, "id", "name", tbl_doctor.dep_id);
-            ViewBag.user_id = new SelectList(db.tbl_user, "id", "email", tbl_doctor.user_id);
             return View(tbl_doctor);
         }
 
@@ -76,7 +77,6 @@ namespace HAM_API.Controllers
                 return HttpNotFound();
             }
             ViewBag.dep_id = new SelectList(db.tbl_department, "id", "name", tbl_doctor.dep_id);
-            ViewBag.user_id = new SelectList(db.tbl_user, "id", "email", tbl_doctor.user_id);
             return View(tbl_doctor);
         }
 
@@ -85,7 +85,7 @@ namespace HAM_API.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,room,dep_id,user_id")] tbl_doctor tbl_doctor)
+        public ActionResult Edit([Bind(Include = "id,name,room,dep_id, imgUrl")] tbl_doctor tbl_doctor)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,6 @@ namespace HAM_API.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.dep_id = new SelectList(db.tbl_department, "id", "name", tbl_doctor.dep_id);
-            ViewBag.user_id = new SelectList(db.tbl_user, "id", "email", tbl_doctor.user_id);
             return View(tbl_doctor);
         }
 

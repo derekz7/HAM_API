@@ -6,74 +6,79 @@
 }
 
 <link href="~/Data/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-<!-- Main Content -->
 
+<!-- Main Content -->
 @if (Model.Count() > 0)
 {
     <div class="container-fluid">
-
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h4 class="m-0 font-weight-bold text-primary">Department</h4>
-                <a class="float-lg-right btn btn-primary" href="/User/Create">Create a department</a>
-
+            <div class="card-header py-3 d-flex align-items-center">
+                <h4 class="m-0 font-weight-bold text-primary flex-grow-1">Danh sách chuyên khoa</h4>
+                <form class="form-inline" id="searchForm">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <a class="btn btn-success ml-3" href="/Department/Create">Tạo mới</a>
             </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr style="Background: #456bd9">
-                                <th style="color:white"> Department name</th>
-                                <th style="color:white"> Description</th>
-                                <th style="color:white"> Tuỳ chọn</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th style="color:white"> Department name</th>
-                                <th style="color:white"> Description</th>
-                                <th style="color:white"> Tuỳ chọn</th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td class="col-2">
-                                        <a href="/Department/Details/@item.id">
-                                            <b>@Html.DisplayFor(modelItem => item.name)</b>
-                                        </a>
-
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.description)
-                                    </td>
-
-                                    <td style="text-align : center">
-                                        <p>
-                                            @Html.ActionLink("Sửa", "Edit", new { id = item.id }, new { @class = "btn btn-primary" })
-                                        </p>
-                                        <p>
-                                            @Html.ActionLink("Xoá", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
-                                        </p>
-
-                                    </td>
-                                </tr>
-                            }
+            <div class="card-body table-wrapper-scroll-y">
 
 
+                @{
+                    Html.RenderPartial("_DepartmentTable");
+                }
 
-
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
-
     </div>
 }
 else
 {
-    <h4 class="m-lg-5 font-weight-light text-primary">No department exists</h4>
+    <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h4 class="m-0 font-weight-bold text-primary">No department exists</h4>
+                <a class="float-lg-right btn btn-primary" href="/Department/Create">Tạo mới</a>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts {
+
+    <script>
+        // Handle form submission
+        $('#searchForm').submit(function (event) {
+            event.preventDefault();
+            // Perform search operation
+            var searchKeyword = $(this).find('input[type="text"]').val();
+
+            // AJAX request to search departments
+            $.ajax({
+                url: '/Department/Search',
+                type: 'POST',
+                data: { keyword: searchKeyword },
+                success: function (data) {
+                    // Update table content with search results
+                    $('#dataTable').html(data);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+    </script>
+    <style>
+        .table-wrapper-scroll-y {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
 }
