@@ -48,7 +48,7 @@ namespace HAM_API.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "name,description,price")] tbl_service tbl_service)
         {
-            string id = "sv-" + Guid.NewGuid().ToString("N").Substring(0, 10);
+            string id = "sv-" + Guid.NewGuid().ToString("N").Substring(0, 17);
             tbl_service.id = id;
             if (ModelState.IsValid)
             {

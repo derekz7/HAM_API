@@ -22,10 +22,23 @@ namespace HAM_API.Controllers
             return View(tbl_user.ToList());
         }
 
+        public ActionResult Search(string searchString)
+        {
+            var users = db.tbl_user.ToList();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(u => u.name.Contains(searchString) || u.username.Contains(searchString)).ToList();
+            }
+
+            return View("Index", users);
+        }
+
 
         // GET: User/Details/5
         public ActionResult Details(string id)
         {
+            List<tbl_booking> bookinglist = new List<tbl_booking>();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -35,6 +48,7 @@ namespace HAM_API.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.bookingList = db.tbl_booking.Where(x => x.user_id == id).ToList();
             return View(tbl_user);
         }
 

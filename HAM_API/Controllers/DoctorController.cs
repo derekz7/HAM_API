@@ -21,6 +21,18 @@ namespace HAM_API.Controllers
             return View(tbl_doctor.ToList());
         }
 
+        public ActionResult Search(string searchString)
+        {
+            var doctors = db.tbl_doctor.ToList();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                doctors = doctors.Where(u => u.name.Contains(searchString) || u.tbl_department.name.Contains(searchString)).ToList();
+            }
+
+            return View("Index", doctors);
+        }
+
         // GET: Doctor/Details/5
         public ActionResult Details(string id)
         {
@@ -51,7 +63,7 @@ namespace HAM_API.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "name,room,dep_id, imgUrl")] tbl_doctor tbl_doctor)
         {
-            string id = "dc-" + Guid.NewGuid().ToString().Substring(0, 15);
+            string id = "dc-" + Guid.NewGuid().ToString("N").Substring(0, 17);
             tbl_doctor.id = id;
             if (ModelState.IsValid)
             {

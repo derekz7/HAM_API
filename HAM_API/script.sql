@@ -85,7 +85,7 @@ create table tbl_booking(
 	order_num int,
 	date DATE,
 	time nvarchar(20),
-	price varchar(20),
+	price int,
 	status nvarchar(100),
 	pt_id varchar(20),
 	user_id varchar(20),
@@ -96,6 +96,8 @@ create table tbl_booking(
 	constraint fk_dc_id foreign key (dc_id) references tbl_doctor(id),
 	constraint fk_sv_id foreign key (sv_id) references tbl_service(id),
 )
+go
+alter table tbl_booking alter column price int
 go
 
 create table tbl_prescription(
@@ -123,8 +125,10 @@ drop table tbl_news
 delete tbl_role
 ALTER TABLE tbl_role ALTER COLUMN role_name nvarchar(100);
 
-select * from tbl_role
+select * from tbl_booking
 insert into tbl_role (role_name) values ('Administrator')
 insert into tbl_role (role_name) values ('Doctor')
 insert into tbl_role (role_name) values ('User')
+
+delete tbl_booking
 

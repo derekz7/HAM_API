@@ -1,4 +1,5 @@
 ﻿using HAM_API.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -110,6 +111,8 @@ namespace HAM_API.Controllers.api
         [ResponseType(typeof(tbl_user))]
         public IHttpActionResult CreateUser(tbl_user tbl_user)
         {
+            string id = "u-" + Guid.NewGuid().ToString("N").Substring(0,18);
+            tbl_user.id = id;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

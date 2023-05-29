@@ -17,14 +17,14 @@ namespace HAM_API.Controllers.api
         private DBContext db = new DBContext();
 
         // GET: api/Booking
-        public IQueryable<tbl_booking> Gettbl_booking()
+        public IQueryable<tbl_booking> GetBookingList()
         {
             return db.tbl_booking;
         }
 
         // GET: api/Booking/5
         [ResponseType(typeof(tbl_booking))]
-        public IHttpActionResult Gettbl_booking(string id)
+        public IHttpActionResult GetBookingById(string id)
         {
             tbl_booking tbl_booking = db.tbl_booking.Find(id);
             if (tbl_booking == null)
@@ -37,7 +37,7 @@ namespace HAM_API.Controllers.api
 
         // PUT: api/Booking/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult Puttbl_booking(string id, tbl_booking tbl_booking)
+        public IHttpActionResult BookingUpdate(string id, tbl_booking tbl_booking)
         {
             if (!ModelState.IsValid)
             {
@@ -70,10 +70,49 @@ namespace HAM_API.Controllers.api
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+
+        [ResponseType(typeof(void))]
+        public IHttpActionResult ChangeStatus(string id, string status)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            tbl_booking booking = db.tbl_booking.Find(id) as tbl_booking;
+            if (booking == null)
+            {
+                return BadRequest();
+            }
+            booking.status = status;
+
+            db.Entry(booking).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!tbl_bookingExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+
+
         // POST: api/Booking
         [ResponseType(typeof(tbl_booking))]
-        public IHttpActionResult Posttbl_booking(tbl_booking tbl_booking)
+        public IHttpActionResult Create(tbl_booking tbl_booking)
         {
+            tbl_booking.status = "Pending";
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -102,7 +141,7 @@ namespace HAM_API.Controllers.api
 
         // DELETE: api/Booking/5
         [ResponseType(typeof(tbl_booking))]
-        public IHttpActionResult Deletetbl_booking(string id)
+        public IHttpActionResult Delete(string id)
         {
             tbl_booking tbl_booking = db.tbl_booking.Find(id);
             if (tbl_booking == null)

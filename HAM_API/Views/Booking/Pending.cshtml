@@ -1,0 +1,121 @@
+﻿@model List<HAM_API.Models.tbl_booking>
+@{
+    ViewBag.Title = "Pending";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Data/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+<!-- Main Content -->
+
+@if (Model.Count() > 0)
+{
+    <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex align-items-center">
+                <h4 class="m-0 font-weight-bold text-primary flex-grow-1">Danh sách lịch chờ khám</h4>
+            </div>
+            <div class="card-body table-wrapper-scroll-y">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr class="thead-dark">
+                            <th style="color:white"> STT</th>
+                            <th style="color:white"> Họ tên</th>
+                            <th style="color:white"> Ngày khám</th>
+                            <th style="color:white"> Giờ khám</th>
+                            <th style="color:white"> Bác sĩ</th>
+                            <th style="color:white"> Trạng thái</th>
+                            <th style="color:white"> Tuỳ chọn</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            DateTime date = Convert.ToDateTime(item.date);
+
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.order_num)
+                                </td>
+                                <td>
+                                    <form action="/Booking/Details" method="post">
+                                        @Html.Hidden("id", item.id)
+                                        <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;">
+                                            <b><span style="color: blue;">@Html.DisplayFor(modelItem => item.tbl_patient.pt_name)</span></b>
+                                        </button>
+                                    </form>
+                                </td>
+
+                                <td>
+                                    @date.ToString("dd/MM/yyyy")
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.time)
+                                </td>
+
+                                <td>
+                                    <form action="/Doctor/Details" method="post">
+                                        @Html.Hidden("id", item.dc_id)
+                                        <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;">
+                                            <b><span style="color: blue;">@Html.DisplayFor(modelItem => item.tbl_doctor.name)</span></b>
+                                        </button>
+                                    </form>
+                                </td>
+
+                                @{
+                                    if (item.status == "Pending" || item.status == "Chờ khám")
+                                    {
+                                        <td style="color: orange"><b>@item.status</b></td>
+                                    }
+                                    else if (item.status == "Successful" || item.status == "Đã khám")
+                                    {
+                                        <td style="color: limegreen"><b>@item.status</b></td>
+                                    }
+                                    else
+                                    {
+                                        <td style="color: gray"><b>@item.status</b></td>
+                                    }
+                                }
+                                <td style="text-align : center">
+                                    <span>
+                                        @Html.ActionLink("✔", "ChangeState", new { id = item.id }, new { @class = "btn btn-success" })
+                                    </span>
+                                    <span>
+                                        @Html.ActionLink("Huỷ", "Cancel", new { id = item.id }, new { @class = "btn btn-secondary" })
+                                    </span>
+
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h4 class="m-0 font-weight-bold text-primary">Không có lịch khám nào đang chờ</h4>
+                <a class="float-lg-right btn btn-primary" href="/Booking/Create">Tạo mới</a>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts {
+    <style>
+        .table-wrapper-scroll-y {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+}
+

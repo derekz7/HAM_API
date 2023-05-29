@@ -19,8 +19,7 @@ namespace HAM_API.Models
         [StringLength(20)]
         public string time { get; set; }
 
-        [StringLength(20)]
-        public string price { get; set; }
+        public int? price { get; set; }
 
         [StringLength(100)]
         public string status { get; set; }

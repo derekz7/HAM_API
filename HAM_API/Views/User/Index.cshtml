@@ -16,16 +16,16 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex align-items-center">
                 <h4 class="m-0 font-weight-bold text-primary flex-grow-1">Danh sách người dùng</h4>
-                @*<form class="form-inline" id="searchUserForm">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="searchUserInput" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
+                <form class="form-inline" id="searchUserForm" action="/User/Search" method="get">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="searchUserInput" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </form>*@
+                    </form>
                 <a class="btn btn-success ml-3" href="/User/Create">Tạo mới</a>
             </div>
             <div class="card-body table-wrapper-scroll-y">
@@ -79,7 +79,15 @@
 }
 else
 {
-    <h4 class="m-lg-5 font-weight-light text-primary">No user exists</h4>
+    <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h4 class="m-0 font-weight-bold text-primary">No user exists</h4>
+                <a class="float-lg-right btn btn-primary" href="/User/Create">Tạo mới</a>
+            </div>
+        </div>
+    </div>
 }
 
 @section scripts {
@@ -89,4 +97,15 @@ else
             overflow-y: auto;
         }
     </style>
+
+    <script>
+        $(document).ready(function () {
+            $("#searchUserForm").submit(function (event) {
+                event.preventDefault(); // Prevent the default form submission
+                var searchString = $("#searchUserInput").val();
+                window.location.href = "/User/Search?searchString=" + searchString;
+            });
+        });
+
+    </script>
 }
