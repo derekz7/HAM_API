@@ -1,0 +1,65 @@
+﻿@model HAM_API.Models.tbl_patient
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    DateTime dob = Convert.ToDateTime(Model.dob);
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-primary">@Html.DisplayFor(model => model.pt_name)</h4>
+            <p class="m-0 font-weight-light"> ID: @Html.DisplayFor(model => model.id)</p>
+            <p class="m-0 font-weight-light"> User ID: @Html.DisplayFor(model => model.user_id)</p>
+        </div>
+        <div class="card-body">
+
+            <dl class="dl-horizontal " width="100%" cellspacing="0">
+
+                <dt style="padding-bottom : 10px">
+                    Username:
+                    <b>
+                        @Html.DisplayFor(model => model.tbl_user.username)
+                    </b>
+                </dt>
+
+                <dt style="padding-bottom : 10px">
+                    Ngày sinh: <b>@dob.ToString("dd/MM/yyyy")</b>
+                </dt>
+                <dt style="padding-bottom : 10px">
+                    Giới tính: @{
+                        if (Model.gender == "0")
+                        {
+                            <b>Nữ</b>
+                        }
+                        else if (Model.gender == "1")
+                        {
+
+
+                            <b>Nam</b>
+                        }
+                        else
+                        {
+                            <b>Không xác định</b>
+                        }
+                    }
+                </dt>
+                <dt style="padding-bottom : 10px">
+                    Công việc: <b>@Model.job</b>
+                </dt>
+                <dt style="padding-bottom : 10px">
+                    Địa chỉ: <b>@Model.address</b>
+                </dt>
+            </dl>
+
+        </div>
+        <div class="card-footer py-3">
+            <p>
+                <a style="margin-right: 20px" class="btn btn-secondary" href="/Patient/Index">Quay lại</a>
+                @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.id }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Xóa", "Delete", new { id = Model.id }, new { @class = "btn btn-danger" })
+            </p>
+        </div>
+    </div>
+</div>

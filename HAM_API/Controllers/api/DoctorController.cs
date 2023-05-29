@@ -36,6 +36,17 @@ namespace HAM_API.Controllers.api
         }
 
         [HttpGet]
+        [Route("api/Doctor/available")]
+        public IHttpActionResult GetAvailableDoctors()
+        {
+            var doctors = db.tbl_doctor
+                .Where(d => !db.tbl_booking.Any(b => b.dc_id == d.id && b.status == "Pending"))
+                .ToList();
+
+            return Ok(doctors);
+        }
+
+        [HttpGet]
         public List<tbl_doctor> GetDoctorByDepartment(string depid)
         {
             return db.tbl_doctor.Where(x => x.dep_id == depid).ToList();

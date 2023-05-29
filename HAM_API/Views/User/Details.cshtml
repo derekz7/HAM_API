@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
-   // DateTime dob = Convert.ToDateTime(Model.dob);
+    // DateTime dob = Convert.ToDateTime(Model.dob);
     string imgUrl = Model.img;
 }
 
@@ -15,56 +15,134 @@
             <p class="m-0 font-weight-light"> ID: @Html.DisplayFor(model => model.id)</p>
         </div>
         <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <dl class="dl-horizontal " width="100%" cellspacing="0">
+                        <dt style="padding-bottom : 10px">
+                            Vai trò: <b style="color:limegreen">@Html.DisplayFor(model => model.tbl_role.role_name)</b>
+                        </dt>
 
-            <dl class="dl-horizontal " width="100%" cellspacing="0">
-                <dt style="padding-bottom : 10px">
-                    Vai trò: <b style="color:limegreen">@Html.DisplayFor(model => model.tbl_role.role_name)</b>
-                </dt>
+                        <dt style="padding-bottom : 10px">
+                            Username:
+                            <b>
+                                @Html.DisplayFor(model => model.username)
+                            </b>
+                        </dt>
 
-                <dt style="padding-bottom : 10px">
-                    Username:
-                    <b>
-                        @Html.DisplayFor(model => model.username)
-                    </b>
-                </dt>
+                        <dt style="padding-bottom : 10px">
+                            Email:
+                            <b>
+                                @Html.DisplayFor(model => model.email)
+                            </b>
+                        </dt>
 
-                <dt style="padding-bottom : 10px">
-                    Email:
-                    <b>
-                        @Html.DisplayFor(model => model.email)
-                    </b>
-                </dt>
+                        <dt style="padding-bottom : 10px">
+                            Mật khẩu: <b>@Html.DisplayFor(model => model.pw)</b>
+                        </dt>
 
-                <dt style="padding-bottom : 10px">
-                    Mật khẩu: <b>@Html.DisplayFor(model => model.pw)</b>
-                </dt>
+                        <dt style="padding-bottom : 10px">
+                            Số điện thoại: <b>
+                                @Html.DisplayFor(model => model.p_number)
+                            </b>
+                        </dt>
+
+                        @if (imgUrl != null)
+                        {
+                            <dt style="padding-bottom : 10px">
+                                <img src="@imgUrl" width="100" height="100" />
+                            </dt>
+                        }
+                        else
+                        {
+                            <dt style="padding-bottom : 10px">
+                                <img src="~/Content/img/default_user_imag.jpg" width="100" height="100" />
+                            </dt>
+                        }
+                    </dl>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 ">
+                    @{
+                        List<HAM_API.Models.tbl_booking> bookingList = ViewBag.bookingList as List<HAM_API.Models.tbl_booking>;
+                        if (bookingList.Count() > 0)
+                        {
+                            <h6 class="m-1 font-weight-bold text-secondary">Lịch sử đặt khám</h6>
+                            <hr />
+                            <!-- Add a new div for the table on the right -->
+                            <table class="table table-bordered table-wrapper-scroll-y" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr class="thead-dark">
+                                        <th style="color:white"> Số khám</th>
+                                        <th style="color:white"> Họ tên</th>
+                                        <th style="color:white"> Ngày khám</th>
+                                        <th style="color:white"> Giờ khám</th>
+                                        <th style="color:white"> Bác sĩ</th>
+                                        <th style="color:white"> Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in bookingList)
+                                    {
+                                        DateTime date = Convert.ToDateTime(item.date);
+                                        <tr>
+                                            <td class="text-center">
+                                                <b>
+                                                    @Html.DisplayFor(modelItem => item.order_num)
+                                                </b>
+
+                                            </td>
+                                            <td class="col-3">
+                                                <form action="/Booking/Details" method="post">
+                                                    @Html.Hidden("id", item.id)
+                                                    <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;">
+                                                        <b><span style="color: blue;">@Html.DisplayFor(modelItem => item.tbl_patient.pt_name)</span></b>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                @date.ToString("dd/MM/yyyy")
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.time)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.tbl_doctor.name)
+                                            </td>
+
+                                            @{
+                                                if (item.status == "Pending" || item.status == "Chờ khám")
+                                                {
+                                                    <td style="color: orange"><b>@item.status</b></td>
+                                                }
+                                                else if (item.status == "Successful" || item.status == "Đã khám")
+                                                {
+                                                    <td style="color: limegreen"><b>@item.status</b></td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="color: gray"><b>@item.status</b></td>
+                                                }
+                                            }
 
 
-                @*<dt style="padding-bottom : 10px">
-            Ngày sinh: <b>@dob.ToString("dd/MM/yyyy")</b>
-        </dt>*@
-
-                <dt style="padding-bottom : 10px">
-                    Số điện thoại: <b>
-                        @Html.DisplayFor(model => model.p_number)
-                    </b>
-                </dt>
-
-                @if (imgUrl != null)
-                {
-                    <dt style="padding-bottom : 10px">
-                        <img src="@imgUrl" width="100" height="100" />
-                    </dt>
-                }
-                else
-                {
-                    <dt style="padding-bottom : 10px">
-                        <img src="~/Content/img/default_user_imag.jpg" width="100" height="100" />
-                    </dt>
-                }
-            </dl>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <div class="card-body" style="float: right; width: 60%;">
+                                <h6 class="m-0 font-weight-bold text-secondary">Người dùng chưa đặt lịch khám nào</h6>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
 
         </div>
+
         <div class="card-footer py-3">
             <p>
                 <a style="margin-right: 20px" class="btn btn-secondary" href="/User/Index">Quay lại</a>
@@ -74,3 +152,11 @@
         </div>
     </div>
 </div>
+@section scripts {
+    <style>
+        .table-wrapper-scroll-y {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+}

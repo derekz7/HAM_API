@@ -5,47 +5,48 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>tbl_doctor</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.tbl_department.name)
-        </dt>
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-primary">@Html.DisplayFor(model => model.name)</h4>
+            <p class="m-0 font-weight-light"> ID: @Html.DisplayFor(model => model.id)</p>
+        </div>
+        <div class="card-body">
 
-        <dd>
-            @Html.DisplayFor(model => model.tbl_department.name)
-        </dd>
+            <dl class="dl-horizontal " width="100%" cellspacing="0">
+                <dt style="padding-bottom : 10px">
+                    Chuyên khoa: <b style="color:limegreen">@Html.DisplayFor(model => model.tbl_department.name)</b>
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.tbl_user.email)
-        </dt>
+                <dt style="padding-bottom : 10px">
+                    Phòng:
+                    <b>
+                        @Html.DisplayFor(model => model.room)
+                    </b>
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.tbl_user.email)
-        </dd>
+                @if (Model.imgUrl != null)
+                {
+                    <dt style="padding-bottom : 10px">
+                        <img src="@Model.imgUrl" width="100" height="100" />
+                    </dt>
+                }
+                else
+                {
+                    <dt style="padding-bottom : 10px">
+                        <img src="~/Content/img/doctordefault.png" width="100" height="100" />
+                    </dt>
+                }
+            </dl>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.room)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.room)
-        </dd>
-
-    </dl>
+        </div>
+        <div class="card-footer py-3">
+            <p>
+                <a style="margin-right: 20px" class="btn btn-secondary" href="/Doctor/Index">Quay lại</a>
+                @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.id }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Xóa", "Delete", new { id = Model.id }, new { @class = "btn btn-danger" })
+            </p>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

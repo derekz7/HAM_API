@@ -30,10 +30,6 @@ namespace HAM_API.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<tbl_booking>()
-                .Property(e => e.price)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<tbl_booking>()
                 .Property(e => e.pt_id)
                 .IsUnicode(false);
 
