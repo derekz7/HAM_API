@@ -445,6 +445,7 @@
     <Compile Include="Controllers\api\BookingController.cs" />
     <Compile Include="Controllers\api\DepartmentController.cs" />
     <Compile Include="Controllers\api\DoctorController.cs" />
+    <Compile Include="Controllers\api\NewsController.cs" />
     <Compile Include="Controllers\api\PatientController.cs" />
     <Compile Include="Controllers\api\PatientRelativeController.cs" />
     <Compile Include="Controllers\api\PrescriptionController.cs" />
@@ -456,6 +457,7 @@
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -502,12 +504,15 @@
     <Content Include="Content\img\undraw_rocket.svg" />
     <Content Include="Data\css\sb-admin-2.css" />
     <Content Include="Data\css\sb-admin-2.min.css" />
+    <Content Include="Data\css\styles.css" />
+    <Content Include="Data\datatables-simple-demo.js" />
     <Content Include="Data\js\demo\chart-area-demo.js" />
     <Content Include="Data\js\demo\chart-bar-demo.js" />
     <Content Include="Data\js\demo\chart-pie-demo.js" />
     <Content Include="Data\js\demo\datatables-demo.js" />
     <Content Include="Data\js\sb-admin-2.js" />
     <Content Include="Data\js\sb-admin-2.min.js" />
+    <Content Include="Data\scripts.js" />
     <Content Include="Data\vendor\bootstrap\js\bootstrap.bundle.js" />
     <Content Include="Data\vendor\bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="Data\vendor\bootstrap\js\bootstrap.js" />
@@ -2431,6 +2436,11 @@
     <Content Include="Views\Patient\Edit.cshtml" />
     <Content Include="Views\Patient\Index.cshtml" />
     <Content Include="Views\Patient\CannotDeletePatient.cshtml" />
+    <Content Include="Views\News\Create.cshtml" />
+    <Content Include="Views\News\Delete.cshtml" />
+    <Content Include="Views\News\Details.cshtml" />
+    <Content Include="Views\News\Edit.cshtml" />
+    <Content Include="Views\News\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,15 +17,15 @@
             <div class="card-header py-3 d-flex align-items-center">
                 <h4 class="m-0 font-weight-bold text-primary flex-grow-1">Danh sách người dùng</h4>
                 <form class="form-inline" id="searchUserForm" action="/User/Search" method="get">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="searchUserInput" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="searchUserInput" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
                         </div>
-                    </form>
+                    </div>
+                </form>
                 <a class="btn btn-success ml-3" href="/User/Create">Tạo mới</a>
             </div>
             <div class="card-body table-wrapper-scroll-y">
@@ -50,7 +50,7 @@
                                     <form action="/User/Details" method="post">
                                         @Html.Hidden("id", item.id)
                                         <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;">
-                                            <b><span style="color: blue;">@Html.DisplayFor(modelItem => item.name)</span></b>
+                                            <b><span class="text-primary">@Html.DisplayFor(modelItem => item.name)</span></b>
                                         </button>
                                     </form>
                                 </td>

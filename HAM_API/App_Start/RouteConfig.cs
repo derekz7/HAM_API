@@ -36,6 +36,12 @@ namespace HAM_API
             defaults: new { controller = "Patient", action = "Search" }
             );
 
+            routes.MapRoute(
+            name: "CannotDeletePatient",
+            url: "Patient/CannotDeletePatient",
+            defaults: new { controller = "Patient", action = "CannotDeletePatient" }
+          );
+
         }
     }
 }
