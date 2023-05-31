@@ -1,12 +1,16 @@
-﻿@model int
-
+﻿@model HAM_API.Models.tbl_patient
 @{
     ViewBag.Title = "Cannot Delete Patient";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Cannot Delete Patient</h2>
-
-<p>There are bookings associated with this patient. You cannot delete the patient at this time.</p>
-
-<a href="@Url.Action("Details", new { id = Model })" class="btn btn-primary">Back to Patient Details</a>
+<div class="container-fluid">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-secondary">Cannot Delete Patient</h4>
+            <p>There are bookings associated with this patient. You cannot delete the patient at this time.</p>
+            <p>@Html.ActionLink("Back to detail", "Details", new { id = Model.id }, new { @class = "btn btn-primary" })</p>
+        </div>
+    </div>
+</div>

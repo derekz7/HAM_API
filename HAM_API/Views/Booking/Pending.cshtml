@@ -44,7 +44,7 @@
                                     <form action="/Booking/Details" method="post">
                                         @Html.Hidden("id", item.id)
                                         <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;">
-                                            <b><span style="color: blue;">@Html.DisplayFor(modelItem => item.tbl_patient.pt_name)</span></b>
+                                            <b><span class="text-primary">@Html.DisplayFor(modelItem => item.tbl_patient.pt_name)</span></b>
                                         </button>
                                     </form>
                                 </td>
@@ -60,7 +60,7 @@
                                     <form action="/Doctor/Details" method="post">
                                         @Html.Hidden("id", item.dc_id)
                                         <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;">
-                                            <b><span style="color: blue;">@Html.DisplayFor(modelItem => item.tbl_doctor.name)</span></b>
+                                            <b><span class="text-primary">@Html.DisplayFor(modelItem => item.tbl_doctor.name)</span></b>
                                         </button>
                                     </form>
                                 </td>

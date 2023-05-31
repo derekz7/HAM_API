@@ -151,9 +151,18 @@ namespace HAM_API.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult CannotDeletePatient()
+        public ActionResult CannotDeletePatient(string id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            tbl_patient tbl_patient = db.tbl_patient.Find(id);
+            if (tbl_patient == null)
+            {
+                return HttpNotFound();
+            }
+            return View(tbl_patient);
         }
     }
 }
