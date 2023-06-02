@@ -15,8 +15,12 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex align-items-center">
-                <h4 class="m-0 font-weight-bold text-primary flex-grow-1">Danh sách hồ sơ khám bệnh</h4>
-                <form class="form-inline" id="searchPatientForm" action="/Patient/Search" method="get">
+                <div>
+                    <h4 class="m-0 font-weight-bold text-primary">Danh sách hồ sơ khám bệnh</h4>
+                    <p class="text-secondary font-italic">Vui lòng chọn quản lý người dùng để thêm hồ sơ khám bệnh mới</p>
+                </div>
+
+                <form class="form-inline ml-auto" id="searchPatientForm" action="/Patient/Search" method="get">
                     <div class="input-group">
                         <input type="text" class="form-control" id="searchPatientInput" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                         <div class="input-group-append">
@@ -26,8 +30,8 @@
                         </div>
                     </div>
                 </form>
-                <a class="btn btn-success ml-3" href="/Patient/Create">Tạo mới</a>
             </div>
+
             <div class="card-body table-wrapper-scroll-y">
                 <table class="table table-bordered" id="dataTableUser" width="100%" cellspacing="0">
                     <thead>
@@ -102,7 +106,7 @@ else
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h4 class="m-0 font-weight-bold text-primary">No patient exists</h4>
-                <a class="float-lg-right btn btn-primary" href="/Patient/Create">Tạo mới</a>
+                <p class="text-secondary font-italic">Vui lòng chọn quản lý người dùng để thêm hồ sơ khám bệnh mới</p>
             </div>
         </div>
     </div>

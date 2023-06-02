@@ -3,41 +3,41 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
-<h2>Details</h2>
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-primary">@Html.DisplayFor(model => model.title)</h4>
+            <p class="m-0 font-weight-light"> ID: @Html.DisplayFor(model => model.id)</p>
+        </div>
+        <div class="card-body">
 
-<div>
-    <h4>tbl_news</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.title)
-        </dt>
+            <dl class="dl-horizontal " width="100%" cellspacing="0">
 
-        <dd>
-            @Html.DisplayFor(model => model.title)
-        </dd>
+                <dt style="padding-bottom : 10px">
+                    Nội dung:
+               
+                        @Html.DisplayFor(model => model.body)
+             
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.body)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.body)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.imgUrl)
-        </dt>
+                <dt style="padding-bottom : 10px">
+                    <img src="@Model.imgUrl" width="100" height="100" />
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.imgUrl)
-        </dd>
+            </dl>
 
-    </dl>
+        </div>
+        <div class="card-footer py-3">
+            <p>
+                <a style="margin-right: 20px" class="btn btn-secondary" href="/User/Index">Quay lại</a>
+                @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.id }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Xóa", "Delete", new { id = Model.id }, new { @class = "btn btn-danger" })
+            </p>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

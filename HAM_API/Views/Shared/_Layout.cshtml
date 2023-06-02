@@ -19,17 +19,15 @@
     <!-- Custom styles for this template-->
     <link href="~/Data/css/sb-admin-2.min.css" rel="stylesheet">
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
-
 </head>
 
 <body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-        <div class="sidebar-wrapper">
+        <div class="sidebar-wrapper bg-gradient-primary">
             <!-- Sidebar -->
-            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <ul class="navbar-nav  sidebar sidebar-dark accordion" id="accordionSidebar">
                 <li class="nav-item">
                     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="~/Home/Index">
                         <div class="sidebar-brand-icon rotate-n-15">
@@ -73,9 +71,13 @@
                                 <i class="fas fa-fw fa-spinner"></i>
                                 <span>Lịch khám đang chờ</span>
                             </a>
-                            <a class="collapse-item" href="buttons.html">
+                            <a class="collapse-item" href="/Booking/Complete">
                                 <i class="fas fa-fw fa-check"></i>
-                                <span>Lịch khám đã khám</span>
+                                <span>Lịch đã khám</span>
+                            </a>
+                            <a class="collapse-item" href="/Booking/Canceled">
+                                <i class="fas fa-fw fa-times"></i>
+                                <span>Lịch khám đã hủy</span>
                             </a>
                         </div>
                     </div>
@@ -303,10 +305,6 @@
     <!-- Page level custom scripts -->
     <script src="~/Data/js/demo/chart-area-demo.js"></script>
     <script src="~/Data/js/demo/chart-pie-demo.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
     @RenderSection("scripts", required: false)
 

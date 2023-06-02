@@ -22,6 +22,13 @@ namespace HAM_API.Controllers.api
             return db.tbl_news;
         }
 
+        public List<tbl_news> Get3NewestNews()
+        {
+            List<tbl_news> newestNews = db.tbl_news.OrderByDescending(n => n.postDate).Take(3).ToList();
+            return newestNews;
+
+        }
+
         // GET: api/News/5
         [ResponseType(typeof(tbl_news))]
         public IHttpActionResult GetPostById(string id)

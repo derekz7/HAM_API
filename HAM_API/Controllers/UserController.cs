@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HAM_API.Models;
+using OfficeOpenXml;
 
 namespace HAM_API.Controllers
 {
@@ -20,6 +21,72 @@ namespace HAM_API.Controllers
         {
             var tbl_user = db.tbl_user.Include(t => t.tbl_role);
             return View(tbl_user.ToList());
+        }
+
+        [HttpGet]
+        public ActionResult CreatePatient(string id)
+        {
+            // Get the user with the specified ID from the database
+            tbl_user user = db.tbl_user.Find(id);
+
+            // Create a new patient with the user ID
+            tbl_patient patient = new tbl_patient()
+            {
+                user_id = user.id
+            };
+
+            // Pass the patient object to the Create view of the Patient controller
+            return RedirectToAction("Create", "Patient", patient);
+        }
+
+        public ActionResult LoadData()
+        {
+            List<tbl_user> users = ReadExcelToList(@"D:\Project\Đồ án tốt nghiệp\Data.xlsx");
+            db.tbl_user.AddRange(users);
+            db.SaveChanges();
+            return View("Index",users);
+        }
+
+        public List<tbl_user> ReadExcelToList(string filePath)
+        {
+            List<tbl_user> userList = new List<tbl_user>();
+
+            try
+            {
+                FileInfo file = new FileInfo(filePath);
+                using (ExcelPackage package = new ExcelPackage(file))
+                {
+                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+
+                    int rowCount = worksheet.Dimension.Rows;
+                    int colCount = worksheet.Dimension.Columns;
+
+                    // Assuming the first row contains headers
+                    int startRow = 1;
+
+                    for (int row = startRow; row <= rowCount; row++)
+                    {
+                        string id = "u-" + Guid.NewGuid().ToString().Substring(0, 15);
+                        tbl_user user = new tbl_user();
+                        user.id = id;
+                        user.role_id = 2;
+                        user.name = worksheet.Cells[row, 1]?.Value?.ToString();
+                        user.username = worksheet.Cells[row, 4]?.Value?.ToString();
+                        user.email = worksheet.Cells[row, 5]?.Value?.ToString();
+                        user.pw = worksheet.Cells[row, 6]?.Value?.ToString();
+                        user.p_number = worksheet.Cells[row, 7]?.Value?.ToString();
+                        user.img = "https://imgur.com/yWLxOxv.png";
+                        userList.Add(user);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return userList;
         }
 
         public ActionResult Search(string searchString)
@@ -37,7 +104,7 @@ namespace HAM_API.Controllers
 
         // GET: User/Details/5
         public ActionResult Details(string id)
-        {
+        {   
             List<tbl_booking> bookinglist = new List<tbl_booking>();
             if (id == null)
             {
@@ -49,6 +116,7 @@ namespace HAM_API.Controllers
                 return HttpNotFound();
             }
             ViewBag.bookingList = db.tbl_booking.Where(x => x.user_id == id).ToList();
+            ViewBag.patientList = db.tbl_patient.Where(x => x.user_id.Equals(id)).ToList();
             return View(tbl_user);
         }
 

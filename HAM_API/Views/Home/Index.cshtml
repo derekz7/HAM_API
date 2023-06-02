@@ -97,82 +97,51 @@
 
     <div class="row">
 
-        <!-- Pie Chart -->
-        <div class="col-xl-4 col-lg-5">
-            <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Thống kê lịch khám</h6>
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                             aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+        <div class="col-lg-12 mb-6">
+
+            @{
+                List<HAM_API.Models.tbl_news> news = ViewBag.news as List<HAM_API.Models.tbl_news>;
+                if (news != null && news.Count > 0)
+                {
+                    foreach (var item in news.OrderByDescending(b => b.postDate))
+                    {
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">@item.title</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="text-center">
+                                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                                         src="@item.imgUrl" alt="...">
+                                </div>
+                                @{
+                                    if (item.body.Length > 300)
+                                    {
+                                        string[] lines = item.body.Substring(0, 300).Split('|');
+                                        foreach (var line in lines)
+                                        {
+                                            <p>@line</p>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        string[] lines = item.body.Substring(0, 300).Split('|');
+                                        foreach (var line in lines)
+                                        {
+                                            <p>@line</p>
+                                        }
+                                    }
+
+                                }
+                                <a target="_blank" rel="nofollow" href="/News/Index">
+                                    Xem thêm... 
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                    <div class="chart-pie pt-4 pb-2">
-                        <canvas id="myPieChart"></canvas>
-                    </div>
-                    <div class="mt-4 text-center small">
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-primary"></i> Hoàn thành
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-info"></i> Bị hủy
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-success"></i> Đang chờ
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    }
 
-        <div class="col-lg-8 mb-6">
-
-            <!-- Illustrations -->
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">HỘI CHỨNG CỔ VAI CÁNH TAY</h6>
-                </div>
-                <div class="card-body">
-                    <div class="text-center">
-                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                             src="https://login.medlatec.vn//ImagePath/images/20210414/20210414_hoi-chung-co-vai-canh-tay-1.jpg" alt="...">
-                    </div>
-                    <p>
-                        Hội chứng cổ vai cánh tay là một nhóm các triệu chứng lâm sàng liên quan đến các bệnh lý cột sống cổ có kèm theo các rối loạn chức năng rễ, dây thần kinh cột sống cổ và/hoặc tủy cổ, không liên quan tới bệnh lý viêm. Hội chứng cổ vai cánh tay (Đau dây thần kinh cánh tay) được xếp vào phạm vi chứng tý của Y học cổ truyền.
-                    </p>
-                    <a target="_blank" rel="nofollow" href="#">
-                        Xem thêm
-                    </a>
-                </div>
-            </div>
-
-            <!-- Approach -->
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">VÀI ĐIỀU CẦN BIẾT VỀ VACXIN COVID -19</h6>
-                </div>
-                <div class="card-body">
-                    <p>
-                        Vi rút Corona (CoV) là một họ vi rút ARN lớn, có thể gây bệnh cho cả động vật và con người. Từ tháng 12 năm 2019, một chủng vi rút corona mới (SARS-CoV-2) đã được xác định là căn nguyên gây dịch Viêm đường hô hấp cấp tính (COVID-19) tại thành phố Vũ Hán (tỉnh Hồ Bắc, Trung Quốc), sau đó lan rộng ra toàn thế giới gây đại dịch toàn cầu. Từ đó đến nay, vi rút cũng đột biến tạo ra nhiều biến thể khác nhau.
-                    </p>
-                    <p class="mb-0">
-                        Các biện pháp phòng bệnh chính là tiêm phòng vắc xin, phát hiện sớm để cách ly ca bệnh và đảm bảo trang bị phòng hộ cá nhân cho người có nguy cơ phơi nhiễm.
-                    </p>
-                </div>
-            </div>
+                }
+            }
 
         </div>
     </div>

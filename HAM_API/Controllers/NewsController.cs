@@ -46,10 +46,13 @@ namespace HAM_API.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,title,body,imgUrl")] tbl_news tbl_news)
+        public ActionResult Create([Bind(Include = "title,body,imgUrl")] tbl_news tbl_news)
         {
+            string id = "new" + Guid.NewGuid().ToString().Substring(0,17);
             if (ModelState.IsValid)
             {
+                tbl_news.id = id;
+                tbl_news.postDate = DateTime.Now.Date;
                 db.tbl_news.Add(tbl_news);
                 db.SaveChanges();
                 return RedirectToAction("Index");
