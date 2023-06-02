@@ -11,9 +11,17 @@
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h4 class="m-0 font-weight-bold text-primary">@Html.DisplayFor(model => model.name)</h4>
-            <p class="m-0 font-weight-light"> ID: @Html.DisplayFor(model => model.id)</p>
+            <div class="row">
+                <div class="col-md-8">
+                    <h4 class="m-0 font-weight-bold text-primary">@Html.DisplayFor(model => model.name)</h4>
+                    <p class="m-0 font-weight-light"> ID: @Html.DisplayFor(model => model.id)</p>
+                </div>
+                <div class="col-md-4 text-right">
+                    <a class="btn btn-primary" href="@Url.Action("Create", "Patient", new { userid = Model.id })">Tạo hồ sơ khám bệnh</a>
+                </div>
+            </div>
         </div>
+
         <div class="card-body">
             <div class="row">
                 <div class="col-md-8">
@@ -61,6 +69,7 @@
                     </dl>
                 </div>
             </div>
+            <hr />
             <div class="row">
                 <div class="col-md-12 ">
                     @{
@@ -68,7 +77,6 @@
                         if (bookingList.Count() > 0)
                         {
                             <h6 class="m-1 font-weight-bold text-secondary">Lịch sử đặt khám</h6>
-                            <hr />
                             <!-- Add a new div for the table on the right -->
                             <table class="table table-bordered table-wrapper-scroll-y" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
@@ -140,7 +148,78 @@
                     }
                 </div>
             </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12 ">
+                    @{
+                        List<HAM_API.Models.tbl_patient> patientList = ViewBag.patientList as List<HAM_API.Models.tbl_patient>;
+                    }
+                    @if (patientList != null && patientList.Count > 0)
+                    {
 
+                        <h6 class="m-1 font-weight-bold text-secondary">Hồ sơ đặt khám</h6>
+
+                        <table class="table table-bordered table-wrapper-scroll-y" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr class="thead-dark">
+                                    <th style="color:white"> Họ tên</th>
+                                    <th style="color:white"> Ngày sinh</th>
+                                    <th style="color:white"> Giới tính</th>
+                                    <th style="color:white"> Công việc</th>
+                                    <th style="color:white"> Địa chỉ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in patientList)
+                                {
+                                    DateTime date = Convert.ToDateTime(item.dob);
+                                    <tr>
+
+                                        <td class="col-3">
+                                            <form action="/Booking/Details" method="post">
+                                                @Html.Hidden("id", item.id)
+                                                <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;">
+                                                    <b><span class="text-primary">@Html.DisplayFor(modelItem => item.pt_name)</span></b>
+                                                </button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            @date.ToString("dd/MM/yyyy")
+                                        </td>
+                                        @{
+                                            if (item.gender == "0")
+                                            {
+                                                <td>
+                                                    Nữ
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    Nam
+                                                </td>
+                                            }
+                                        }
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.job)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.address)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    }
+                    else
+                    {
+                        <div class="card-body" style="float: right; width: 60%;">
+                            <h6 class="m-0 font-weight-bold text-secondary">Người dùng chưa tạo hồ sơ khám bệnh</h6>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
 
         <div class="card-footer py-3">

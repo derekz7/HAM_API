@@ -19,5 +19,7 @@ namespace HAM_API.Models
 
         [Column(TypeName = "ntext")]
         public string imgUrl { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime? postDate { get; set; }
     }
 }

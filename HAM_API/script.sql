@@ -117,18 +117,22 @@ create table tbl_news(
 	id varchar(20) primary key,
 	title nvarchar(200),
 	body ntext,
-	imgUrl ntext
+	imgUrl ntext,
+	postDate DATE
 )
 
 go
 drop table tbl_news
-delete tbl_role
+delete tbl_user
 ALTER TABLE tbl_role ALTER COLUMN role_name nvarchar(100);
 
-select * from tbl_booking
+select * from tbl_user
+
 insert into tbl_role (role_name) values ('Administrator')
 insert into tbl_role (role_name) values ('Doctor')
 insert into tbl_role (role_name) values ('User')
+
+
 
 delete tbl_booking
 

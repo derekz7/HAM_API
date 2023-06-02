@@ -1,6 +1,6 @@
 ﻿@model List<HAM_API.Models.tbl_booking>
 @{
-    ViewBag.Title = "Pending";
+    ViewBag.Title = "Complete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -8,14 +8,24 @@
 <link href="~/Data/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 <!-- Main Content -->
-
+    
 @if (Model.Count() > 0)
 {
     <div class="container-fluid">
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex align-items-center">
-                <h4 class="m-0 font-weight-bold text-primary flex-grow-1">Danh sách lịch chờ khám</h4>
+                <h4 class="m-0 font-weight-bold text-primary flex-grow-1">Danh sách lịch đã khám</h4>
+                <form class="form-inline" id="searchBookingCompleteForm" action="/Booking/CompleteSearch" method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="searchBookingCompleteInput" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="card-body table-wrapper-scroll-y">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -27,12 +37,11 @@
                             <th style="color:white"> Giờ khám</th>
                             <th style="color:white"> Bác sĩ</th>
                             <th style="color:white"> Trạng thái</th>
-                            <th style="color:white"> Tuỳ chọn</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.OrderByDescending(b => b.date))
                         {
                             DateTime date = Convert.ToDateTime(item.date);
 
@@ -65,25 +74,20 @@
                                     </form>
                                 </td>
 
-                                <td style="color: orange; text-align : center">
-                                    <i class="fas fa-hourglass" style="display: flex; justify-content: center; align-items: center;"></i>
-                                </td>
-
-                                <td style="text-align : center">
-                                    <span>
-                                        <a href="@Url.Action("ChangeState", new { id = item.id })" class="btn btn-success">
-                                            <i class="fas fa-check"></i>
-                                        </a>
-                                    </span>
-
-                                    <span>
-                                        <a href="@Url.Action("Cancel", new { id = item.id })" class="btn btn-danger">
-                                            <i class="fas fa-times"></i>
-                                        </a>
-                                    </span>
-
-
-                                </td>
+                                @{
+                                    if (item.status == "Pending" || item.status == "Chờ khám")
+                                    {
+                                        <td style="color: orange"><i class="fas fa-hourglass" style="display: flex; justify-content: center; align-items: center;"></i></td>
+                                    }
+                                    else if (item.status == "Successful" || item.status == "Đã khám")
+                                    {
+                                        <td style="color: limegreen"><i class="fas fa-check" style="display: flex; justify-content: center; align-items: center;"></i></td>
+                                    }
+                                    else
+                                    {
+                                        <td style="color: gray"><i class="fas fa-times" style="display: flex; justify-content: center; align-items: center;"></i></td>
+                                    }
+                                }
                             </tr>
                         }
 
@@ -99,7 +103,7 @@ else
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h4 class="m-0 font-weight-bold text-primary">Không có lịch khám nào đang chờ</h4>
+                <h4 class="m-0 font-weight-bold text-primary">Không có lịch khám nào</h4>
                 <a class="float-lg-right btn btn-primary" href="/Booking/Create">Tạo mới</a>
             </div>
         </div>
@@ -113,5 +117,14 @@ else
             overflow-y: auto;
         }
     </style>
-}
+    <script>
+        $(document).ready(function () {
+            $("#searchBookingCompleteForm").submit(function (event) {
+                event.preventDefault(); // Prevent the default form submission
+                var searchString = $("#searchBookingCompleteInput").val();
+                window.location.href = "/Booking/CompleteSearch?searchString=" + searchString;
+            });
+        });
 
+    </script>
+}

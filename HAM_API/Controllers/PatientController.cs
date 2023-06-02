@@ -49,10 +49,10 @@ namespace HAM_API.Controllers
         }
 
         // GET: Patient/Create
-        public ActionResult Create()
+        public ActionResult Create(string userid)
         {
-            ViewBag.user_id = new SelectList(db.tbl_user, "id", "username");
-            return View();
+            ViewBag.user_id = userid;
+            return View(new tbl_patient { user_id = userid });
         }
 
         // POST: Patient/Create
@@ -70,8 +70,6 @@ namespace HAM_API.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.user_id = new SelectList(db.tbl_user, "id", "username", tbl_patient.user_id);
             return View(tbl_patient);
         }
 

@@ -30,6 +30,24 @@ namespace HAM_API.Controllers
                 .Include(t => t.tbl_user).ToList();
             return View(results);
         }
+        public ActionResult Complete()
+        {
+            List<tbl_booking> results = db.tbl_booking.Where(t => t.status == "Success" || t.status == "Đã khám")
+                .Include(t => t.tbl_doctor)
+                .Include(t => t.tbl_patient)
+                .Include(t => t.tbl_service)
+                .Include(t => t.tbl_user).ToList();
+            return View(results);
+        }
+        public ActionResult Canceled()
+        {
+            List<tbl_booking> results = db.tbl_booking.Where(t => t.status == "Canceled" || t.status == "Đã hủy")
+                .Include(t => t.tbl_doctor)
+                .Include(t => t.tbl_patient)
+                .Include(t => t.tbl_service)
+                .Include(t => t.tbl_user).ToList();
+            return View(results);
+        }
 
         // GET: Booking/Details/5
         public ActionResult Details(string id)

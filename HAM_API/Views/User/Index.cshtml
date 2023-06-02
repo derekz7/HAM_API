@@ -5,6 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@{
+    var sortOrder = Request.QueryString["sortOrder"];
+    var sortOrderDirection = Request.QueryString["sortOrderDirection"] ?? "asc";
+    var sortedModel = sortOrder == "name" ? (sortOrderDirection == "asc" ? Model.OrderBy(u => u.name) : Model.OrderByDescending(u => u.name)) : Model;
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link href="~/Data/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 <!-- Main Content -->
@@ -27,12 +34,23 @@
                     </div>
                 </form>
                 <a class="btn btn-success ml-3" href="/User/Create">Tạo mới</a>
+                <a class="btn btn-success ml-3" href="/User/LoadData">Load</a>
             </div>
             <div class="card-body table-wrapper-scroll-y">
                 <table class="table table-bordered" id="dataTableUser" width="100%" cellspacing="0">
                     <thead>
-                        <tr style="Background: #456bd9">
-                            <th style="color:white"> Full name</th>
+                        <tr class="thead-dark">
+                            <th style="color:white">
+                                <a style="color:white" href="?sortOrder=@(sortOrder == "name" && sortOrderDirection == "asc" ? "name&sortOrderDirection=desc" : "name&sortOrderDirection=asc")">Full name</a>
+                                @if (sortOrder == "name")
+                                {
+                                    <i class="fas fa-sort-@(sortOrderDirection == "asc" ? "up" : "down") ml-1"></i>
+                                }
+                                else
+                                {
+                                    <i class="fas fa-sort ml-1"></i>
+                                }
+                            </th>
                             <th style="color:white"> Username</th>
                             <th style="color:white"> Email</th>
                             <th style="color:white"> Password</th>
@@ -93,7 +111,7 @@ else
 @section scripts {
     <style>
         .table-wrapper-scroll-y {
-            max-height: 400px;
+            max-height: 600px;
             overflow-y: auto;
         }
     </style>
