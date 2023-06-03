@@ -13,9 +13,9 @@ namespace HAM_API.Controllers
         DBContext db = new DBContext();
         public ActionResult Index()
         {
-            int userCount = db.tbl_user.Count();
-            int doctorCount = db.tbl_doctor.Count();
-            int DepCount = db.tbl_department.Count();
+            int userCount = db.tbl_user.ToList().Count;
+            int doctorCount = db.tbl_doctor.ToList().Count;
+            int DepCount = db.tbl_department.ToList().Count;
             int pending = db.tbl_booking.Where(x => x.status.Equals("Pending") || x.status.Equals("Chờ khám")).ToList().Count;
             ViewBag.doctorCount = doctorCount;
             ViewBag.userCount = userCount;

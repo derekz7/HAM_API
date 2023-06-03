@@ -36,6 +36,10 @@ namespace HAM_API.Models
         [StringLength(20)]
         public string sv_id { get; set; }
 
+
+        [StringLength(200)]
+        public string note { get; set; }
+
         public virtual tbl_doctor tbl_doctor { get; set; }
 
         public virtual tbl_patient tbl_patient { get; set; }

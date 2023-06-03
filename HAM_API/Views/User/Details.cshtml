@@ -172,7 +172,6 @@
                             <tbody>
                                 @foreach (var item in patientList)
                                 {
-                                    DateTime date = Convert.ToDateTime(item.dob);
                                     <tr>
 
                                         <td class="col-3">
@@ -184,7 +183,7 @@
                                             </form>
                                         </td>
                                         <td>
-                                            @date.ToString("dd/MM/yyyy")
+                                            @item.dob
                                         </td>
                                         @{
                                             if (item.gender == "0")

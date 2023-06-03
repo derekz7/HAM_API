@@ -188,7 +188,7 @@ namespace HAM_API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var emailExists = db.tbl_user.Count(x => x.email == tbl_user.email);
+                var emailExists = db.tbl_user.Count(x => x.email == tbl_user.email && x.username != tbl_user.username);
                 if (emailExists > 0 && tbl_user.email != null)
                 {
                     ModelState.AddModelError("email", "The email already exists.");
