@@ -21,8 +21,8 @@ namespace HAM_API.Models
         [StringLength(100)]
         public string pt_name { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? dob { get; set; }  
+        [StringLength(10)]
+        public string dob { get; set; }  
 
         [StringLength(1)]
         public string gender { get; set; }

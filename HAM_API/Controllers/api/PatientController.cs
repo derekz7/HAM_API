@@ -35,18 +35,19 @@ namespace HAM_API.Controllers.api
             return Ok(tbl_patient);
         }
 
-        
-        public IHttpActionResult GetPatientsByUser(string userId)
+
+        public List<tbl_patient> GetPatientsByUser(string userId)
         {
             List<tbl_patient> tbl_patients = db.tbl_patient.Where(x => x.user_id == userId).ToList();
-            if (tbl_patients == null || tbl_patients.Count == 0)
-            {
-                return NotFound();
-            }
 
-            return Ok(tbl_patients);
+            return tbl_patients;
         }
+        public List<tbl_patient> GetPatientsByUsername(string username)
+        {
+            List<tbl_patient> tbl_patients = db.tbl_patient.Where(x => x.tbl_user.username == username).ToList();
 
+            return tbl_patients;
+        }
         // PUT: api/Patient/5
         [ResponseType(typeof(void))]
         public IHttpActionResult UpdatePatient(string id, tbl_patient tbl_patient)
