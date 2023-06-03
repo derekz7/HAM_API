@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    DateTime dob = Convert.ToDateTime(Model.dob);
 }
 
 <div class="container-fluid">
@@ -25,7 +24,7 @@
                 </dt>
 
                 <dt style="padding-bottom : 10px">
-                    Ngày sinh: <b>@dob.ToString("dd/MM/yyyy")</b>
+                    Ngày sinh: <b>@Model.dob</b>
                 </dt>
                 <dt style="padding-bottom : 10px">
                     Giới tính: @{

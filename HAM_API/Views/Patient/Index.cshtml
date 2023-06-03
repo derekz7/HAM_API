@@ -48,7 +48,6 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            DateTime dob = Convert.ToDateTime(item.dob);
                             string gender = "";
                             if (item.gender == "0")
                             {
@@ -77,7 +76,7 @@
                                     @Html.DisplayFor(modelItem => item.tbl_user.username)
                                 </td>
                                 <td>
-                                    @dob.ToString("dd/MM/yyyy")
+                                    @item.dob
                                 </td>
                                 <td>
                                     @gender

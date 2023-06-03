@@ -85,7 +85,7 @@ namespace HAM_API.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.user_id = new SelectList(db.tbl_user, "id", "username", tbl_patient.user_id);
+            ViewBag.user_id = tbl_patient.user_id;
             return View(tbl_patient);
         }
 
@@ -102,7 +102,7 @@ namespace HAM_API.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.user_id = new SelectList(db.tbl_user, "id", "username", tbl_patient.user_id);
+            ViewBag.user_id = tbl_patient.user_id;
             return View(tbl_patient);
         }
 
