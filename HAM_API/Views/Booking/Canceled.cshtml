@@ -16,9 +16,9 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex align-items-center">
                 <h4 class="m-0 font-weight-bold text-primary flex-grow-1">Danh sách lịch đã hủy</h4>
-                <form class="form-inline" id="searchBookingCompleteForm" action="/Booking/CompleteSearch" method="get">
+                <form class="form-inline" id="searchBookingCanceledForm" action="/Booking/CanceledSearch" method="get">
                     <div class="input-group">
-                        <input type="text" class="form-control" id="searchBookingCompleteInput" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                        <input type="text" class="form-control" id="searchBookingCanceledInput" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="submit">
                                 <i class="fas fa-search fa-sm"></i>
@@ -31,7 +31,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr class="thead-dark">
-                            <th style="color:white"> STT</th>
+                            <th style="color:white"> Số phiếu</th>
                             <th style="color:white"> Họ tên</th>
                             <th style="color:white"> Ngày khám</th>
                             <th style="color:white"> Giờ khám</th>
@@ -43,7 +43,6 @@
                     <tbody>
                         @foreach (var item in Model.OrderByDescending(b => b.date))
                         {
-                            DateTime date = Convert.ToDateTime(item.date);
 
                             <tr>
                                 <td>
@@ -59,7 +58,7 @@
                                 </td>
 
                                 <td>
-                                    @date.ToString("dd/MM/yyyy")
+                                    @item.date
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.time)
@@ -111,10 +110,10 @@ else
     </style>
     <script>
         $(document).ready(function () {
-            $("#searchBookingCompleteForm").submit(function (event) {
+            $("#searchBookingCanceledForm").submit(function (event) {
                 event.preventDefault(); // Prevent the default form submission
-                var searchString = $("#searchBookingCompleteInput").val();
-                window.location.href = "/Booking/CompleteSearch?searchString=" + searchString;
+                var searchString = $("#searchBookingCanceledInput").val();
+                window.location.href = "/Booking/CanceledSearch?searchString=" + searchString;
             });
         });
 

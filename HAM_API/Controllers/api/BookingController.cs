@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using HAM_API.Models;
+using Microsoft.Ajax.Utilities;
 
 namespace HAM_API.Controllers.api
 {
@@ -33,6 +34,21 @@ namespace HAM_API.Controllers.api
             }
 
             return Ok(tbl_booking);
+        }
+
+        public bool checkDateTimeBooking(tbl_booking book)
+        {
+            List<tbl_booking> bookings = db.tbl_booking.Where(x => x.date == book.date).ToList();
+            if (bookings != null)
+            {
+                var check = bookings.Any(x => x.time == book.time);
+                if (check)
+                {
+                    return false;
+                }
+                return true;
+            }
+            return true;
         }
 
         // PUT: api/Booking/5

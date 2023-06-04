@@ -13,8 +13,8 @@ namespace HAM_API.Models
 
         public int? order_num { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? date { get; set; }
+        [StringLength(20)]
+        public string date { get; set; }
 
         [StringLength(20)]
         public string time { get; set; }

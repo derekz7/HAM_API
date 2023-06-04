@@ -31,7 +31,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr class="thead-dark">
-                            <th style="color:white"> STT</th>
+                            <th style="color:white"> Số phiếu</th>
                             <th style="color:white"> Họ tên</th>
                             <th style="color:white"> Ngày khám</th>
                             <th style="color:white"> Giờ khám</th>
@@ -43,7 +43,6 @@
                     <tbody>
                         @foreach (var item in Model.OrderByDescending(b => b.date))
                         {
-                            DateTime date = Convert.ToDateTime(item.date);
 
                             <tr>
                                 <td>
@@ -59,7 +58,7 @@
                                 </td>
 
                                 <td>
-                                    @date.ToString("dd/MM/yyyy")
+                                    @item.date
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.time)

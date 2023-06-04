@@ -15,13 +15,28 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex align-items-center">
-                <h4 class="m-0 font-weight-bold text-primary flex-grow-1">Danh sách lịch chờ khám</h4>
+                <div>
+                    <h4 class="m-0 font-weight-bold text-primary flex-grow-1">Danh sách lịch chờ khám</h4>
+                    <p class="text-secondary font-italic">Bạn có thể xác nhận lịch đã khám hoặc hủy lịch khám</p>
+                </div>
+
+                <form class="form-inline" id="searchBookingPendingForm" action="/Booking/PendingSearch" method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="searchBookingPendingInput" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
             </div>
             <div class="card-body table-wrapper-scroll-y">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr class="thead-dark">
-                            <th style="color:white"> STT</th>
+                            <th style="color:white"> Số phiếu</th>
                             <th style="color:white"> Họ tên</th>
                             <th style="color:white"> Ngày khám</th>
                             <th style="color:white"> Giờ khám</th>
@@ -34,7 +49,6 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            DateTime date = Convert.ToDateTime(item.date);
 
                             <tr>
                                 <td>
@@ -50,7 +64,7 @@
                                 </td>
 
                                 <td>
-                                    @date.ToString("dd/MM/yyyy")
+                                    @Html.DisplayFor(modelItem => item.date)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.time)
@@ -66,7 +80,7 @@
                                 </td>
 
                                 <td style="color: orange; text-align : center">
-                                    <i class="fas fa-hourglass" style="display: flex; justify-content: center; align-items: center;"></i>
+                                    <b>@item.status</b>
                                 </td>
 
                                 <td style="text-align : center">
@@ -113,5 +127,15 @@ else
             overflow-y: auto;
         }
     </style>
+    <script>
+        $(document).ready(function () {
+            $("#searchBookingPendingForm").submit(function (event) {
+                event.preventDefault(); // Prevent the default form submission
+                var searchString = $("#searchBookingPendingInput").val();
+                window.location.href = "/Booking/PendingSearch?searchString=" + searchString;
+            });
+        });
+
+    </script>
 }
 
