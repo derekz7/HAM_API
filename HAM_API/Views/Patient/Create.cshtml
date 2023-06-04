@@ -39,8 +39,8 @@
                     <div class="col-md-10">
                         @Html.DropDownListFor(model => model.gender, new List<SelectListItem>
                             {
-                                new SelectListItem { Text = "Nam", Value = "1" },
-                                new SelectListItem { Text = "Nữ", Value = "0" }
+                                new SelectListItem { Text = "Nam", Value = "Nam" },
+                                new SelectListItem { Text = "Nữ", Value = "Nữ" }
                             }, "-- Chọn giới tính --", new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
                     </div>

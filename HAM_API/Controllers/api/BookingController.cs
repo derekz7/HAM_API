@@ -128,12 +128,13 @@ namespace HAM_API.Controllers.api
         [ResponseType(typeof(tbl_booking))]
         public IHttpActionResult Create(tbl_booking tbl_booking)
         {
-            tbl_booking.status = "Pending";
+            tbl_booking.status = "Chờ khám";
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
+            string id = "bk-" + Guid.NewGuid().ToString("N").Substring(0, 17);
+            tbl_booking.id = id;
             db.tbl_booking.Add(tbl_booking);
 
             try

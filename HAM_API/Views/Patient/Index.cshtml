@@ -48,20 +48,7 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            string gender = "";
-                            if (item.gender == "0")
-                            {
-                                gender = "Nữ";
-                            }
-                            else if (item.gender == "1")
-                            {
-                                gender = "Nam";
-
-                            }
-                            else
-                            {
-                                gender = "Không xác định";
-                            }
+                           
 
                             <tr>
                                 <td class="col-3">
@@ -79,7 +66,7 @@
                                     @item.dob
                                 </td>
                                 <td>
-                                    @gender
+                                    @item.gender
                                 </td>
 
                                 <td>

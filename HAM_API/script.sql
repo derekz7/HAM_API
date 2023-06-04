@@ -52,6 +52,7 @@ create table tbl_patient(
 	constraint fk_userid foreign key (user_id) references tbl_user(id),
 
 )
+--alter table tbl_patient alter column gender nvarchar(10)
 go
 create table tbl_patientRelative(
 	id varchar(20) primary key,
@@ -115,7 +116,8 @@ create table tbl_news(
 	imgUrl ntext,
 	postDate DATE
 )
-
+go
+select * from tbl_news
 --insert into tbl_role (role_name) values ('Administrator')
 --insert into tbl_role (role_name) values ('Doctor')
 --insert into tbl_role (role_name) values ('User')

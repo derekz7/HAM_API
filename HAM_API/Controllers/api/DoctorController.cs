@@ -37,13 +37,11 @@ namespace HAM_API.Controllers.api
 
         [HttpGet]
         [Route("api/Doctor/available")]
-        public IHttpActionResult GetAvailableDoctors()
+        public IHttpActionResult GetAvailableDoctors(string dep_id, string date, string time)
         {
-            var doctors = db.tbl_doctor
-                .Where(d => !db.tbl_booking.Any(b => b.dc_id == d.id && b.status == "Pending"))
-                .ToList();
-
-            return Ok(doctors);
+            var doctors = db.tbl_doctor.Where(d => d.dep_id == dep_id).ToList();
+            var availableDoctors = doctors.Where(d => !d.tbl_booking.Any(b => b.dc_id == d.id && b.date == date && b.time == time));
+            return Ok(availableDoctors);
         }
 
         [HttpGet]

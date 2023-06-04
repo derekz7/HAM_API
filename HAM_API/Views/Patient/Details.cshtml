@@ -27,22 +27,7 @@
                     Ngày sinh: <b>@Model.dob</b>
                 </dt>
                 <dt style="padding-bottom : 10px">
-                    Giới tính: @{
-                        if (Model.gender == "0")
-                        {
-                            <b>Nữ</b>
-                        }
-                        else if (Model.gender == "1")
-                        {
-
-
-                            <b>Nam</b>
-                        }
-                        else
-                        {
-                            <b>Không xác định</b>
-                        }
-                    }
+                    Giới tính: <b>@Model.gender</b>
                 </dt>
                 <dt style="padding-bottom : 10px">
                     Công việc: <b>@Model.job</b>
