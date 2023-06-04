@@ -49,6 +49,51 @@ namespace HAM_API.Controllers
             return View(results);
         }
 
+        public ActionResult Search(string searchString)
+        {
+            var users = db.tbl_user.ToList();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(u => u.name.Contains(searchString) || u.username.Contains(searchString)).ToList();
+            }
+
+            return View("Index", users);
+        }
+        public ActionResult CompleteSearch(string searchString)
+        {
+            List<tbl_booking> books = db.tbl_booking.Where(x => x.status == "Đã khám").ToList();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(u => u.tbl_patient.pt_name.Contains(searchString) || u.order_num.ToString().Contains(searchString)).ToList();
+            }
+
+            return View("Index", books);
+        }
+        public ActionResult CanceledSearch(string searchString)
+        {
+            List<tbl_booking> books = db.tbl_booking.Where(x => x.status == "Đã khám").ToList();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(u => u.tbl_patient.pt_name.Contains(searchString) || u.order_num.ToString().Contains(searchString)).ToList();
+            }
+
+            return View("Index", books);
+        }
+        public ActionResult PendingSearch(string searchString)
+        {
+            List<tbl_booking> books = db.tbl_booking.Where(x => x.status == "Đã khám").ToList();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(u => u.tbl_patient.pt_name.Contains(searchString) || u.order_num.ToString().Contains(searchString)).ToList();
+            }
+
+            return View("Index", books);
+        }
+
         // GET: Booking/Details/5
         public ActionResult Details(string id)
         {
@@ -83,9 +128,8 @@ namespace HAM_API.Controllers
         {
             string id = "bk-" + Guid.NewGuid().ToString("N").Substring(0, 17);
             tbl_booking.id = id;
-            List<tbl_booking> bookings = db.tbl_booking.Where(p => p.date == tbl_booking.date).ToList();
-            int orderNum = bookings.Count;
-            tbl_booking.order_num = orderNum + 1;
+            int orderNum = new Random().Next(0, 100);
+            tbl_booking.order_num = orderNum;
             if (ModelState.IsValid)
             {
                 db.tbl_booking.Add(tbl_booking);

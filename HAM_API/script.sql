@@ -78,7 +78,7 @@ go
 create table tbl_booking(
 	id varchar(20) primary key,
 	order_num int,
-	date DATE,
+	date varchar(20),
 	time nvarchar(20),
 	price int,
 	status nvarchar(100),
@@ -92,7 +92,7 @@ create table tbl_booking(
 	constraint fk_sv_id foreign key (sv_id) references tbl_service(id),
 )
 go
-alter table tbl_booking alter column price int
+--alter table tbl_booking alter column date varchar(20)
 go
 
 create table tbl_prescription(
