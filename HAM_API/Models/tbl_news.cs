@@ -20,7 +20,10 @@ namespace HAM_API.Models
         [Column(TypeName = "ntext")]
         public string imgUrl { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? postDate { get; set; }
+        [StringLength(20)]
+        public string postDate { get; set; }
+
+        [Column(TypeName = "text")]
+        public string Url { get; set; }
     }
 }

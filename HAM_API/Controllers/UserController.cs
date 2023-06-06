@@ -89,7 +89,17 @@ namespace HAM_API.Controllers
             return userList;
         }
 
-       
+        public ActionResult Search(string searchString)
+        {
+            var users = db.tbl_user.ToList();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(u => u.name.Contains(searchString) || u.username.Contains(searchString)).ToList();
+            }
+
+            return View("Index", users);
+        }
 
 
 

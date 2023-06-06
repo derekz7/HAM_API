@@ -33,6 +33,18 @@ namespace HAM_API.Controllers.api
 
             return Ok(dep);
         }
+        [HttpGet]
+        [ResponseType(typeof(tbl_department))]
+        public IHttpActionResult GetDepByDoctor(string id)
+        {
+            var department = (from d in db.tbl_doctor
+                              join dep in db.tbl_department on d.dep_id equals dep.id
+                              where d.id == id
+                              select dep).FirstOrDefault();
+
+            return Ok(department);
+        }
+
 
         [HttpPut]
         [ResponseType(typeof(void))]

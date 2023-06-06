@@ -92,7 +92,7 @@
                                 <tbody>
                                     @foreach (var item in bookingList)
                                     {
-                                        DateTime date = Convert.ToDateTime(item.date);
+                                        
                                         <tr>
                                             <td class="text-center">
                                                 <b>
@@ -109,7 +109,7 @@
                                                 </form>
                                             </td>
                                             <td>
-                                                @date.ToString("dd/MM/yyyy")
+                                                @item.date
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.time)

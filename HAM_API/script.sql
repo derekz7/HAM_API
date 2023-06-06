@@ -39,7 +39,8 @@ create table tbl_user(
 	constraint fk_role_id foreign key (role_id) references tbl_role(id)
 )
 go
-
+CREATE INDEX idx_user_name ON tbl_user (username);
+go
 
 create table tbl_patient(
 	id varchar(20) primary key,
@@ -70,11 +71,11 @@ create table tbl_doctor(
 	name nvarchar(100),
 	room nvarchar(100),
 	dep_id varchar(20),
-	user_id varchar(20),
 	constraint fk_dep_id foreign key (dep_id) references tbl_department(id),
-	constraint fk_user_id foreign key (user_id) references tbl_user(id)
 )
 go
+alter table tbl_doctor drop column user_id
+CREATE INDEX idx_booking_doctor_id ON tbl_doctor(dep_id);
 
 create table tbl_booking(
 	id varchar(20) primary key,
@@ -92,6 +93,13 @@ create table tbl_booking(
 	constraint fk_dc_id foreign key (dc_id) references tbl_doctor(id),
 	constraint fk_sv_id foreign key (sv_id) references tbl_service(id),
 )
+go
+CREATE INDEX idx_booking_user ON tbl_booking(user_id);
+
+go
+CREATE INDEX idx_booking_doctor_id ON tbl_booking(dc_id);
+
+alter table tbl_booking drop constraint fk_dc_id
 go
 --alter table tbl_booking alter column date varchar(20)
 go
@@ -114,10 +122,49 @@ create table tbl_news(
 	title nvarchar(200),
 	body ntext,
 	imgUrl ntext,
-	postDate DATE
+	postDate varchar(20),
+	Url text
 )
 go
+alter table tbl_news add Url text
+
+go
+
+
+create table tbl_appointment(
+	id varchar(20) primary key,
+	bid varchar(20),
+	serviceName nvarchar(100),
+	orderNum int,
+	depName nvarchar(100),
+	room nvarchar(100),
+	dcName nvarchar(100),
+	date varchar(100),
+	time varchar(100),
+	ptName nvarchar(100),
+	price int,
+	status nvarchar(100)
+
+)
+CREATE INDEX idx_appointment_bid ON tbl_appointment(bid);
 select * from tbl_news
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 --insert into tbl_role (role_name) values ('Administrator')
 --insert into tbl_role (role_name) values ('Doctor')
 --insert into tbl_role (role_name) values ('User')

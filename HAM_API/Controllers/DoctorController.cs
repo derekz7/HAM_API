@@ -52,7 +52,6 @@ namespace HAM_API.Controllers
         public ActionResult Create()
         {
             ViewBag.dep_id = new SelectList(db.tbl_department, "id", "name");
-            ViewBag.user_id = new SelectList(db.tbl_user, "id", "email");
             return View();
         }
 

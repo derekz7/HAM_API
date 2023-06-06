@@ -24,14 +24,10 @@ namespace HAM_API.Controllers.api
         }
 
         [HttpGet]
-        public bool Login(string username, string password)
+        public tbl_user Login(string username, string password)
         {
             tbl_user user = db.tbl_user.Where(e => e.username == username && e.pw == password).FirstOrDefault();
-            if (user == null)
-            {
-                return false;
-            }
-            else return true;
+            return user;
         }
 
         [HttpGet]
@@ -111,7 +107,7 @@ namespace HAM_API.Controllers.api
         [ResponseType(typeof(tbl_user))]
         public IHttpActionResult CreateUser(tbl_user tbl_user)
         {
-            string id = "u-" + Guid.NewGuid().ToString("N").Substring(0,18);
+            string id = "u-" + Guid.NewGuid().ToString("N").Substring(0, 18);
             tbl_user.id = id;
             if (!ModelState.IsValid)
             {

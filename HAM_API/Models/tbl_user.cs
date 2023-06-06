@@ -20,24 +20,20 @@ namespace HAM_API.Models
         public string id { get; set; }
 
         [StringLength(20)]
-        [Required(ErrorMessage = "The username field is required.")]
         public string username { get; set; }
 
         [StringLength(100)]
-        [Required(ErrorMessage = "The name field is required.")]
         public string name { get; set; }
 
         [StringLength(20)]
-        [Required(ErrorMessage = "The password field is required.")]
         public string pw { get; set; }
 
-        [StringLength(100)]
+        [StringLength(20)]
         public string email { get; set; }
 
         public int? role_id { get; set; }
 
         [StringLength(10)]
-        [Required(ErrorMessage = "The phone number ")]
         public string p_number { get; set; }
 
         [Column(TypeName = "text")]
