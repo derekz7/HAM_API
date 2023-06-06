@@ -12,6 +12,7 @@ namespace HAM_API.Models
         {
         }
 
+        public virtual DbSet<tbl_appointment> tbl_appointment { get; set; }
         public virtual DbSet<tbl_booking> tbl_booking { get; set; }
         public virtual DbSet<tbl_department> tbl_department { get; set; }
         public virtual DbSet<tbl_doctor> tbl_doctor { get; set; }
@@ -25,8 +26,28 @@ namespace HAM_API.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<tbl_appointment>()
+                .Property(e => e.id)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tbl_appointment>()
+                .Property(e => e.bid)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tbl_appointment>()
+                .Property(e => e.date)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tbl_appointment>()
+                .Property(e => e.time)
+                .IsUnicode(false);
+
             modelBuilder.Entity<tbl_booking>()
                 .Property(e => e.id)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tbl_booking>()
+                .Property(e => e.date)
                 .IsUnicode(false);
 
             modelBuilder.Entity<tbl_booking>()
@@ -67,6 +88,10 @@ namespace HAM_API.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<tbl_doctor>()
+                .Property(e => e.imgUrl)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tbl_doctor>()
                 .HasMany(e => e.tbl_booking)
                 .WithOptional(e => e.tbl_doctor)
                 .HasForeignKey(e => e.dc_id);
@@ -85,8 +110,7 @@ namespace HAM_API.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<tbl_patient>()
-                .Property(e => e.gender)
-                .IsFixedLength()
+                .Property(e => e.dob)
                 .IsUnicode(false);
 
             modelBuilder.Entity<tbl_patient>()
@@ -161,7 +185,6 @@ namespace HAM_API.Models
                 .HasMany(e => e.tbl_booking)
                 .WithOptional(e => e.tbl_user)
                 .HasForeignKey(e => e.user_id);
-
 
             modelBuilder.Entity<tbl_user>()
                 .HasMany(e => e.tbl_patient)

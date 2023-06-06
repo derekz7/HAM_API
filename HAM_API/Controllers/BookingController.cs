@@ -127,11 +127,26 @@ namespace HAM_API.Controllers
         public ActionResult Create([Bind(Include = "order_num,date,time,price,status,pt_id,user_id,dc_id,sv_id")] tbl_booking tbl_booking)
         {
             string id = "bk-" + Guid.NewGuid().ToString("N").Substring(0, 17);
+            string idap = "ap-" + Guid.NewGuid().ToString("N").Substring(0, 17);
             tbl_booking.id = id;
             int orderNum = new Random().Next(0, 100);
             tbl_booking.order_num = orderNum;
             if (ModelState.IsValid)
             {
+                tbl_appointment apointment = new tbl_appointment();
+                apointment.id = idap;
+                apointment.bid = tbl_booking.id;
+                apointment.dcName = tbl_booking.tbl_doctor.name;
+                apointment.time = tbl_booking.time;
+                apointment.date = tbl_booking.date;
+                apointment.price = tbl_booking.price;
+                apointment.ptName = tbl_booking.tbl_patient.pt_name;
+                apointment.orderNum = orderNum;
+                apointment.serviceName = tbl_booking.tbl_service.name;
+                apointment.room = tbl_booking.tbl_doctor.room;
+                apointment.status = tbl_booking.status;
+                apointment.depName = tbl_booking.tbl_doctor.tbl_department.name;
+                db.tbl_appointment.Add(apointment);
                 db.tbl_booking.Add(tbl_booking);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -187,8 +202,12 @@ namespace HAM_API.Controllers
         public ActionResult ChangeState(string id)
         {
             tbl_booking booking = db.tbl_booking.Find(id);
+            tbl_appointment app = db.tbl_appointment.Where(x => x.bid == id).First();
             booking.status = "Đã khám";
+            app.status = booking.status;
+
             db.Entry(booking).State = EntityState.Modified;
+            db.Entry(app).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Pending");
         }
@@ -196,8 +215,11 @@ namespace HAM_API.Controllers
         public ActionResult Cancel(string id)
         {
             tbl_booking booking = db.tbl_booking.Find(id);
+            tbl_appointment app = db.tbl_appointment.Find(id);
             booking.status = "Canceled";
+            app.status = booking.status;
             db.Entry(booking).State = EntityState.Modified;
+            db.Entry(app).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Pending");
         }
@@ -210,6 +232,7 @@ namespace HAM_API.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             tbl_booking tbl_booking = db.tbl_booking.Find(id);
+        
             if (tbl_booking == null)
             {
                 return HttpNotFound();
@@ -223,6 +246,8 @@ namespace HAM_API.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             tbl_booking tbl_booking = db.tbl_booking.Find(id);
+            tbl_appointment app = db.tbl_appointment.Find(id);
+            db.tbl_appointment.Remove(app);
             db.tbl_booking.Remove(tbl_booking);
             db.SaveChanges();
             return RedirectToAction("Index");

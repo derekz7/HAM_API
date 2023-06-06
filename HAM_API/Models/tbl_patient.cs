@@ -22,7 +22,7 @@ namespace HAM_API.Models
         public string pt_name { get; set; }
 
         [StringLength(10)]
-        public string dob { get; set; }  
+        public string dob { get; set; }
 
         [StringLength(10)]
         public string gender { get; set; }
