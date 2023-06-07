@@ -28,7 +28,7 @@ namespace HAM_API.Models
         [StringLength(20)]
         public string pw { get; set; }
 
-        [StringLength(20)]
+        [StringLength(200)]
         public string email { get; set; }
 
         public int? role_id { get; set; }

@@ -36,6 +36,21 @@ namespace HAM_API.Controllers.api
             return Ok(tbl_booking);
         }
 
+        public List<tbl_booking> getAllBookingToday(string doctorId)
+        {
+            List<tbl_booking> currentDateBook = new List<tbl_booking>();
+            DateTime currentDate = DateTime.Now.Date;
+            List<tbl_booking> booking = db.tbl_booking.Where(x => x.status == "Chờ khám").ToList();
+            foreach (tbl_booking item in booking)
+            {
+                if (DateTime.ParseExact(item.date,"d/M/yyyy",null) == currentDate)
+                {
+                    currentDateBook.Add(item);
+                }
+            }
+            return currentDateBook;
+        }
+
         [HttpGet]
         [Route("api/Booking/GetBookingByUsername")]
         public List<tbl_booking> getBookingByUsername(string username)
@@ -111,12 +126,15 @@ namespace HAM_API.Controllers.api
                 return BadRequest(ModelState);
             }
             tbl_booking booking = db.tbl_booking.Find(id) as tbl_booking;
+            tbl_appointment app = db.tbl_appointment.Where(x => x.bid == id).First();
             if (booking == null)
             {
                 return BadRequest();
             }
             booking.status = status;
+            app.status = status;
 
+            db.Entry(app).State = EntityState.Modified;
             db.Entry(booking).State = EntityState.Modified;
 
             try

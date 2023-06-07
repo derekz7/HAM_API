@@ -41,10 +41,10 @@ namespace HAM_API.Controllers
 
         public ActionResult LoadData()
         {
-            List<tbl_user> users = ReadExcelToList(@"D:\Project\Đồ án tốt nghiệp\Data.xlsx");
+            List<tbl_user> users = ReadExcelToList(@"C:\Users\Administrator\Downloads\Data.xlsx");
             db.tbl_user.AddRange(users);
             db.SaveChanges();
-            return View("Index",users);
+            return View("Index", users);
         }
 
         public List<tbl_user> ReadExcelToList(string filePath)
@@ -67,7 +67,7 @@ namespace HAM_API.Controllers
 
                     for (int row = startRow; row <= rowCount; row++)
                     {
-                        string id = "u-" + Guid.NewGuid().ToString().Substring(0, 15);
+                        string id = "u-" + Guid.NewGuid().ToString().Substring(0, 18);
                         tbl_user user = new tbl_user();
                         user.id = id;
                         user.role_id = 2;
@@ -105,7 +105,7 @@ namespace HAM_API.Controllers
 
         // GET: User/Details/5
         public ActionResult Details(string id)
-        {   
+        {
             List<tbl_booking> bookinglist = new List<tbl_booking>();
             if (id == null)
             {
@@ -135,8 +135,7 @@ namespace HAM_API.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "username, name ,email, pw, role_id, p_number, img")] tbl_user tbl_user)
         {
-            string id = "u-" + Guid.NewGuid().ToString().Substring(0, 15);
-            tbl_user.id = id;
+
 
             if (ModelState.IsValid)
             {
@@ -154,7 +153,25 @@ namespace HAM_API.Controllers
                     ViewBag.role_id = new SelectList(db.tbl_role, "id", "role_name", tbl_user.role_id);
                     return View(tbl_user);
                 }
-
+                if (tbl_user.img == null)
+                {
+                    tbl_user.img = "https://imgur.com/yWLxOxv.png";
+                }
+                if (tbl_user.role_id == 1)
+                {
+                    string id = "dc-" + Guid.NewGuid().ToString().Substring(0, 17);
+                    tbl_user.id = id;
+                }
+                if (tbl_user.role_id == 2)
+                {
+                    string id = "u-" + Guid.NewGuid().ToString().Substring(0, 18);
+                    tbl_user.id = id;
+                }
+                if (tbl_user.role_id == 0)
+                {
+                    string id = "admin-" + Guid.NewGuid().ToString().Substring(0, 14);
+                    tbl_user.id = id;
+                }
                 db.tbl_user.Add(tbl_user);
                 db.SaveChanges();
                 return RedirectToAction("Index");

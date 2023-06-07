@@ -32,13 +32,14 @@ create table tbl_user(
 	username varchar(20),
 	name nvarchar(100),
 	pw nvarchar(20),
-	email nvarchar(20),
+	email nvarchar(200),
 	role_id int,
 	p_number varchar(10),
 	img text,
 	constraint fk_role_id foreign key (role_id) references tbl_role(id)
 )
 go
+alter table tbl_user alter column email varchar(200)
 CREATE INDEX idx_user_name ON tbl_user (username);
 go
 
@@ -147,7 +148,8 @@ create table tbl_appointment(
 
 )
 CREATE INDEX idx_appointment_bid ON tbl_appointment(bid);
-select * from tbl_news
+
+select * from tbl_doctor
 
 
 

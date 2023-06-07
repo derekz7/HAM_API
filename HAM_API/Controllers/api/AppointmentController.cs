@@ -22,6 +22,18 @@ namespace HAM_API.Controllers.api
             return db.tbl_appointment;
         }
 
+        public List<tbl_appointment> GetAppointmentsbyDoctor(string doctorId)
+        {
+            List<tbl_appointment> apps = db.tbl_appointment.ToList();
+            List<tbl_booking> books = db.tbl_booking.ToList();
+
+            List<tbl_appointment> appointment = (from app in apps
+                                                 join booking in books on app.bid equals booking.id
+                                                 where booking.dc_id == doctorId && booking.status == "Chờ khám"
+                                                 select app).ToList();
+            return appointment;
+        }
+
         // GET: api/Appointment/5
         [ResponseType(typeof(tbl_appointment))]
         public IHttpActionResult GetAppointmentById(string id)
@@ -46,6 +58,8 @@ namespace HAM_API.Controllers.api
 
             return Ok(tbl_appointment);
         }
+
+
 
         // PUT: api/Appointment/5
         [ResponseType(typeof(void))]
