@@ -113,7 +113,10 @@ namespace HAM_API.Controllers.api
             {
                 return BadRequest(ModelState);
             }
-
+            if (tbl_user.img == null)
+            {
+                tbl_user.img = "https://imgur.com/yWLxOxv.png";
+            }
             db.tbl_user.Add(tbl_user);
 
             try
@@ -146,10 +149,16 @@ namespace HAM_API.Controllers.api
             {
                 return NotFound();
             }
-
+            List<tbl_patient> pts = db.tbl_patient.Where(p => p.user_id == tbl_user.id).ToList();
+            foreach (var pt in pts)
+            {
+                List<tbl_booking> booking = db.tbl_booking.Where(x => x.pt_id == pt.id).ToList();
+                db.tbl_booking.RemoveRange(booking);
+            }
+            db.tbl_patient.RemoveRange(pts);
             db.tbl_user.Remove(tbl_user);
             db.SaveChanges();
-
+            
             return Ok(tbl_user);
         }
 
