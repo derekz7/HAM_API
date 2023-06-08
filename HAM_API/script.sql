@@ -135,10 +135,12 @@ go
 create table tbl_appointment(
 	id varchar(20) primary key,
 	bid varchar(20),
+	uid varchar(20),
 	serviceName nvarchar(100),
 	orderNum int,
 	depName nvarchar(100),
 	room nvarchar(100),
+	dcid varchar(20),
 	dcName nvarchar(100),
 	date varchar(100),
 	time varchar(100),
@@ -147,13 +149,18 @@ create table tbl_appointment(
 	status nvarchar(100)
 
 )
-CREATE INDEX idx_appointment_bid ON tbl_appointment(bid);
-
+CREATE INDEX idx_appointment_uid ON tbl_appointment(uid);
+drop table tbl_appointment
 update tbl_doctor set imgUrl = 'https://www.lyfboat.com/app/uploads/doctors/default-doctor-profile.jpg'
-delete tbl_booking where username = 'dong123'
-insert into tbl_doctor values ('dc-40758e56-d6fa-47c',N'Trịnh Quang Đông',N'Tai mũi họng 1','dep-d96845c6-ca5b-4',null)
+select * from tbl_doctor 
 
-
+insert into tbl_user(id,username,name,pw,role_id,p_number) values ('dc-4b0b11a6b02f4adea','mtrung123',N'Đào Mạnh Trung','123456',1,'0965241234')
+insert into tbl_user(id,username,name,pw,role_id,p_number) values ('dc-10a8a752bf34472da','vannam123',N'Nguyễn Văn Năm','123456',1,'0965244534')
+insert into tbl_user(id,username,name,pw,role_id,p_number) values ('dc-164b7db77a1149729','dhan123',N'Trần Đình Hán','123456',1,'0965241904')
+insert into tbl_user(id,username,name,pw,role_id,p_number) values ('dc-5aaefd72-2f46-4','tvan123',N'Đỗ Thanh Vân','123456',1,'0965241256')
+insert into tbl_user(id,username,name,pw,role_id,p_number) values ('dc-6d986b9ac3584e34b','quyen123',N'Đào Ngọc Quyền','123456',1,'0965345234')
+go
+delete tbl_appointment 
 
 
 

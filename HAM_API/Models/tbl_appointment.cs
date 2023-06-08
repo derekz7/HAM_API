@@ -14,6 +14,9 @@ namespace HAM_API.Models
         [StringLength(20)]
         public string bid { get; set; }
 
+        [StringLength(20)]
+        public string uid { get; set; }
+
         [StringLength(100)]
         public string serviceName { get; set; }
 
@@ -24,6 +27,8 @@ namespace HAM_API.Models
         [StringLength(100)]
         public string room { get; set; }
 
+        [StringLength(20)]
+        public string dcid { get; set; }
         [StringLength(100)]
         public string dcName { get; set; }
 

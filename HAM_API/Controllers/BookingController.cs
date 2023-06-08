@@ -136,6 +136,8 @@ namespace HAM_API.Controllers
                 tbl_appointment apointment = new tbl_appointment();
                 apointment.id = idap;
                 apointment.bid = tbl_booking.id;
+                apointment.uid = tbl_booking.user_id;
+                apointment.dcid = tbl_booking.dc_id;
                 apointment.dcName = tbl_booking.tbl_doctor.name;
                 apointment.time = tbl_booking.time;
                 apointment.date = tbl_booking.date;
@@ -246,7 +248,7 @@ namespace HAM_API.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             tbl_booking tbl_booking = db.tbl_booking.Find(id);
-            tbl_appointment app = db.tbl_appointment.Find(id);
+            tbl_appointment app = db.tbl_appointment.Where(x => x.bid == id).First();
             db.tbl_appointment.Remove(app);
             db.tbl_booking.Remove(tbl_booking);
             db.SaveChanges();

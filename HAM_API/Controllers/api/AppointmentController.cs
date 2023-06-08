@@ -34,6 +34,22 @@ namespace HAM_API.Controllers.api
             return appointment;
         }
 
+
+        public List<tbl_appointment> getAllBookingToday(string doctorId)
+        {
+            List<tbl_appointment> currentDateBook = new List<tbl_appointment>();
+            DateTime currentDate = DateTime.Now.Date;
+            List<tbl_appointment> booking = db.tbl_appointment.Where(x => x.status == "Chờ khám").ToList();
+            foreach (tbl_appointment item in booking)
+            {
+                if (DateTime.ParseExact(item.date, "d/M/yyyy", null) == currentDate)
+                {
+                    currentDateBook.Add(item);
+                }
+            }
+            return currentDateBook;
+        }
+
         // GET: api/Appointment/5
         [ResponseType(typeof(tbl_appointment))]
         public IHttpActionResult GetAppointmentById(string id)
@@ -45,6 +61,11 @@ namespace HAM_API.Controllers.api
             }
 
             return Ok(tbl_appointment);
+        }
+
+        public List<tbl_appointment> GetAppointmentsByUser(string userId)
+        {
+            return db.tbl_appointment.Where(x => x.uid == userId).ToList();
         }
 
         [ResponseType(typeof(tbl_appointment))]
