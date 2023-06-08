@@ -149,7 +149,9 @@ create table tbl_appointment(
 )
 CREATE INDEX idx_appointment_bid ON tbl_appointment(bid);
 
-select * from tbl_doctor
+update tbl_doctor set imgUrl = 'https://www.lyfboat.com/app/uploads/doctors/default-doctor-profile.jpg'
+delete tbl_booking where username = 'dong123'
+insert into tbl_doctor values ('dc-40758e56-d6fa-47c',N'Trịnh Quang Đông',N'Tai mũi họng 1','dep-d96845c6-ca5b-4',null)
 
 
 
