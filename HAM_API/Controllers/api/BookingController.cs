@@ -179,6 +179,8 @@ namespace HAM_API.Controllers.api
             tbl_appointment apointment = new tbl_appointment();
             apointment.id = idap;
             apointment.bid = tbl_booking.id;
+            apointment.uid = tbl_booking.user_id;
+            apointment.dcid = tbl_booking.dc_id;
             apointment.dcName = dc.name;
             apointment.time = tbl_booking.time;
             apointment.date = tbl_booking.date;
