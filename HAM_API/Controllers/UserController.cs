@@ -161,6 +161,10 @@ namespace HAM_API.Controllers
                 {
                     string id = "dc-" + Guid.NewGuid().ToString().Substring(0, 17);
                     tbl_user.id = id;
+                    if (tbl_user.img == null)
+                    {
+                        tbl_user.img = "https://www.lyfboat.com/app/uploads/doctors/default-doctor-profile.jpg";
+                    }
                 }
                 if (tbl_user.role_id == 2)
                 {

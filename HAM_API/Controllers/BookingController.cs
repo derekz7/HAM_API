@@ -215,9 +215,9 @@ namespace HAM_API.Controllers
         public ActionResult Cancel(string id)
         {
             tbl_booking booking = db.tbl_booking.Find(id);
-            tbl_appointment app = db.tbl_appointment.Find(id);
+            tbl_appointment app = db.tbl_appointment.Where(x => x.bid == id).First();
             booking.status = "Canceled";
-            app.status = booking.status;
+            app.status = "Canceled";
             db.Entry(booking).State = EntityState.Modified;
             db.Entry(app).State = EntityState.Modified;
             db.SaveChanges();
