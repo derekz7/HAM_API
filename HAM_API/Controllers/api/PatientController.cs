@@ -49,6 +49,7 @@ namespace HAM_API.Controllers.api
             return tbl_patients;
         }
         // PUT: api/Patient/5
+        [HttpPut]
         [ResponseType(typeof(void))]
         public IHttpActionResult UpdatePatient(string id, tbl_patient tbl_patient)
         {
