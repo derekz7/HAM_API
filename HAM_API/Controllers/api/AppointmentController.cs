@@ -39,15 +39,16 @@ namespace HAM_API.Controllers.api
         {
             List<tbl_appointment> currentDateBook = new List<tbl_appointment>();
             DateTime currentDate = DateTime.Now.Date;
+            string cu = "12/6/2023";
             List<tbl_appointment> booking = db.tbl_appointment.Where(x => x.status == "Chờ khám").ToList();
             foreach (tbl_appointment item in booking)
             {
-                if (DateTime.ParseExact(item.date, "d/M/yyyy", null) == currentDate)
+                if (item.date == cu)
                 {
                     currentDateBook.Add(item);
                 }
             }
-            return currentDateBook;
+            return currentDateBook.OrderBy(x => x.time).ToList();
         }
 
         // GET: api/Appointment/5

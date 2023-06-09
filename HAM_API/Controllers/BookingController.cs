@@ -189,6 +189,14 @@ namespace HAM_API.Controllers
         {
             if (ModelState.IsValid)
             {
+                tbl_appointment app = db.tbl_appointment.Where(x => x.bid == tbl_booking.id).First();
+                app.uid = tbl_booking.user_id;
+                app.time = tbl_booking.time;
+                app.date = tbl_booking.date;
+                app.price = tbl_booking.price;
+                app.orderNum = tbl_booking.order_num;
+                app.status = tbl_booking.status;
+                db.Entry(app).State = EntityState.Modified;
                 db.Entry(tbl_booking).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -117,7 +117,7 @@ namespace HAM_API.Controllers.api
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-
+        [HttpPut]
         [ResponseType(typeof(void))]
         public IHttpActionResult ChangeStatus(string id, string status)
         {

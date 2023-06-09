@@ -78,6 +78,7 @@ go
 alter table tbl_doctor drop column user_id
 CREATE INDEX idx_booking_doctor_id ON tbl_doctor(dep_id);
 
+
 create table tbl_booking(
 	id varchar(20) primary key,
 	order_num int,
@@ -96,7 +97,7 @@ create table tbl_booking(
 )
 go
 CREATE INDEX idx_booking_user ON tbl_booking(user_id);
-
+drop index idx_booking_user on tbl_booking
 go
 CREATE INDEX idx_booking_doctor_id ON tbl_booking(dc_id);
 
@@ -152,7 +153,7 @@ create table tbl_appointment(
 CREATE INDEX idx_appointment_uid ON tbl_appointment(uid);
 drop table tbl_appointment
 update tbl_doctor set imgUrl = 'https://www.lyfboat.com/app/uploads/doctors/default-doctor-profile.jpg'
-select * from tbl_doctor 
+select * from tbl_appointment 
 
 insert into tbl_user(id,username,name,pw,role_id,p_number) values ('dc-4b0b11a6b02f4adea','mtrung123',N'Đào Mạnh Trung','123456',1,'0965241234')
 insert into tbl_user(id,username,name,pw,role_id,p_number) values ('dc-10a8a752bf34472da','vannam123',N'Nguyễn Văn Năm','123456',1,'0965244534')
@@ -160,7 +161,7 @@ insert into tbl_user(id,username,name,pw,role_id,p_number) values ('dc-164b7db77
 insert into tbl_user(id,username,name,pw,role_id,p_number) values ('dc-5aaefd72-2f46-4','tvan123',N'Đỗ Thanh Vân','123456',1,'0965241256')
 insert into tbl_user(id,username,name,pw,role_id,p_number) values ('dc-6d986b9ac3584e34b','quyen123',N'Đào Ngọc Quyền','123456',1,'0965345234')
 go
-delete tbl_appointment 
+delete tbl_booking where  order_num = 52
 
 
 
