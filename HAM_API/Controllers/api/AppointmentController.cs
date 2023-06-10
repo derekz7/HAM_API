@@ -22,6 +22,27 @@ namespace HAM_API.Controllers.api
             return db.tbl_appointment;
         }
 
+        public List<tbl_appointment> GetAppointmentsSuccess(string doctorId)
+        {
+            List<tbl_appointment> list = db.tbl_appointment.Where(x => x.status.Equals("Đã khám") && x.dcid == doctorId).ToList();
+            return list;
+        }
+
+        public List<tbl_appointment> GetAppointmentsSuccessToday(string doctorId)
+        {
+            DateTime currentDate = DateTime.Now.Date;
+            List<tbl_appointment> currentDateAppointments = new List<tbl_appointment>();
+            List<tbl_appointment> list = db.tbl_appointment.Where(x => x.status.Equals("Đã khám") && x.dcid == doctorId).ToList();
+            foreach (tbl_appointment item in list)
+            {
+                if (DateTime.ParseExact(item.date,"dd/M/yyyy",null) == currentDate)
+                {
+                    currentDateAppointments.Add(item);
+                }
+            }
+            return currentDateAppointments;
+        }
+
         public List<tbl_appointment> GetAppointmentsbyDoctor(string doctorId)
         {
             List<tbl_appointment> apps = db.tbl_appointment.ToList();
@@ -39,11 +60,10 @@ namespace HAM_API.Controllers.api
         {
             List<tbl_appointment> currentDateBook = new List<tbl_appointment>();
             DateTime currentDate = DateTime.Now.Date;
-            string cu = "12/6/2023";
             List<tbl_appointment> booking = db.tbl_appointment.Where(x => x.status == "Chờ khám").ToList();
             foreach (tbl_appointment item in booking)
             {
-                if (item.date == cu)
+                if (DateTime.ParseExact(item.date, "dd/M/yyyy", null) == currentDate)
                 {
                     currentDateBook.Add(item);
                 }
