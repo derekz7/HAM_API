@@ -17,6 +17,7 @@ create table tbl_department(
 	description nvarchar(500),
 	img Text
 )
+CREATE INDEX idx_dep on tbl_department (id)
 
 go
 create table tbl_service(
@@ -114,11 +115,12 @@ create table tbl_prescription(
 	ptu_medicines nvarchar(1000),
 	user_id varchar(20),
 	dc_id varchar(20),
+	ptName nvarchar(200),
 	constraint fk_userid1 foreign key (user_id) references tbl_user(id),
 	constraint fk_dcid foreign key (dc_id) references tbl_doctor(id)
 )
 go
-
+CREATE INDEX idx_prescription_uid ON tbl_prescription(user_id);
 create table tbl_news(
 	id varchar(20) primary key,
 	title nvarchar(200),
@@ -147,13 +149,14 @@ create table tbl_appointment(
 	time varchar(100),
 	ptName nvarchar(100),
 	price int,
-	status nvarchar(100)
-
+	status nvarchar(100),
+	reason nvarchar(300)
 )
+alter table tbl_prescription add ptName nvarchar(200)
 CREATE INDEX idx_appointment_uid ON tbl_appointment(uid);
 drop table tbl_appointment
 update tbl_doctor set imgUrl = 'https://www.lyfboat.com/app/uploads/doctors/default-doctor-profile.jpg'
-select * from tbl_appointment 
+select * from tbl_prescription 
 
 insert into tbl_user(id,username,name,pw,role_id,p_number) values ('dc-4b0b11a6b02f4adea','mtrung123',N'Đào Mạnh Trung','123456',1,'0965241234')
 insert into tbl_user(id,username,name,pw,role_id,p_number) values ('dc-10a8a752bf34472da','vannam123',N'Nguyễn Văn Năm','123456',1,'0965244534')

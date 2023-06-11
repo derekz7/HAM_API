@@ -28,6 +28,8 @@ namespace HAM_API.Models
 
         [StringLength(20)]
         public string dc_id { get; set; }
+        [StringLength(20)]
+        public string ptName { get; set; }
 
         public virtual tbl_doctor tbl_doctor { get; set; }
 

@@ -119,7 +119,7 @@ namespace HAM_API.Controllers.api
 
         [HttpPut]
         [ResponseType(typeof(void))]
-        public IHttpActionResult ChangeStatus(string id, string status)
+        public IHttpActionResult ChangeStatus(string id, string status,string reason)
         {
             if (!ModelState.IsValid)
             {
@@ -133,6 +133,7 @@ namespace HAM_API.Controllers.api
             }
             booking.status = status;
             app.status = status;
+            app.reason = reason;
 
             db.Entry(app).State = EntityState.Modified;
             db.Entry(booking).State = EntityState.Modified;

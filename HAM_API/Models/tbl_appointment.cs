@@ -45,5 +45,8 @@ namespace HAM_API.Models
 
         [StringLength(100)]
         public string status { get; set; }
+
+        [StringLength(300)]
+        public string reason { get; set; }
     }
 }
