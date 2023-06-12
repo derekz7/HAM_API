@@ -480,9 +480,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DBContext.cs" />
+    <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Models\tbl_appointment.cs" />
     <Compile Include="Models\tbl_booking.cs" />
     <Compile Include="Models\tbl_department.cs" />
+    <Compile Include="Models\tbl_department_clone.cs" />
     <Compile Include="Models\tbl_doctor.cs" />
     <Compile Include="Models\tbl_news.cs" />
     <Compile Include="Models\tbl_patient.cs" />

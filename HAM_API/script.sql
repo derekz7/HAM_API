@@ -17,6 +17,18 @@ create table tbl_department(
 	description nvarchar(500),
 	img Text
 )
+
+go
+
+create table tbl_department_clone(
+	id varchar(20) primary KEY,
+	name nvarchar(200),
+	description nvarchar(500),
+	img Text
+)
+
+
+go
 CREATE INDEX idx_dep on tbl_department (id)
 
 go
@@ -114,13 +126,15 @@ create table tbl_prescription(
 	medicines nvarchar(500),
 	ptu_medicines nvarchar(1000),
 	user_id varchar(20),
-	dc_id varchar(20),
 	ptName nvarchar(200),
-	constraint fk_userid1 foreign key (user_id) references tbl_user(id),
-	constraint fk_dcid foreign key (dc_id) references tbl_doctor(id)
+	dcName nvarchar(100),
+	constraint fk_userid1 foreign key (user_id) references tbl_user(id)
 )
 go
+alter table tbl_prescription add dcName nvarchar(100)
 CREATE INDEX idx_prescription_uid ON tbl_prescription(user_id);
+
+go
 create table tbl_news(
 	id varchar(20) primary key,
 	title nvarchar(200),
@@ -164,8 +178,17 @@ insert into tbl_user(id,username,name,pw,role_id,p_number) values ('dc-164b7db77
 insert into tbl_user(id,username,name,pw,role_id,p_number) values ('dc-5aaefd72-2f46-4','tvan123',N'Đỗ Thanh Vân','123456',1,'0965241256')
 insert into tbl_user(id,username,name,pw,role_id,p_number) values ('dc-6d986b9ac3584e34b','quyen123',N'Đào Ngọc Quyền','123456',1,'0965345234')
 go
-delete tbl_booking where  order_num = 52
+delete tbl_appointment 
+go
 
+delete tbl_booking
+
+delete tbl_prescription
+
+select * from tbl_prescription
+
+
+update tbl_department_clone set description = null
 
 
 
@@ -189,19 +212,19 @@ delete tbl_booking where  order_num = 52
 --INSERT [dbo].[tbl_booking] ([id], [order_num], [date], [time], [price], [status], [pt_id], [user_id], [dc_id], [sv_id]) VALUES (N'bk-44ac42161ceb4189a', 1, CAST(N'2023-05-31' AS Date), N'13h-14h', 1, N'Đã khám', N'pt-ede15f89f1d045e5a', N'u-006de970-6bd1-4', N'dc-137ce4dfea8f4afb8', N'sv-5b92a79ebaa142fbb')
 --INSERT [dbo].[tbl_booking] ([id], [order_num], [date], [time], [price], [status], [pt_id], [user_id], [dc_id], [sv_id]) VALUES (N'bk-b12b3bda942044f59', 3, CAST(N'2023-05-31' AS Date), N'13h-14h', 0, N'Chờ khám', N'pt-ede15f89f1d045e5a', N'u-006de970-6bd1-4', N'dc-137ce4dfea8f4afb8', N'sv-5b92a79ebaa142fbb')
 --GO
---INSERT [dbo].[tbl_department] ([id], [name], [description], [img]) VALUES (N'dep-023321f2-224e-4', N'Khoa ung bướu', N'Khoa ung bướu là một trong những chuyên khoa quan trọng của phân ngành ngoại khoa, có chức năng chẩn đoán, điều trị, tầm soát ung thư và cung cấp đầy đủ các dịch vụ chăm sóc y tế cần thiết cho bệnh nhân ung thư bao gồm: hoá trị, xạ trị, điều trị ngoại khoa, điều trị nội khoa, ghép tế bào gốc...; đồng thời giúp kiểm soát các cơn đau bằng cách vật lý trị liệu, phong bế thần kinh ngoại biên, phong bế giao cảm,...', N'https://imgur.com/ib1BUys.png')
---INSERT [dbo].[tbl_department] ([id], [name], [description], [img]) VALUES (N'dep-2636213e-f6cc-4', N'Khoa phụ sản', N'Sản & Phụ khoa là chuyên khoa về sức khoẻ phụ nữ và các vấn đề liên quan tới bộ phận sinh sản nữ từ khi dậy thì cho đến hết cuộc đời. Khoa có hai lĩnh vực chủ yếu là: Khả năng sinh sản & sản khoa. Các bệnh phụ khoa.', N'https://imgur.com/mEQsGxH.png')
---INSERT [dbo].[tbl_department] ([id], [name], [description], [img]) VALUES (N'dep-293aa902-2d8d-4', N'Khoa nội tim mạch', N'Là phân khoa chuyên điều trị các bệnh lý tim mạch theo phương pháp nội khoa, bao gồm đặt stent động mạch, tiêm và dùng thuốc đặc trị hoặc nong van động mạch phổi bằng bóng qua da.', N'https://imgur.com/HqaQBX3.png')
---INSERT [dbo].[tbl_department] ([id], [name], [description], [img]) VALUES (N'dep-3dbaf6a3-af3f-4', N'Khoa da liễu', N'Khoa Da liễu là khoa chuyên điều trị các bệnh về da và những phần phụ của da (tóc, móng, tuyến mồ hôi…) Con người có thể mắc trên 3.000 loại bệnh về da khác nhau mà nguyên nhân là do chất kích thích, bị dị ứng, di truyền, mắc một số bệnh nào đó và hệ miễn dịch có vấn đề.', N'https://imgur.com/lh9lyto.png')
---INSERT [dbo].[tbl_department] ([id], [name], [description], [img]) VALUES (N'dep-699d3d11-0f20-4', N'Khoa thận TN-CXK', N'Nội thận là chuyên khoa thuộc khoa nội chịu trách nhiệm điều trị tất cả các bệnh lý liên quan đến thận và đường tiết niệu. Thận có vai trò quan trọng trong việc duy trì sự cân bằng điện giải và dung dịch nước trong cơ thể.', N'https://imgur.com/dFZs4yV.png')
---INSERT [dbo].[tbl_department] ([id], [name], [description], [img]) VALUES (N'dep-6b861f33-c6cd-4', N'Khoa nội tổng hợp', N'Chẩn đoán và điều trị bệnh nhân thuộc các chuyên khoa: Tiêu hóa, Nội tiết, Hô hấp, Tiết niệu, Thần kinh, Cơ xương khớp. Đào tạo, giảng dạy lâm sàng cho các đối tượng sau đại học: Nghiên cứu sinh, CK II, Cao học, Nội trú, CK I; Đại học.', N'https://imgur.com/o9Vsw6D.png')
---INSERT [dbo].[tbl_department] ([id], [name], [description], [img]) VALUES (N'dep-8f6e8ca0-72c1-4', N'Khoa truyền nhiễm', N'Khoa Truyền nhiễm cung cấp các dịch vụ lâm sàng tiên tiến để chẩn đoán và điều trị các loại bệnh truyền nhiễm hoặc tình trạng bệnh lý do các tác nhân truyền nhiễm (vi rút, vi khuẩn, ký sinh trùng hoặc nấm) gây ra.', N'https://imgur.com/exByrwd.png')
---INSERT [dbo].[tbl_department] ([id], [name], [description], [img]) VALUES (N'dep-aa7b943b-7c49-4', N'Khoa chấn thương', N'Khoa chấn thương chỉnh hình là chuyên khoa chuyên điều trị các chấn thương và tình trạng bệnh liên quan đến hệ thống cơ xương khớp, gồm xương, cơ, khớp và dây chằng. Tuổi tác, chấn thương, tư thế không đúng hoặc các môn thể thao va chạm mạnh có thể gây tổn thương đến những vùng này của cơ thể.', N'https://imgur.com/eqaCVT7.png')
---INSERT [dbo].[tbl_department] ([id], [name], [description], [img]) VALUES (N'dep-ab60a0aa-6d7d-4', N'Khoa thần kinh', N'Thần kinh học là một chuyên ngành y học chuyên nghiên cứu về sự rối loạn của hệ thần kinh. Đặc biệt, thần kinh học chú trọng vào việc chẩn đoán và điều trị các loại bệnh liên quan đến hệ thần kinh trung ương, hệ thần kinh ngoại biên và hệ thần kinh tự chủ.', N'https://imgur.com/aTsKERY.png')
---INSERT [dbo].[tbl_department] ([id], [name], [description], [img]) VALUES (N'dep-b72d5021-6511-4', N'Khoa phục hồi chức năng', N'Khoa Phục hồi chức năng là đơn vị điều trị ngoại trú cho những bệnh nhân là người lớn và trẻ em có các rối loạn về cơ xương khớp, thần kinh, tim mạch, hô hấp,…', N'https://imgur.com/n73spmm.png')
---INSERT [dbo].[tbl_department] ([id], [name], [description], [img]) VALUES (N'dep-d2b7cae4-d48d-4', N'Khoa nhi', N'Nhi khoa là một ngành của Y học chịu trách nhiệm chăm sóc sức khỏe cho trẻ em từ lúc mới sinh cho đến 14-21 tuổi, tùy thuộc vào mỗi Quốc gia. Ở Việt Nam Nhi khoa chăm sóc sức khỏe cho trẻ em từ sơ sinh đến dưới 15 tuổi. Bác sĩ thực hành trong lĩnh vực này được gọc là bác sĩ Nhi khoa', N'https://imgur.com/mVs37wL.png')
---INSERT [dbo].[tbl_department] ([id], [name], [description], [img]) VALUES (N'dep-d504182c-c79f-4', N'Khoa Y học Cổ truyền', N'Y học cổ truyền vận dụng chẩn trị theo các phương pháp Đông Y kết hợp với Y học hiện đại, và các phương pháp không dùng thuốc như châm cứu, điện châm, nhĩ châm, xoa bóp, bấm huyệt, giác hơi, khí công dưỡng sinh để điều trị có hiệu quả các bệnh lý về cơ xương khớp, rối loạn dẫn truyền thần kinh, di chứng tai biến mạch máu não, đau dây thần kinh.', N'https://imgur.com/BXSPV7Y.png')
---INSERT [dbo].[tbl_department] ([id], [name], [description], [img]) VALUES (N'dep-d96845c6-ca5b-4', N'Khoa tai mũi họng', N'Khoa Tai Mũi Họng là chuyên khoa điều trị các bệnh lý liên quan đến tai, mũi và họng cũng như vùng đầu và cổ. Khoa Tai Mũi Họng cung cấp dịch vụ đa dạng, từ khám bệnh đến thực hiện các loại phẫu thuật phức tạp cho cả trẻ em và người lớn.', N'https://imgur.com/D4sg48D.png')
+--INSERT [dbo].[tbl_department_clone] ([id], [name], [description], [img]) VALUES (N'dep-023321f2-224e-4', N'Khoa ung bướu', N'Khoa ung bướu là một trong những chuyên khoa quan trọng của phân ngành ngoại khoa, có chức năng chẩn đoán, điều trị, tầm soát ung thư và cung cấp đầy đủ các dịch vụ chăm sóc y tế cần thiết cho bệnh nhân ung thư bao gồm: hoá trị, xạ trị, điều trị ngoại khoa, điều trị nội khoa, ghép tế bào gốc...; đồng thời giúp kiểm soát các cơn đau bằng cách vật lý trị liệu, phong bế thần kinh ngoại biên, phong bế giao cảm,...', N'https://imgur.com/ib1BUys.png')
+--INSERT [dbo].[tbl_department_clone] ([id], [name], [description], [img]) VALUES (N'dep-2636213e-f6cc-4', N'Khoa phụ sản', N'Sản & Phụ khoa là chuyên khoa về sức khoẻ phụ nữ và các vấn đề liên quan tới bộ phận sinh sản nữ từ khi dậy thì cho đến hết cuộc đời. Khoa có hai lĩnh vực chủ yếu là: Khả năng sinh sản & sản khoa. Các bệnh phụ khoa.', N'https://imgur.com/mEQsGxH.png')
+--INSERT [dbo].[tbl_department_clone] ([id], [name], [description], [img]) VALUES (N'dep-293aa902-2d8d-4', N'Khoa nội tim mạch', N'Là phân khoa chuyên điều trị các bệnh lý tim mạch theo phương pháp nội khoa, bao gồm đặt stent động mạch, tiêm và dùng thuốc đặc trị hoặc nong van động mạch phổi bằng bóng qua da.', N'https://imgur.com/HqaQBX3.png')
+--INSERT [dbo].[tbl_department_clone] ([id], [name], [description], [img]) VALUES (N'dep-3dbaf6a3-af3f-4', N'Khoa da liễu', N'Khoa Da liễu là khoa chuyên điều trị các bệnh về da và những phần phụ của da (tóc, móng, tuyến mồ hôi…) Con người có thể mắc trên 3.000 loại bệnh về da khác nhau mà nguyên nhân là do chất kích thích, bị dị ứng, di truyền, mắc một số bệnh nào đó và hệ miễn dịch có vấn đề.', N'https://imgur.com/lh9lyto.png')
+--INSERT [dbo].[tbl_department_clone] ([id], [name], [description], [img]) VALUES (N'dep-699d3d11-0f20-4', N'Khoa thận TN-CXK', N'Nội thận là chuyên khoa thuộc khoa nội chịu trách nhiệm điều trị tất cả các bệnh lý liên quan đến thận và đường tiết niệu. Thận có vai trò quan trọng trong việc duy trì sự cân bằng điện giải và dung dịch nước trong cơ thể.', N'https://imgur.com/dFZs4yV.png')
+--INSERT [dbo].[tbl_department_clone] ([id], [name], [description], [img]) VALUES (N'dep-6b861f33-c6cd-4', N'Khoa nội tổng hợp', N'Chẩn đoán và điều trị bệnh nhân thuộc các chuyên khoa: Tiêu hóa, Nội tiết, Hô hấp, Tiết niệu, Thần kinh, Cơ xương khớp. Đào tạo, giảng dạy lâm sàng cho các đối tượng sau đại học: Nghiên cứu sinh, CK II, Cao học, Nội trú, CK I; Đại học.', N'https://imgur.com/o9Vsw6D.png')
+--INSERT [dbo].[tbl_department_clone] ([id], [name], [description], [img]) VALUES (N'dep-8f6e8ca0-72c1-4', N'Khoa truyền nhiễm', N'Khoa Truyền nhiễm cung cấp các dịch vụ lâm sàng tiên tiến để chẩn đoán và điều trị các loại bệnh truyền nhiễm hoặc tình trạng bệnh lý do các tác nhân truyền nhiễm (vi rút, vi khuẩn, ký sinh trùng hoặc nấm) gây ra.', N'https://imgur.com/exByrwd.png')
+--INSERT [dbo].[tbl_department_clone] ([id], [name], [description], [img]) VALUES (N'dep-aa7b943b-7c49-4', N'Khoa chấn thương', N'Khoa chấn thương chỉnh hình là chuyên khoa chuyên điều trị các chấn thương và tình trạng bệnh liên quan đến hệ thống cơ xương khớp, gồm xương, cơ, khớp và dây chằng. Tuổi tác, chấn thương, tư thế không đúng hoặc các môn thể thao va chạm mạnh có thể gây tổn thương đến những vùng này của cơ thể.', N'https://imgur.com/eqaCVT7.png')
+--INSERT [dbo].[tbl_department_clone] ([id], [name], [description], [img]) VALUES (N'dep-ab60a0aa-6d7d-4', N'Khoa thần kinh', N'Thần kinh học là một chuyên ngành y học chuyên nghiên cứu về sự rối loạn của hệ thần kinh. Đặc biệt, thần kinh học chú trọng vào việc chẩn đoán và điều trị các loại bệnh liên quan đến hệ thần kinh trung ương, hệ thần kinh ngoại biên và hệ thần kinh tự chủ.', N'https://imgur.com/aTsKERY.png')
+--INSERT [dbo].[tbl_department_clone] ([id], [name], [description], [img]) VALUES (N'dep-b72d5021-6511-4', N'Khoa phục hồi chức năng', N'Khoa Phục hồi chức năng là đơn vị điều trị ngoại trú cho những bệnh nhân là người lớn và trẻ em có các rối loạn về cơ xương khớp, thần kinh, tim mạch, hô hấp,…', N'https://imgur.com/n73spmm.png')
+--INSERT [dbo].[tbl_department_clone] ([id], [name], [description], [img]) VALUES (N'dep-d2b7cae4-d48d-4', N'Khoa nhi', N'Nhi khoa là một ngành của Y học chịu trách nhiệm chăm sóc sức khỏe cho trẻ em từ lúc mới sinh cho đến 14-21 tuổi, tùy thuộc vào mỗi Quốc gia. Ở Việt Nam Nhi khoa chăm sóc sức khỏe cho trẻ em từ sơ sinh đến dưới 15 tuổi. Bác sĩ thực hành trong lĩnh vực này được gọc là bác sĩ Nhi khoa', N'https://imgur.com/mVs37wL.png')
+--INSERT [dbo].[tbl_department_clone] ([id], [name], [description], [img]) VALUES (N'dep-d504182c-c79f-4', N'Khoa Y học Cổ truyền', N'Y học cổ truyền vận dụng chẩn trị theo các phương pháp Đông Y kết hợp với Y học hiện đại, và các phương pháp không dùng thuốc như châm cứu, điện châm, nhĩ châm, xoa bóp, bấm huyệt, giác hơi, khí công dưỡng sinh để điều trị có hiệu quả các bệnh lý về cơ xương khớp, rối loạn dẫn truyền thần kinh, di chứng tai biến mạch máu não, đau dây thần kinh.', N'https://imgur.com/BXSPV7Y.png')
+--INSERT [dbo].[tbl_department_clone] ([id], [name], [description], [img]) VALUES (N'dep-d96845c6-ca5b-4', N'Khoa tai mũi họng', N'Khoa Tai Mũi Họng là chuyên khoa điều trị các bệnh lý liên quan đến tai, mũi và họng cũng như vùng đầu và cổ. Khoa Tai Mũi Họng cung cấp dịch vụ đa dạng, từ khám bệnh đến thực hiện các loại phẫu thuật phức tạp cho cả trẻ em và người lớn.', N'https://imgur.com/D4sg48D.png')
 --GO
 --INSERT [dbo].[tbl_doctor] ([id], [name], [room], [dep_id], [imgUrl]) VALUES (N'dc-137ce4dfea8f4afb8', N'Bác sĩ Hải', N'NS-01', N'dep-d96845c6-ca5b-4', NULL)
 --INSERT [dbo].[tbl_doctor] ([id], [name], [room], [dep_id], [imgUrl]) VALUES (N'dc-1defb958-637e-4', N'Trần Đức Băng', N'Phòng số 1', N'dep-8f6e8ca0-72c1-4', NULL)

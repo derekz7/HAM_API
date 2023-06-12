@@ -12,9 +12,11 @@ namespace HAM_API.Models
         {
         }
 
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<tbl_appointment> tbl_appointment { get; set; }
         public virtual DbSet<tbl_booking> tbl_booking { get; set; }
         public virtual DbSet<tbl_department> tbl_department { get; set; }
+        public virtual DbSet<tbl_department_clone> tbl_department_clone { get; set; }
         public virtual DbSet<tbl_doctor> tbl_doctor { get; set; }
         public virtual DbSet<tbl_news> tbl_news { get; set; }
         public virtual DbSet<tbl_patient> tbl_patient { get; set; }
@@ -32,6 +34,14 @@ namespace HAM_API.Models
 
             modelBuilder.Entity<tbl_appointment>()
                 .Property(e => e.bid)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tbl_appointment>()
+                .Property(e => e.uid)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tbl_appointment>()
+                .Property(e => e.dcid)
                 .IsUnicode(false);
 
             modelBuilder.Entity<tbl_appointment>()
@@ -79,6 +89,14 @@ namespace HAM_API.Models
                 .WithOptional(e => e.tbl_department)
                 .HasForeignKey(e => e.dep_id);
 
+            modelBuilder.Entity<tbl_department_clone>()
+                .Property(e => e.id)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tbl_department_clone>()
+                .Property(e => e.img)
+                .IsUnicode(false);
+
             modelBuilder.Entity<tbl_doctor>()
                 .Property(e => e.id)
                 .IsUnicode(false);
@@ -96,13 +114,16 @@ namespace HAM_API.Models
                 .WithOptional(e => e.tbl_doctor)
                 .HasForeignKey(e => e.dc_id);
 
-            modelBuilder.Entity<tbl_doctor>()
-                .HasMany(e => e.tbl_prescription)
-                .WithOptional(e => e.tbl_doctor)
-                .HasForeignKey(e => e.dc_id);
-
             modelBuilder.Entity<tbl_news>()
                 .Property(e => e.id)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tbl_news>()
+                .Property(e => e.postDate)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tbl_news>()
+                .Property(e => e.Url)
                 .IsUnicode(false);
 
             modelBuilder.Entity<tbl_patient>()
@@ -147,10 +168,6 @@ namespace HAM_API.Models
                 .Property(e => e.user_id)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<tbl_prescription>()
-                .Property(e => e.dc_id)
-                .IsUnicode(false);
-
             modelBuilder.Entity<tbl_role>()
                 .HasMany(e => e.tbl_user)
                 .WithOptional(e => e.tbl_role)
@@ -171,6 +188,10 @@ namespace HAM_API.Models
 
             modelBuilder.Entity<tbl_user>()
                 .Property(e => e.username)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tbl_user>()
+                .Property(e => e.email)
                 .IsUnicode(false);
 
             modelBuilder.Entity<tbl_user>()

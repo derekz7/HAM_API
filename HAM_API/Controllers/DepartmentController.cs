@@ -57,8 +57,14 @@ namespace HAM_API.Controllers
         {
             string id = "dep-" + Guid.NewGuid().ToString().Substring(0, 15);
             tbl_department.id = id;
+            tbl_department_clone dep = new tbl_department_clone();
+            dep.id = id;
+            dep.name = tbl_department.name;
+            dep.description = tbl_department.description;
+            dep.img = tbl_department.img;
             if (ModelState.IsValid)
             {
+                db.tbl_department_clone.Add(dep);
                 db.tbl_department.Add(tbl_department);
                 db.SaveChanges();
                 return RedirectToAction("Index");
