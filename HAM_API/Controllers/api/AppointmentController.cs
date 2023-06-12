@@ -21,6 +21,11 @@ namespace HAM_API.Controllers.api
         {
             return db.tbl_appointment;
         }
+        public List<tbl_appointment> getPendingAppointments(string userId)
+        {
+            List<tbl_appointment> list = db.tbl_appointment.Where(x => x.status.Equals("Chờ khám") && x.uid == userId).ToList();
+            return list;
+        }
 
         public List<tbl_appointment> GetAppointmentsSuccess(string doctorId)
         {

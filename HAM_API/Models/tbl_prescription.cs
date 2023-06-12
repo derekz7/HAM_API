@@ -26,12 +26,11 @@ namespace HAM_API.Models
         [StringLength(20)]
         public string user_id { get; set; }
 
-        [StringLength(20)]
-        public string dc_id { get; set; }
-        [StringLength(20)]
+        [StringLength(200)]
         public string ptName { get; set; }
 
-        public virtual tbl_doctor tbl_doctor { get; set; }
+        [StringLength(100)]
+        public string dcName { get; set; }
 
         public virtual tbl_user tbl_user { get; set; }
     }

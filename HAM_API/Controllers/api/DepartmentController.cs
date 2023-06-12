@@ -13,12 +13,9 @@ namespace HAM_API.Controllers.api
     {
         private DBContext db = new DBContext();
 
-
-        [HttpGet]
-        [Route("api/Department/GetAllDepartments")]
-        public IQueryable<tbl_department> GetAllDepartments()
+        public IQueryable<tbl_department_clone> GetAllDepartments()
         {
-            return db.tbl_department;
+            return db.tbl_department_clone;
         }
 
         [HttpGet]

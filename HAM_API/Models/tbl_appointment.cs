@@ -21,6 +21,7 @@ namespace HAM_API.Models
         public string serviceName { get; set; }
 
         public int? orderNum { get; set; }
+
         [StringLength(100)]
         public string depName { get; set; }
 
@@ -29,6 +30,7 @@ namespace HAM_API.Models
 
         [StringLength(20)]
         public string dcid { get; set; }
+
         [StringLength(100)]
         public string dcName { get; set; }
 
