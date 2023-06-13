@@ -18,7 +18,7 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex align-items-center">
                 <h4 class="m-0 font-weight-bold text-primary flex-grow-1">Danh sách lịch đặt khám</h4>
-                <a class="btn btn-success ml-3" href="/Booking/Create">Tạo mới</a>
+                @*<a class="btn btn-success ml-3" href="/Booking/Create">Tạo mới</a>*@
             </div>
             <div class="card-body table-wrapper-scroll-y">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -56,9 +56,25 @@
                                     @Html.DisplayFor(modelItem => item.time)
                                 </td>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.status)
-                                </td>
+                                @if (item.status.Equals("Chờ khám"))
+                                {
+                                    <td style="color: orange; text-align : center">
+                                        <b>@item.status</b>
+                                    </td>
+                                }
+                                else if (item.status.Equals("Đã khám"))
+                                {
+                                    <td style="color: forestgreen; text-align : center">
+                                        <b>@item.status</b>
+                                    </td>
+                                }
+                                else
+                                {
+
+                                    <td style="color:gray; text-align : center">
+                                        <b>@item.status</b>
+                                    </td>
+                                }
 
                             </tr>
                         }
