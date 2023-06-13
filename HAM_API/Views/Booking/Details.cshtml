@@ -5,87 +5,67 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>tbl_booking</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.tbl_doctor.name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.tbl_doctor.name)
-        </dd>
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-primary">@Html.DisplayFor(model => model.tbl_patient.pt_name)</h4>
+            <p class="m-0 font-weight-light"> ID: @Html.DisplayFor(model => model.id)</p>
+            <p class="m-0 font-weight-light"> User ID: @Html.DisplayFor(model => model.user_id)</p>
+        </div>
+        <div class="card-body">
+            <dl class="dl-horizontal " width="100%" cellspacing="0">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.tbl_patient.pt_name)
-        </dt>
+                <dt style="padding-bottom : 10px">
+                    Số phiếu: <span style="color:black">@Model.order_num</span>
+                </dt>
+                <dt style="padding-bottom : 10px">
+                    Loại hình khám: <span style="color:black">@Model.tbl_service.name</span>
+                </dt>
+                <dt style="padding-bottom : 10px">
+                    Ngày khám: <span style="color:black">@Model.date</span>
+                </dt>
+                <dt style="padding-bottom : 10px">
+                    Giờ khám: <span style="color:black">@Model.time</span>
+                </dt>
+                <dt style="padding-bottom : 10px">
+                    Bác sĩ: <span style="color:black">@Model.tbl_doctor.name</span>
+                </dt>
+                <dt style="padding-bottom : 10px">
+                    Phòng khám: <span style="color:black">@Model.tbl_doctor.room</span>
+                </dt>
+                @if (Model.status.Equals("Chờ khám"))
+                {
+                    <dt style="padding-bottom : 10px">
+                        Trạng thái: <span style="color:orange">@Model.status</span>
+                    </dt>
+                }
+                else if (Model.status.Equals("Đã khám"))
+                {
+                    <dt style="padding-bottom : 10px">
+                        Trạng thái: <span style="color:forestgreen">@Model.status</span>
+                    </dt>
+                }
+                else
+                {
+                    <dt style="padding-bottom : 10px">
+                        Trạng thái: <span style="color:black">@Model.status</span>
+                    </dt>
+                }
 
-        <dd>
-            @Html.DisplayFor(model => model.tbl_patient.pt_name)
-        </dd>
+                <dt style="padding-bottom : 10px">
+                    Phí khám(tạm tính): <span>@string.Format("{0:#,##0}",Model.price) VND</span>
+                </dt>
+            </dl>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.tbl_service.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.tbl_service.name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.tbl_user.username)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.tbl_user.username)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.order_num)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.order_num)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.time)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.time)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.status)
-        </dd>
-
-    </dl>
+        </div>
+        <div class="card-footer py-3">
+            <p>
+                <a style="margin-right: 20px" class="btn btn-secondary" href="/Booking/Pending">Quay lại</a>
+                @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.id }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Xóa", "Delete", new { id = Model.id }, new { @class = "btn btn-danger" })
+            </p>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

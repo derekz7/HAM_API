@@ -185,8 +185,10 @@ delete tbl_booking
 
 delete tbl_prescription
 
-select * from tbl_prescription
+select * from tbl_booking
 
+select * from tbl_appointment
+update tbl_appointment set orderNum = 45 where id = 'ap-6d24dac872f042bca'
 
 update tbl_department_clone set description = null
 

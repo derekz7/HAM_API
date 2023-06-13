@@ -173,10 +173,11 @@ namespace HAM_API.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.dc_id = new SelectList(db.tbl_doctor, "id", "name", tbl_booking.dc_id);
-            ViewBag.pt_id = new SelectList(db.tbl_patient, "id", "pt_name", tbl_booking.pt_id);
+            ViewBag.dc_id = tbl_booking.dc_id;
+            ViewBag.order_num = tbl_booking.order_num;
+            ViewBag.pt_id = new SelectList(db.tbl_patient.Where(x => x.user_id == tbl_booking.user_id), "id", "pt_name", tbl_booking.pt_id);
             ViewBag.sv_id = new SelectList(db.tbl_service, "id", "name", tbl_booking.sv_id);
-            ViewBag.user_id = new SelectList(db.tbl_user, "id", "username", tbl_booking.user_id);
+            ViewBag.user_id = tbl_booking.user_id;
             return View(tbl_booking);
         }
 
@@ -185,10 +186,12 @@ namespace HAM_API.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,order_num,date,time,price,status,pt_id,user_id,dc_id,sv_id")] tbl_booking tbl_booking)
+        public ActionResult Edit([Bind(Include = "id,date,time,status,pt_id,sv_id,dc_id,order_num,user_id")] tbl_booking tbl_booking)
         {
             if (ModelState.IsValid)
             {
+                tbl_booking.price = db.tbl_service.Find(tbl_booking.sv_id).price;
+                tbl_patient pt = db.tbl_patient.Find(tbl_booking.pt_id);
                 tbl_appointment app = db.tbl_appointment.Where(x => x.bid == tbl_booking.id).First();
                 app.uid = tbl_booking.user_id;
                 app.time = tbl_booking.time;
@@ -196,15 +199,18 @@ namespace HAM_API.Controllers
                 app.price = tbl_booking.price;
                 app.orderNum = tbl_booking.order_num;
                 app.status = tbl_booking.status;
+                app.ptName = pt.pt_name;
+                
                 db.Entry(app).State = EntityState.Modified;
                 db.Entry(tbl_booking).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.dc_id = new SelectList(db.tbl_doctor, "id", "name", tbl_booking.dc_id);
-            ViewBag.pt_id = new SelectList(db.tbl_patient, "id", "pt_name", tbl_booking.pt_id);
+            ViewBag.dc_id = tbl_booking.dc_id;
+            ViewBag.order_num = tbl_booking.order_num;
+            ViewBag.pt_id = new SelectList(db.tbl_patient.Where(x => x.user_id == tbl_booking.user_id), "id", "pt_name", tbl_booking.pt_id);
             ViewBag.sv_id = new SelectList(db.tbl_service, "id", "name", tbl_booking.sv_id);
-            ViewBag.user_id = new SelectList(db.tbl_user, "id", "username", tbl_booking.user_id);
+            ViewBag.user_id = tbl_booking.user_id;
             return View(tbl_booking);
         }
 
