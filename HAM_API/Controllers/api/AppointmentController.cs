@@ -47,7 +47,21 @@ namespace HAM_API.Controllers.api
             }
             return currentDateAppointments;
         }
-
+        public List<tbl_appointment> GetAppointmentsTomorrow(string doctorId)
+        {
+            DateTime currentDate = DateTime.Now.Date;
+            DateTime nextDay = currentDate.AddDays(1);
+            List<tbl_appointment> currentDateAppointments = new List<tbl_appointment>();
+            List<tbl_appointment> list = db.tbl_appointment.Where(x => x.status.Equals("Chờ khám") && x.dcid == doctorId).ToList();
+            foreach (tbl_appointment item in list)
+            {
+                if (DateTime.ParseExact(item.date, "dd/M/yyyy", null) == nextDay)
+                {
+                    currentDateAppointments.Add(item);
+                }
+            }
+            return currentDateAppointments;
+        }
         public List<tbl_appointment> GetAppointmentsbyDoctor(string doctorId)
         {
             List<tbl_appointment> apps = db.tbl_appointment.ToList();
