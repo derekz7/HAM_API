@@ -247,6 +247,7 @@ namespace HAM_API.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             tbl_booking tbl_booking = db.tbl_booking.Find(id);
         
             if (tbl_booking == null)
