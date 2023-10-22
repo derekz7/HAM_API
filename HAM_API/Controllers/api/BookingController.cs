@@ -36,6 +36,18 @@ namespace HAM_API.Controllers.api
             return Ok(tbl_booking);
         }
 
+
+        //get lich kham cua bac si theo ngay
+        [HttpGet]
+        [Route("api/Booking/getAppointmentByDate")]
+        public List<tbl_booking> getAppointmentByDate(string date, string docID)
+        {
+            List<tbl_booking> result = new List<tbl_booking>();
+            result = db.tbl_booking.Where(x => x.tbl_doctor.id == docID && x.date == date).ToList();
+            return result;
+        }
+
+
         public List<tbl_booking> getAllBookingToday(string doctorId)
         {
             List<tbl_booking> currentDateBook = new List<tbl_booking>();
