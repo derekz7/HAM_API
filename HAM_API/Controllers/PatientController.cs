@@ -43,6 +43,7 @@ namespace HAM_API.Controllers
             tbl_patient tbl_patient = db.tbl_patient.Find(id);
             if (tbl_patient == null)
             {
+            
                 return HttpNotFound();
             }
             return View(tbl_patient);
